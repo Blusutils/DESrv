@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\EgorBron\\projects\\DES\\DES-Core\\core\\core.csproj": {}
+    "C:\\Users\\EgorBron\\Source\\Repos\\DES\\DES-Core\\core\\core.csproj": {}
   },
   "projects": {
-    "C:\\Users\\EgorBron\\projects\\DES\\DES-Core\\core\\core.csproj": {
+    "C:\\Users\\EgorBron\\Source\\Repos\\DES\\DES-Core\\core\\core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\EgorBron\\projects\\DES\\DES-Core\\core\\core.csproj",
+        "projectUniqueName": "C:\\Users\\EgorBron\\Source\\Repos\\DES\\DES-Core\\core\\core.csproj",
         "projectName": "core",
-        "projectPath": "C:\\Users\\EgorBron\\projects\\DES\\DES-Core\\core\\core.csproj",
+        "projectPath": "C:\\Users\\EgorBron\\Source\\Repos\\DES\\DES-Core\\core\\core.csproj",
         "packagesPath": "C:\\Users\\EgorBron\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\EgorBron\\projects\\DES\\DES-Core\\core\\obj\\",
+        "outputPath": "C:\\Users\\EgorBron\\Source\\Repos\\DES\\DES-Core\\core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

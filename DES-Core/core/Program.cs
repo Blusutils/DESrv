@@ -1,2 +1,24 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿namespace DESCore
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var coreRunner = new DESCoreRunner();
+            coreRunner.Setup(args);
+            coreRunner.SetupCEnd(new DESCEnd.Logging.CEndLog() {
+                LoggingLevel =
+                    //#if PROD
+                    //DESCEnd.LogLevel.Info,
+                    //#else
+                    DESCEnd.Logging.LogLevel.Debug,
+                    //#endif
+                ConsoleLogging = true,
+                FileLogging = new DESCEnd.Logging.FileLogger()
+                {
+
+                }
+            }); ;
+        }
+    }
+}

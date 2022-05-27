@@ -14,9 +14,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\EgorBron\\projects\\DES\\DES-Core\\core\\core.csproj",
-      "projectName": "core",
-      "projectPath": "C:\\Users\\EgorBron\\projects\\DES\\DES-Core\\core\\core.csproj",
+      "projectUniqueName": "C:\\Users\\EgorBron\\projects\\DES\\DES-Core\\core\\DESCore.csproj",
+      "projectName": "DESCore",
+      "projectPath": "C:\\Users\\EgorBron\\projects\\DES\\DES-Core\\core\\DESCore.csproj",
       "packagesPath": "C:\\Users\\EgorBron\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\EgorBron\\projects\\DES\\DES-Core\\core\\obj\\",
       "projectStyle": "PackageReference",
