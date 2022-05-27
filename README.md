@@ -1,5 +1,5 @@
 # DES
-Powerful and flexible Dedicated External Server for usage in different tasks. Includes Core, ADK &amp; PDK.
+Powerful and flexible Dedicated External Server for usage in different tasks. Includes Core and PDK.
 
 ## About this
 **DES** is a server for usage in different tasks: websocket-based server, game UDP server, simple database, etc.
