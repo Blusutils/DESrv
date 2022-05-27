@@ -24,12 +24,10 @@ namespace DESCore.DESCEnd.Logging
     {
         public bool ConsoleLogging = false;
         public FileLogger? FileLogging = null;
-        public LogLevel LoggingLevel = LogLevel.Debug;
+        public LogLevel ConsoleLoggingLevel = LogLevel.Debug;
+        public LogLevel FileLoggingLevel = LogLevel.Debug;
         public string LogSource = "CEnd";
-        public CEndLog ()
-        {
-
-        }
+        
         private ConsoleColor GetConsoleColor(LogLevel level)
         {
             switch (level)
@@ -48,10 +46,13 @@ namespace DESCore.DESCEnd.Logging
         public void Log(string message, LogLevel level, params object[] format)
         {
             var msg = $"[{LogSource} | {level.ToString().ToUpper()} | {System.DateTime.Now}] {message}";
-            Console.ForegroundColor = GetConsoleColor(level);
-            Console.WriteLine(msg, format);
-            Console.ResetColor();
-            FileLogging.Log(msg);
+            if(level >= ConsoleLoggingLevel) {
+              Console.ForegroundColor = GetConsoleColor(level);
+              Console.WriteLine(msg, format);
+              Console.ResetColor();
+            };
+            if(level >= FileLoggingLevel)
+              FileLogging.Log(msg);
         }
         public void Debug(string message, params object[] format)
         {
