@@ -59,7 +59,7 @@ namespace DESCore.DESCEnd.Logging
         public void Log(string message, LogLevel level, string source ="CEnd", params object[] format)
         {
             source = source ?? LogSource;
-            var msg = $"[{source} | {level.ToString().ToUpper()} | {DateTime.Now}] {message}";
+            var msg = $"[{source} | {DateTime.Now} | {level.ToString().ToUpper()}] {message}";
             if(level >= ConsoleLoggingLevel) {
               Console.ForegroundColor = GetConsoleColor(level);
               Console.WriteLine(msg, format);

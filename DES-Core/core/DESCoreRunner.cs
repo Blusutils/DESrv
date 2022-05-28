@@ -9,6 +9,8 @@ namespace DESCore
     class DESCoreRunner
     {
         public static DESCEnd.Logging.CEndLog CEndLog;
+        public DESCEnd.CEnd cEnd;
+        private Dictionary<string, string> config;
         public DESCEnd.Logging.CEndLog GetLogger()
         {
             return CEndLog;
@@ -17,16 +19,25 @@ namespace DESCore
         {
 
         }
-        public void Setup(string[] args)
+        public void Setup(string[] args, Dictionary<string, string> config)
         {
-            var parsed = ArgParser.Parse(args);
-            Console.WriteLine($"{String.Join(", ", parsed.Keys.ToList<string>())}\n{String.Join(", ", parsed.Values.ToList<string>())}");
+            var parsed = Utils.ArgParser.Parse(args);
+            foreach (var key in parsed.Keys)
+            {
+                config[key] = parsed[key];
+            }
+            this.config = config;
         }
-        public void SetupCEnd(DESCEnd.Logging.CEndLog cendLog)
+        public void SetupCEnd(DESCEnd.CEnd cend)
         {
-            CEndLog = cendLog;
+            CEndLog = cend.logger;
             CEndLog.LogSource = "DES Runner";
-            cendLog.Success("CEnd Setup");
+            CEndLog.Success("CEnd Setup");
+            cEnd = cend;
+        }
+        public void Go()
+        {
+            cEnd.Run(DESConnections.DESWebSockets.whiletrue);
         }
     }
 }

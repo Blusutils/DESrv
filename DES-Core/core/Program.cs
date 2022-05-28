@@ -5,7 +5,7 @@
         static void Main(string[] args)
         {
             var coreRunner = new DESCoreRunner();
-            coreRunner.SetupCEnd(new DESCEnd.Logging.CEndLog() {
+            coreRunner.SetupCEnd(new DESCEnd.CEnd(new DESCEnd.Logging.CEndLog() {
                 ConsoleLoggingLevel =
                 //#if PROD
                     //DESCEnd.LogLevel.Info,
@@ -20,11 +20,10 @@
                 //#endif
                 ConsoleLogging = true,
                 FileLogging = new DESCEnd.Logging.FileLogger()
-                {
-
-                }
-            });
-            coreRunner.Setup(args);
+            }, new DESCEnd.ExceptionPlus()));
+            
+            coreRunner.Setup(args, Utils.ConfigReader.Read());
+            coreRunner.Go();
         }
     }
 }
