@@ -13,7 +13,7 @@ You can easily add needed functionality (in example advanced socket data handler
 
 ## Installing
 <details>
-<summary><h3>For production</h3></summary>
+<summary><h3>For standard usage</h3></summary>
 
 1. Download binaries for your OS and platform on [releases page]().
 
