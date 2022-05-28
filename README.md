@@ -43,8 +43,7 @@ des-run --loglevel debug --port <port; leave this if you want standard (6750)>
 ```
 Linux:
 ```bash
-des-unix-prepare
-des-run --loglevel debug --port <port; leave this if you want standard (6750)>
+./des-unix-prepare && ./des-run --loglevel debug --port <port; leave this if you want standard (6750)>
 ```
 </details>
 <details>
