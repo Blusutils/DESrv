@@ -3,12 +3,12 @@ Powerful and flexible Dedicated External Server for usage in different tasks. In
 
 ## About this
 **DES** is a server for usage in different tasks: websocket-based server, game UDP server, simple database, etc.
-It basess on three key components:
+It bases on three key components:
 * Core (server basic logic)
 * Plugin(s) (3rd-party extensions for server)
 * Add-ons (3rd- or 1st-party extensions for Plugins)
 
-DES have good APIs for Plugins and Add-ons (PDK and ADK), and also have support for some databases and connection types (TCP/UDP sockets, websockets, HTTP) out-of-the-box.
+DES have good APIs for Plugins and Add-ons (PDK, Plugin Development Kit), and also have support for some databases and connection types (TCP/UDP sockets, websockets, HTTP) out-of-the-box.
 You can easily add needed functionality (in example advanced socket data handler) for server by writing simple (or more complex) plugin or using existing by other developers.
 
 ## Installing
