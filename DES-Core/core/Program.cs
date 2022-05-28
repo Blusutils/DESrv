@@ -5,20 +5,26 @@
         static void Main(string[] args)
         {
             var coreRunner = new DESCoreRunner();
-            coreRunner.Setup(args);
             coreRunner.SetupCEnd(new DESCEnd.Logging.CEndLog() {
-                LoggingLevel =
-                    //#if PROD
+                ConsoleLoggingLevel =
+                //#if PROD
                     //DESCEnd.LogLevel.Info,
-                    //#else
+                //#else
                     DESCEnd.Logging.LogLevel.Debug,
-                    //#endif
+                //#endif
+                FileLoggingLevel =
+                //#if PROD
+                    //DESCEnd.LogLevel.Info,
+                //#else
+                    DESCEnd.Logging.LogLevel.Debug,
+                //#endif
                 ConsoleLogging = true,
                 FileLogging = new DESCEnd.Logging.FileLogger()
                 {
 
                 }
-            }); ;
+            });
+            coreRunner.Setup(args);
         }
     }
 }
