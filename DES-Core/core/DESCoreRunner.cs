@@ -19,15 +19,14 @@ namespace DESCore
         }
         public void Setup(string[] args)
         {
-
+            var parsed = ArgParser.Parse(args);
+            Console.WriteLine($"{String.Join(", ", parsed.Keys.ToList<string>())}\n{String.Join(", ", parsed.Values.ToList<string>())}");
         }
         public void SetupCEnd(DESCEnd.Logging.CEndLog cendLog)
         {
             CEndLog = cendLog;
             CEndLog.LogSource = "DES Runner";
-            cendLog.Success("Setup");
-            cendLog.Warn("Seems you are stupid...");
-            cendLog.Notice("da");
+            cendLog.Success("CEnd Setup");
         }
     }
 }
