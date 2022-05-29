@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace DESCore.DESConnections
 {
-    class DESWebSockets
+    internal interface IConnectionProcessor
     {
-        public static void whiletrue()
-        {
-            while (true) _=1;
-        }
+        public void Runner();
     }
 }

@@ -37,7 +37,21 @@ namespace DESCore
         }
         public void Go()
         {
-            cEnd.Run(DESConnections.DESWebSockets.whiletrue);
+            string servermode;
+            servermode = config.TryGetValue("ipaddress", out servermode) ? servermode : "127.0.0.1";
+            switch (servermode)
+            {
+                case "websocket":
+                    var websockproc = new DESConnections.DESWebSocketsProcessor(config);
+                    cEnd.Run(websockproc.Runner);
+                    break;
+                case "tcpsock":
+                    var tcpsockproc = new DESConnections.DESTCPProcessor(config);
+                    cEnd.Run(tcpsockproc.Runner);
+                    break;
+                case "udpsock":
+                    throw new NotImplementedException("UDP is not implemented for now!");
+            }
         }
     }
 }
