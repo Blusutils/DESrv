@@ -37,20 +37,32 @@ namespace DESCore
         }
         public void Go()
         {
+            DESConnections.DESTCPReciveEvent.CreateInstance();
             string servermode;
-            servermode = config.TryGetValue("ipaddress", out servermode) ? servermode : "127.0.0.1";
-            switch (servermode)
+            servermode = config.TryGetValue("servermode", out servermode) ? servermode : "notconfigured";
+            switch (servermode.ToLower().Trim(' '))
             {
                 case "websocket":
+                    CEndLog.Notice($"Trying to run using Websocket");
                     var websockproc = new DESConnections.DESWebSocketsProcessor(config);
                     cEnd.Run(websockproc.Runner);
                     break;
                 case "tcpsock":
+                    CEndLog.Notice($"Trying to run using TCP socket");
                     var tcpsockproc = new DESConnections.DESTCPProcessor(config);
+                    DESConnections.DESTCPReciveEvent.Instance.Callbacks += (client, data) =>
+                    {
+                        CEndLog.Debug(Encoding.UTF8.GetString(data));
+                        return true;
+                    };
                     cEnd.Run(tcpsockproc.Runner);
                     break;
                 case "udpsock":
+                    CEndLog.Notice($"Trying to run using UDP socket");
                     throw new NotImplementedException("UDP is not implemented for now!");
+                default:
+                    throw new NotImplementedException("HEY BRO WHAT THE FUCK?! Invalid server mode!");
+
             }
         }
     }

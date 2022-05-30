@@ -1,4 +1,4 @@
-./vs
-./DES-Core/vs
+./.vs
+./DES-Core/.vs
 ./DES-Core/core/bin
 ./DES-Core/core/obj

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DESCore.DESConnections
 {
-    internal interface IConnectionProcessor
+    interface IConnectionProcessor
     {
         public void Runner();
     }

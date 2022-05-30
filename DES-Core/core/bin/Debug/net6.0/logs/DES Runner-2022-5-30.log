@@ -1,0 +1,53 @@
+[DES Runner | 30.05.2022 9:30:52 | SUCCESS] CEnd Setup
+[DES Runner | 30.05.2022 9:30:52 | NOTICE] Trying to run using TCP socket
+[DES Runner | 30.05.2022 9:30:52 | INFO] Thread DESCend-f2ab396d-7dec-4ca4-9f6f-966d2a970b01 started
+[DES Runner | 30.05.2022 9:31:15 | SUCCESS] CEnd Setup
+[DES Runner | 30.05.2022 9:31:15 | NOTICE] Trying to run using TCP socket
+[DES Runner | 30.05.2022 9:31:15 | INFO] Thread DESCend-6989e172-9dbf-4d60-b9fa-2e9f968d7421 started
+[DES Runner | 30.05.2022 9:31:47 | INFO] New connection
+[DES Runner | 30.05.2022 9:31:47 | SUCCESS] Accepted TCP connection
+[DES Runner | 30.05.2022 9:33:36 | SUCCESS] CEnd Setup
+[DES Runner | 30.05.2022 9:33:59 | SUCCESS] CEnd Setup
+[DES Runner | 30.05.2022 9:33:59 | NOTICE] Trying to run using TCP socket
+[DES Runner | 30.05.2022 9:33:59 | INFO] Thread DESCend-1df3880c-a2a5-4d63-8bdd-4480d293cb79 started
+[DES Runner | 30.05.2022 9:34:21 | INFO] New connection
+[DES Runner | 30.05.2022 9:34:21 | SUCCESS] Accepted TCP connection
+[DES Runner | 30.05.2022 13:24:48 | SUCCESS] CEnd Setup
+[DES Runner | 30.05.2022 13:24:49 | NOTICE] Trying to run using TCP socket
+[DES Runner | 30.05.2022 13:24:49 | INFO] Thread DESCend-242d0336-af83-41d1-b9aa-9516793104a3 started
+[DES Runner | 30.05.2022 13:25:22 | INFO] New connection
+[DES Runner | 30.05.2022 13:25:22 | SUCCESS] Accepted TCP connection
+[DES Runner | 30.05.2022 13:27:03 | SUCCESS] CEnd Setup
+[DES Runner | 30.05.2022 13:27:03 | NOTICE] Trying to run using TCP socket
+[DES Runner | 30.05.2022 13:27:03 | DEBUG] new listener
+[DES Runner | 30.05.2022 13:27:03 | INFO] Thread DESCend-1a52b9cc-32fd-46f8-8333-ed1f93727797 started
+[DES Runner | 30.05.2022 13:27:18 | INFO] New connection
+[DES Runner | 30.05.2022 13:27:18 | SUCCESS] Accepted TCP connection
+[DES Runner | 30.05.2022 13:27:20 | DEBUG] GOT data
+[DES Runner | 30.05.2022 13:27:20 | DEBUG] 1
+[DES Runner | 30.05.2022 13:29:46 | SUCCESS] CEnd Setup
+[DES Runner | 30.05.2022 13:29:46 | NOTICE] Trying to run using TCP socket
+[DES Runner | 30.05.2022 13:29:46 | INFO] Thread DESCend-86a73610-1fc0-44d1-b945-ab89b925eeed started
+[DES Runner | 30.05.2022 13:30:02 | INFO] New connection
+[DES Runner | 30.05.2022 13:30:02 | SUCCESS] Accepted TCP connection
+[DES Runner | 30.05.2022 13:30:02 | DEBUG] 1
+[DES Runner | 30.05.2022 13:39:29 | SUCCESS] CEnd Setup
+[DES Runner | 30.05.2022 13:39:29 | NOTICE] Trying to run using TCP socket
+[DES Runner | 30.05.2022 13:39:29 | INFO] Thread DESCend-63e39ce6-de23-4884-b303-737862e0f2b0 started
+[DES Runner | 30.05.2022 13:40:12 | SUCCESS] CEnd Setup
+[DES Runner | 30.05.2022 13:40:12 | NOTICE] Trying to run using TCP socket
+[DES Runner | 30.05.2022 13:40:12 | INFO] Thread DESCend-8a697ddd-1062-42e2-9ef4-a881d1712020 started
+[DES Runner | 30.05.2022 13:40:23 | INFO] New connection
+[DES Runner | 30.05.2022 13:40:31 | INFO] New connection
+[DES Runner | 30.05.2022 13:46:38 | SUCCESS] CEnd Setup
+[DES Runner | 30.05.2022 13:46:38 | NOTICE] Trying to run using TCP socket
+[DES Runner | 30.05.2022 13:46:38 | INFO] Thread DESCend-9b98574e-e3e7-467c-95ec-fdceceef85c2 started
+[DES Runner | 30.05.2022 13:46:47 | INFO] New connection
+[DES Runner | 30.05.2022 13:47:32 | SUCCESS] CEnd Setup
+[DES Runner | 30.05.2022 13:47:32 | NOTICE] Trying to run using TCP socket
+[DES Runner | 30.05.2022 13:47:32 | INFO] Thread DESCend-aeaf1f5e-b459-4ff6-9634-4beb8b5e09d8 started
+[DES Runner | 30.05.2022 13:48:16 | INFO] New connection
+[DES Runner | 30.05.2022 13:48:24 | DEBUG] 1
+[DES Runner | 30.05.2022 13:48:40 | INFO] New connection
+[DES Runner | 30.05.2022 13:48:48 | DEBUG] 1
+[DES Runner | 30.05.2022 13:48:53 | DEBUG] 3

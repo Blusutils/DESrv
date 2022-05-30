@@ -88,3 +88,31 @@ O��P��CM��V��
 [DES Runner | 29.05.2022 20:17:51 | DEBUG] Recived: f
 [DES Runner | 29.05.2022 20:18:06 | DEBUG] Recived: ��xn
 [DES Runner | 29.05.2022 20:18:27 | DEBUG] Recived: �keepalive ping timeout
+[DES Runner | 29.05.2022 20:40:36 | SUCCESS] CEnd Setup
+[DES Runner | 29.05.2022 20:44:37 | SUCCESS] CEnd Setup
+[DES Runner | 29.05.2022 20:45:00 | SUCCESS] CEnd Setup
+[DES Runner | 29.05.2022 20:45:26 | SUCCESS] CEnd Setup
+[DES Runner | 29.05.2022 20:46:45 | SUCCESS] CEnd Setup
+[DES Runner | 29.05.2022 20:46:45 | INFO]  tcpsock
+[DES Runner | 29.05.2022 20:46:45 | INFO] True
+[DES Runner | 29.05.2022 20:46:45 | INFO]  tcpsock
+[DES Runner | 29.05.2022 20:48:05 | SUCCESS] CEnd Setup
+[DES Runner | 29.05.2022 20:48:05 | INFO]  tcpsock
+[DES Runner | 29.05.2022 20:48:05 | INFO] True
+[DES Runner | 29.05.2022 20:48:05 | INFO]  tcpsock
+[DES Runner | 29.05.2022 20:48:05 | INFO] Thread DESCend-51b344e4-e189-433c-98a2-7dfc7cac6589 started
+[DES Runner | 29.05.2022 20:49:48 | SUCCESS] CEnd Setup
+[DES Runner | 29.05.2022 20:49:48 | NOTICE] Trying to run using TCP socket
+[DES Runner | 29.05.2022 20:49:48 | INFO] Thread DESCend-053d2a2f-4663-4a90-86de-95663e239eb6 started
+[DES Runner | 29.05.2022 20:49:58 | SUCCESS] CEnd Setup
+[DES Runner | 29.05.2022 20:50:43 | SUCCESS] CEnd Setup
+[DES Runner | 29.05.2022 20:52:59 | SUCCESS] CEnd Setup
+[DES Runner | 29.05.2022 20:53:38 | SUCCESS] CEnd Setup
+[DES Runner | 29.05.2022 20:53:38 | NOTICE] Trying to run using TCP socket
+[DES Runner | 29.05.2022 20:53:38 | INFO] Thread DESCend-b86ed2ce-3819-4ded-8029-5226e1691b7f started
+[DES Runner | 29.05.2022 20:55:31 | SUCCESS] CEnd Setup
+[DES Runner | 29.05.2022 20:55:31 | NOTICE] Trying to run using TCP socket
+[DES Runner | 29.05.2022 20:55:31 | INFO] Thread DESCend-a081b440-ca6c-410c-bd43-a80e4685693c started
+[DES Runner | 29.05.2022 20:55:58 | SUCCESS] CEnd Setup
+[DES Runner | 29.05.2022 20:55:58 | NOTICE] Trying to run using TCP socket
+[DES Runner | 29.05.2022 20:55:58 | INFO] Thread DESCend-4a86ce4d-9b3e-4fe8-a965-4cb93b9d39ee started
