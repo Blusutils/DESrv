@@ -39,11 +39,11 @@ des-config
 
 Windows:
 ```batch
-des-run --loglevel debug --port <port; leave this if you want standard (6750)>
+des-run --servermode <server mode> --loglevel debug --port <port; leave this if you want standard (9090)>
 ```
 Linux:
 ```bash
-./des-unix-prepare && ./des-run --loglevel debug --port <port; leave this if you want standard (6750)>
+./des-unix-prepare && ./des-run --servermode <server mode> --loglevel debug --port <port; leave this if you want standard (9090)>
 ```
 </details>
 <details>
