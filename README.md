@@ -107,5 +107,5 @@ des-run --servermode udpsock --loglevel warn
 
 * prefersecure 
 * * `bool` `not required` 
-* * Prefers all sockets to use secured connection (in example WSS instead straight Websockets). 
+* * Prefers all sockets to use secured connection (in example WSS instead standard Websockets). 
 </details>
