@@ -60,7 +60,7 @@ Linux:
 ## Guide to configuration and commandline
 DES needs configuration to run. You can set it using `des-config` in binaries. Out config file can be found in `AppData/Local/DES` on Windows or in `/user/DES` on Linux. 
 All theese values can be overrided when you pass commandline argument with same name as parameter in config. In example:
-```json
+```jsonc
 // config file 
 {
   "servermode": "tcpsock", 
