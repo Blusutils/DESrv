@@ -51,3 +51,11 @@
 [DES Runner | 30.05.2022 13:48:40 | INFO] New connection
 [DES Runner | 30.05.2022 13:48:48 | DEBUG] 1
 [DES Runner | 30.05.2022 13:48:53 | DEBUG] 3
+[DES Runner | 30.05.2022 22:08:25 | SUCCESS] CEnd Setup
+[DES Runner | 30.05.2022 22:08:25 | NOTICE] Trying to run using Websocket
+[DES Runner | 30.05.2022 22:08:25 | INFO] Thread DESCend-6be0839b-9336-4d2b-9408-4d126eb791dc started
+[DES Runner | 30.05.2022 22:09:27 | INFO] New connection
+[DES Runner | 30.05.2022 22:09:27 | SUCCESS] Accepting connection from Websocket
+[DES Runner | 30.05.2022 22:09:32 | DEBUG] Recived: f
+[DES Runner | 30.05.2022 22:09:47 | DEBUG] Recived: ��
+[DES Runner | 30.05.2022 22:10:07 | DEBUG] Recived: �keepalive ping timeout

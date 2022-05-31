@@ -1,1 +1,1 @@
-https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_server
+https://www.rfc-editor.org/rfc/pdfrfc/rfc6455.txt.pdf

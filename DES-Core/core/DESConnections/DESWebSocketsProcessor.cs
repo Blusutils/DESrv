@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Net.WebSockets;
 
 namespace DESCore.DESConnections
 {
@@ -48,7 +49,16 @@ namespace DESCore.DESConnections
                     int opcode = bytes[0] & 0b00001111;
                     ulong offset = 2;
                     ulong msglen = (ulong)(bytes[1] & 0b01111111);
-
+                    string rawbytes = "";
+                    foreach (var byt in bytes) rawbytes = rawbytes + byt.ToString() + " ";
+                    Log.Warn("Bytes in raw: "+rawbytes);
+                    if (opcode == 0x9)
+                    {
+                        Log.Warn("Recived PING");
+                        byte[] pingresp = { 136, 130, 249, 232, 164, 211, 250, 2 };
+                        stream.Write(pingresp, 0, pingresp.Length);
+                    }
+                    else
                     if (msglen == 126)
                     {
                         msglen = BitConverter.ToUInt16(new byte[] { bytes[3], bytes[2] }, 0);
@@ -72,12 +82,14 @@ namespace DESCore.DESConnections
                             decoded[i] = (byte)(bytes[offset + i] ^ masks[i % 4]);
 
                         string text = Encoding.UTF8.GetString(decoded);
+                        /*for (car )
+                        Log.Debug();*/
                         Log.Debug($"Recived: {text}");
                     }
                     else
                         Log.Warn("mask bit not set");
 
-                    Console.WriteLine();
+                    //Console.WriteLine();
                 }
             }
         }
