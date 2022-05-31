@@ -82,30 +82,30 @@ des-run --servermode udpsock --loglevel warn
 * * What type of connection server will use. 
 
 * host 
-* * `string`
-* * Default host IP to bind it to sockets. 
+* * `string` `not required`
+* * Default host IP to bind it to sockets. If not set, server will run on `localhost` (`127.0.0.1`). 
 
 * port
-* * `int`
-* * Default port used to connect to the server. 
+* * `int` `not required`
+* * Default port used to connect to the server. If not set, server will pick `9090` port. 
 
 * loglevel
-* * `string`
-* * `not required` DES CEnd logger level. If not set, "debug" will used by default. 
+* * `string` `not required`
+* * DES CEnd logger level. If not set, "debug" will used by default. 
 
 * superuser
-* * `string`
-* * `not required` Super-user login credentails in `name:password`. If not set, Super-user feature will not be used.
+* * `string` `not required` 
+* * Super-user login credentails in `name:password`. If not set, Super-user feature will not be used.
 
 * sidetunnel 
-* * `bool`
-* * `not required` Enables "SideTunnel" feature (only for Add-ons that supports it). 
+* * `bool` `not required` 
+* * Enables "SideTunnel" feature (only for Add-ons that supports it). 
 
-* SequredChannel ||or securedchannel||
-* * `bool` 
-* * `not required` Enables "SequredChannel" feature (only for Plugins and Add-ons that supports it). 
+* sequredchannel `or` securedchannel
+* * `bool` `not required` 
+* * Enables "SequredChannel" feature (only for Plugins and Add-ons that supports it). And all ok with name of this thing, I didn't make a typo. 
 
 * prefersecure 
-* * `bool`
-* * `not required` Prefers all sockets to use secured connection (in example WSS instead straight Websockets). 
+* * `bool` `not required` 
+* * Prefers all sockets to use secured connection (in example WSS instead straight Websockets). 
 </details>
