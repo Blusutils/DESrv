@@ -15,7 +15,7 @@ You can easily add needed functionality (in example advanced socket data handler
 <details>
 <summary><h3>For standard usage</h3></summary>
 
-1. Download binaries for your OS and platform on [releases page]().
+1. Download binaries for your OS and platform on [releases page](https://github.com/Blusutils/DES/releases/latest).
 
 2. Open terminal, `cd` (change directory) to with downloaded binaries.
 
@@ -39,11 +39,11 @@ des-config
 
 Windows:
 ```batch
-des-run --servermode <server mode> --loglevel debug --port <port; leave this if you want standard (9090)>
+des-run <optional params>
 ```
 Linux:
 ```bash
-./des-unix-prepare && ./des-run --servermode <server mode> --loglevel debug --port <port; leave this if you want standard (9090)>
+./des-unix-prepare && ./des-run <optional params>
 ```
 </details>
 <details>
@@ -51,9 +51,9 @@ Linux:
 
 1. Make sure that you have already installed DES. If not, [go here](#for-production). 
 
-2. Download PDK on [releases page](). 
+2. Download PDK on [released page](https://github.com/Blusutils/DES/releases/latest). 
 
-3. Go to [docs]() or more information and tutorials. 
+3. Go to the [docs]() for more information and tutorials. 
 
 </details>
 
@@ -72,8 +72,9 @@ All theese values can be overrided when you pass commandline argument with same 
 ```batch
 :: cmd
 des-run --servermode udpsock --loglevel warn
-:: servermode and loglevel will be overrided for this run of server but port will stay 9090
 ```
+In this example servermode and loglevel will be overriden for this run of server but port will stay 9090. 
+
 <details>
 <summary><h3>List of all configuration parameters</h3></summary>
 
