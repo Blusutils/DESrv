@@ -75,7 +75,8 @@ des-run --servermode udpsock --loglevel warn
 ```
 In this example servermode and loglevel will be overriden for this run of server but port will stay 9090. 
 
-<details>
+All configuration parameters is available in docs. 
+<!-- <details>
 <summary><h3>List of all configuration parameters</h3></summary>
 
 * servermode 
@@ -109,4 +110,4 @@ In this example servermode and loglevel will be overriden for this run of server
 * prefersecure 
 * * `bool` `not required` 
 * * Prefers all sockets to use secured connection (in example WSS instead standard Websockets). 
-</details>
+</details> --> 
