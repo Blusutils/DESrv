@@ -51,9 +51,9 @@ Linux:
 
 1. Make sure that you have already installed DES. If not, [go here](#for-production). 
 
-2. Download PDK on [released page](https://github.com/Blusutils/DES/releases/latest). 
+2. Download PDK on [releases page](https://github.com/Blusutils/DES/releases/latest). 
 
-3. Go to the [docs]() for more information and tutorials. 
+3. Go to the [docs](https://github.com/Blusutils/DES/wiki) for more information and tutorials. 
 
 </details>
 
