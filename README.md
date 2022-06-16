@@ -1,4 +1,4 @@
-# Dedicated External Server (DESrv or DES) ![DESrv Logo](DESrv\des_logo.png)
+# Dedicated External Server (DESrv or DES) ![DESrv Logo](DESrv/des_logo.png)
 Powerful, flexible and extendable server for usage in different tasks. Includes Core and PDK.
 
 ## About this
