@@ -1,4 +1,4 @@
-# Dedicated External Server (DESrv or DES) ![DESrv Logo](DESrv/des_logo.png)
+# Dedicated External Server (DESrv or DES) <img src="https://github.com/Blusutils/DESrv/blob/master/des_logo.png" align="center" width="100">
 Powerful, flexible and extendable server for usage in different tasks. Includes Core and PDK.
 
 ## About this
