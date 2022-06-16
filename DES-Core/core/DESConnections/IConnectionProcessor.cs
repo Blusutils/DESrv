@@ -4,10 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DESCore.DESConnections
-{
-    interface IConnectionProcessor
-    {
+namespace DESCore.DESConnections {
+    interface IConnectionProcessor {
         public void Runner();
     }
 }

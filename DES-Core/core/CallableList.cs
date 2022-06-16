@@ -6,17 +6,13 @@ using System.Threading.Tasks;
 
 namespace DESCore
 {
-    class CallableList<TRtype> : IDisposable
-    {
+    class CallableList<TRtype> : IDisposable {
         public virtual List<Func<TRtype>> Funcs { get; set; } = new List<Func<TRtype>>();
-        public event Func<TRtype> Callbacks
-        {
-            add
-            {
+        public event Func<TRtype> Callbacks {
+            add {
                 Funcs.Add(value);
             }
-            remove
-            {
+            remove {
                 Funcs.Remove(value);
             }
         }
@@ -24,16 +20,17 @@ namespace DESCore
         /// Calls all functions in <see cref="Funcs"/>
         /// </summary>
         /// <returns>Number of sucess calls</returns>
-        public extern uint CallAll();
-        /*{
+        public extern uint CallAll(); /*{
             uint successCalls = 0;
             foreach (var func in Funcs)
                 try { _=func.Invoke((T1)arg1); successCalls += 1; } catch {  }
             return successCalls;
         }*/
-        public void Dispose()
-        {
+        public void Dispose() {
             Funcs.Clear();
+        }
+        ~CallableList() {
+            Dispose();
         }
     }
 }

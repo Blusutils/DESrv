@@ -1,9 +1,6 @@
-﻿namespace DESCore
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
+﻿namespace DESCore {
+    class Program {
+        static void Main(string[] args) {
             var coreRunner = new DESCoreRunner();
             coreRunner.SetupCEnd(new DESCEnd.CEnd(new DESCEnd.Logging.CEndLog() {
                 ConsoleLoggingLevel =

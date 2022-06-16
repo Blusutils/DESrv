@@ -6,27 +6,22 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Net.WebSockets;
-
-namespace DESCore.DESConnections
-{
-    class DESWebSocketsProcessor : DESBaseTCPProcessor
-    {
+/// DELETE THIS!
+namespace DESCore.DESConnections {
+    class DESWebSocketsProcessor : DESBaseTCPProcessor {
         public DESWebSocketsProcessor(Dictionary<string, string> cfg) : base(cfg) { }
-        public override void Runner()
-        {
+        public override void Runner() {
             var client = AcceptConnection();
             var stream = client.GetStream();
             // TODO: work with ping (heathbeat) 
-            while (true)
-            {
-                while (!stream.DataAvailable) ;
+            while (true) {
+                while (!stream.DataAvailable);
 
                 Byte[] bytes = new Byte[client.Available];
 
                 stream.Read(bytes, 0, bytes.Length);
                 string recv = Encoding.UTF8.GetString(bytes);
-                if (Regex.IsMatch(recv, "^GET"))
-                {
+                if (Regex.IsMatch(recv, "^GET")) {
                     Log.Success("Accepting connection from Websocket");
                     // handshake
                     Byte[] response = Encoding.UTF8.GetBytes("HTTP/1.1 101 Switching Protocols" + EOL
@@ -41,9 +36,7 @@ namespace DESCore.DESConnections
                         ) + EOL
                         + EOL);
                     stream.Write(response, 0, response.Length);
-                }
-                else
-                {
+                } else {
                     bool fin = (bytes[0] & 0b10000000) != 0;
                     bool mask = (bytes[1] & 0b10000000) != 0;
                     int opcode = bytes[0] & 0b00001111;
@@ -52,42 +45,30 @@ namespace DESCore.DESConnections
                     string rawbytes = "";
                     foreach (var byt in bytes) rawbytes = rawbytes + byt.ToString() + " ";
                     Log.Warn("Bytes in raw: "+rawbytes);
-                    if (opcode == 0x9)
-                    {
+                    if (opcode == 0x9) {
                         Log.Warn("Recived PING");
                         byte[] pingresp = { 136, 130, 249, 232, 164, 211, 250, 2 };
                         stream.Write(pingresp, 0, pingresp.Length);
-                    }
-                    else
-                    if (msglen == 126)
-                    {
+                    } else if (msglen == 126) {
                         msglen = BitConverter.ToUInt16(new byte[] { bytes[3], bytes[2] }, 0);
                         offset = 4;
-                    }
-                    else if (msglen == 127)
-                    {
+                    } else if (msglen == 127) {
                         msglen = BitConverter.ToUInt64(new byte[] { bytes[9], bytes[8], bytes[7], bytes[6], bytes[5], bytes[4], bytes[3], bytes[2] });
                         offset = 10;
                     }
-
-                    if (msglen == 0)
-                        Log.Warn("msglen == 0");
-                    else if (mask)
-                    {
+                    if (msglen == 0) Log.Warn("msglen == 0");
+                    else if (mask) {
                         byte[] decoded = new byte[msglen];
                         byte[] masks = new byte[4] { bytes[offset], bytes[offset + 1], bytes[offset + 2], bytes[offset + 3] };
                         offset += 4;
 
                         for (ulong i = 0; i < msglen; ++i)
                             decoded[i] = (byte)(bytes[offset + i] ^ masks[i % 4]);
-
                         string text = Encoding.UTF8.GetString(decoded);
                         /*for (car )
                         Log.Debug();*/
                         Log.Debug($"Recived: {text}");
-                    }
-                    else
-                        Log.Warn("mask bit not set");
+                    } else Log.Warn("mask bit not set");
 
                     //Console.WriteLine();
                 }

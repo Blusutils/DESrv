@@ -5,6 +5,8 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <AssemblyName>des-run</AssemblyName>
+    <Win32Resource>C:\Users\EgorBron\projects\DES\DES-Core\core\resource.res</Win32Resource>
   </PropertyGroup>
 
 </Project>

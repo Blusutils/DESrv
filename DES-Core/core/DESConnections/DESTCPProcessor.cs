@@ -5,25 +5,19 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DESCore.DESConnections
-{
-    class DESTCPReciveEvent : IDisposable
-    {
+namespace DESCore.DESConnections {
+    class DESTCPReciveEvent : IDisposable {
         public static DESTCPReciveEvent Instance { get; private set; }
         private List<Func<TcpClient, byte[], bool>> Funcs { get; set; } = new List<Func<TcpClient, byte[], bool>>();
-        private DESTCPReciveEvent ()
-        {
+        private DESTCPReciveEvent () {
             //Instance = new DESTCPReciveEvent();
         }
-        public event Func<TcpClient, byte[], bool> Callbacks
-        {
-            add
-            {
-                DESCoreRunner.CEndLog.Debug($"new listener added: {value.Method.Name}", source: "DES TCP Events");
+        public event Func<TcpClient, byte[], bool> Callbacks {
+            add {
+                DESCoreRunner.CEndLog.Debug($"new listener added: {value.Method.Name}", source: "DESrv TCP Events");
                 Funcs.Add(value);
             }
-            remove
-            {
+            remove {
                 Funcs.Remove(value);
             }
         }
@@ -31,43 +25,44 @@ namespace DESCore.DESConnections
         /// Calls all functions in <see cref="Funcs"/>
         /// </summary>
         /// <returns>Number of sucess calls</returns>
-        public uint CallAll(TcpClient arg1, byte[] arg2)
-        {
+        public uint CallAll(TcpClient arg1, byte[] arg2) {
             uint successCalls = 0;
             foreach (var func in Funcs)
                 try { _=func.Invoke(arg1, arg2); successCalls += 1; } catch {  }
             return successCalls;
         }
 
-        public static void CreateInstance()
-        {
+        public static void CreateInstance() {
             Instance = new DESTCPReciveEvent();
         }
 
-        public void Dispose()
-        {
+        public void Dispose() {
             Funcs.Clear();
         }
+        ~DESTCPReciveEvent() {
+            Dispose();
+        }
     }
-    class DESTCPProcessor : DESBaseTCPProcessor
-    {
+    class DESTCPProcessor : DESBaseTCPProcessor {
         public DESTCPProcessor(Dictionary<string, string> cfg) : base(cfg) { }
 
-        public override void Runner()
-        {
-            while (true) { var client = AcceptConnection(); Log.Success("Accepted TCP connection", "DES TCP Processor"); var thr = new Thread(() => { Process(client); }); thr.Name = $"TCPProcessor-{client.Client.Handle}-{client.Client.RemoteEndPoint}"; thr.Start(); }
+        public override void Runner() {
+            while (true) { 
+                var client = AcceptConnection(); 
+                Log.Success("Accepted TCP connection", "DESrv TCP Processor"); 
+                var thr = new Thread(() => { Process(client); }); 
+                thr.Name = $"DESrvTCPProcessor-{client.Client.Handle}-{client.Client.RemoteEndPoint}"; 
+                thr.Start(); 
+            }
         }
-        private void Process(TcpClient client)
-        {
+        private void Process(TcpClient client) {
             var stream = client.GetStream();
-            while (true)
-            {
-                if (!client.Connected)
-                {
-                    Log.Info("Connection closed", "DES TCP Processor");
+            while (true) {
+                if (!client.Connected) {
+                    Log.Info("Connection closed", "DESrv TCP Processor");
                     break;
                 }
-                while (!stream.DataAvailable) ;
+                while (!stream.DataAvailable); // do nothing and wait
 
                 byte[] bytes = new byte[client.Available];
 

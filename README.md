@@ -1,4 +1,4 @@
-# Dedicated External Server (DESrv or DES) 
+# Dedicated External Server (DESrv or DES) ![DESrv Logo](DESrv\des_logo.png)
 Powerful, flexible and extendable server for usage in different tasks. Includes Core and PDK.
 
 ## About this
@@ -49,7 +49,7 @@ Linux:
 <details>
 <summary><h3>For plugin/add-on development</h3></summary>
 
-1. Make sure that you have already installed DES. If not, [go here](#for-production). 
+1. Make sure that you have already installed DESrv If not, [go here](#for-production). 
 
 2. Download PDK on [releases page](https://github.com/Blusutils/DESrv/releases/latest). 
 

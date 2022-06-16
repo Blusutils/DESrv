@@ -11,12 +11,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("DESCore")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("des-run")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
-[assembly: System.Reflection.AssemblyProductAttribute("DESCore")]
-[assembly: System.Reflection.AssemblyTitleAttribute("DESCore")]
+[assembly: System.Reflection.AssemblyProductAttribute("des-run")]
+[assembly: System.Reflection.AssemblyTitleAttribute("des-run")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Создано классом WriteCodeFragment MSBuild.
