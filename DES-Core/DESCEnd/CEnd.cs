@@ -1,7 +1,7 @@
-﻿using DESCore.DESCEnd.Logging;
+﻿using DESCEnd.Logging;
 using System;
 
-namespace DESCore.DESCEnd {
+namespace DESCEnd {
     /// <summary>
     /// Represents the method that executes on <see cref="CEnd.Run(CEndTarget)"/>
     /// </summary>
@@ -9,7 +9,7 @@ namespace DESCore.DESCEnd {
     /// <summary>
     /// DESrv ControlledEnd class
     /// </summary>
-    class CEnd {
+    public class CEnd {
         /// <summary>
         /// Logger
         /// </summary>

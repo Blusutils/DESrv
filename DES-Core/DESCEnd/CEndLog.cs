@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DESCore.DESCEnd.Logging {
+namespace DESCEnd.Logging {
     /// <summary>
     /// Logging levels enumeration
     /// </summary>

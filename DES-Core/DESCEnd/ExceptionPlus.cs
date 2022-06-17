@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DESCore.DESCEnd {
+namespace DESCEnd {
     /// <summary>
     /// Class for "Exit Codes" (used by <see cref="Exceptor"/>)
     /// </summary>
@@ -45,6 +45,6 @@ namespace DESCore.DESCEnd {
     /// <summary>
     /// Exceptor - manager for shutting down the program what runned under <see cref="CEnd"/>
     /// </summary>
-    class Exceptor {
+    public class Exceptor {
     }
 }

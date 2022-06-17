@@ -13,3 +13,6 @@ C:\Users\EgorBron\projects\DES\DES-Core\core\obj\Debug\net6.0\des-run.dll
 C:\Users\EgorBron\projects\DES\DES-Core\core\obj\Debug\net6.0\refint\des-run.dll
 C:\Users\EgorBron\projects\DES\DES-Core\core\obj\Debug\net6.0\des-run.pdb
 C:\Users\EgorBron\projects\DES\DES-Core\core\obj\Debug\net6.0\ref\des-run.dll
+C:\Users\EgorBron\projects\DES\DES-Core\core\bin\Debug\net6.0\DESCEnd.dll
+C:\Users\EgorBron\projects\DES\DES-Core\core\bin\Debug\net6.0\DESCEnd.pdb
+C:\Users\EgorBron\projects\DES\DES-Core\core\obj\Debug\net6.0\DESCore.csproj.CopyComplete
