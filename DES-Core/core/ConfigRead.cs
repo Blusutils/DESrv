@@ -5,7 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DESCore.Utils {
+    /// <summary>
+    /// Configuration reader
+    /// </summary>
     class ConfigReader {
+        /// <summary>
+        /// Read the config
+        /// </summary>
+        /// <returns><see cref="Dictionary{string, string}"/> (string, string) with readed data from JSON file</returns>
         public static Dictionary<string, string> Read() {
             var DESPATH = Path.Combine("C:", "Users", Environment.UserName, "AppData", "Local", "DESrv");
             var configPath = Path.Combine(DESPATH, "config.json");

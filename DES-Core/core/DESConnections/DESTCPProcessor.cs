@@ -6,12 +6,27 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DESCore.DESConnections {
+    /// <summary>
+    /// Event listeners provider for <see cref="DESCoreRunner"/>
+    /// </summary>
     class DESTCPReciveEvent : IDisposable {
+        /// <summary>
+        /// Instance of itself
+        /// </summary>
         public static DESTCPReciveEvent Instance { get; private set; }
+        /// <summary>
+        /// List of events
+        /// </summary>
         private List<Func<TcpClient, byte[], bool>> Funcs { get; set; } = new List<Func<TcpClient, byte[], bool>>();
+        /// <summary>
+        /// hahahaha  private constructor
+        /// </summary>
         private DESTCPReciveEvent () {
             //Instance = new DESTCPReciveEvent();
         }
+        /// <summary>
+        /// Callbacks accessor
+        /// </summary>
         public event Func<TcpClient, byte[], bool> Callbacks {
             add {
                 DESCoreRunner.CEndLog.Debug($"new listener added: {value.Method.Name}", source: "DESrv TCP Events");
@@ -31,11 +46,15 @@ namespace DESCore.DESConnections {
                 try { _=func.Invoke(arg1, arg2); successCalls += 1; } catch {  }
             return successCalls;
         }
-
+        /// <summary>
+        /// Create an instance of <see cref="DESTCPReciveEvent"/>
+        /// </summary>
         public static void CreateInstance() {
             Instance = new DESTCPReciveEvent();
         }
-
+        /// <summary>
+        /// Dispose object
+        /// </summary>
         public void Dispose() {
             Funcs.Clear();
         }
@@ -43,10 +62,21 @@ namespace DESCore.DESConnections {
             Dispose();
         }
     }
+    /// <summary>
+    /// Main TCP sockets processor
+    /// </summary>
     class DESTCPProcessor : DESBaseTCPProcessor {
+        /// <summary>
+        /// Create new instance of <see cref="DESTCPProcessor"/>
+        /// </summary>
+        /// <param name="cfg">Configuration (dictioanry)</param>
         public DESTCPProcessor(Dictionary<string, string> cfg) : base(cfg) { }
-
+        /// <summary>
+        /// New connection handler
+        /// </summary>
+        /// <exception cref="Exception">Just for test...</exception>
         public override void Runner() {
+            throw new Exception("1");
             while (true) { 
                 var client = AcceptConnection(); 
                 Log.Success("Accepted TCP connection", "DESrv TCP Processor"); 
@@ -55,6 +85,10 @@ namespace DESCore.DESConnections {
                 thr.Start(); 
             }
         }
+        /// <summary>
+        /// Process new connection
+        /// </summary>
+        /// <param name="client">TCP socket client object</param>
         private void Process(TcpClient client) {
             var stream = client.GetStream();
             while (true) {

@@ -5,7 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DESCore.Utils {
+    /// <summary>
+    /// Commandline arguments parser
+    /// </summary>
     static class ArgParser {
+        /// <summary>
+        /// Parse commandline arguments
+        /// </summary>
+        /// <param name="source">Array of commandline args</param>
+        /// <returns><see cref="Dictionary{string, string}"/> (string, string) with parsed arguments</returns>
         public static Dictionary<string, string> Parse(string[] source) {
             Dictionary<string, string> result = new Dictionary<string, string>();
             result.Add("nocategory", "");

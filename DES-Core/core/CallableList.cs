@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace DESCore
 {
+    /// <summary>
+    /// shitcode
+    /// </summary>
+    /// <typeparam name="TRtype"></typeparam>
     class CallableList<TRtype> : IDisposable {
         public virtual List<Func<TRtype>> Funcs { get; set; } = new List<Func<TRtype>>();
         public event Func<TRtype> Callbacks {
