@@ -32,7 +32,14 @@
 *.pdb
 *.cache
 *.deps.json
-*.nuget.g.targets
+*.nuget.*.*
+*.runtimeconfig.json
+*.assets.json
+*.CopyComplete
+*.editorconfig
+*.FileListAbsolute.*
+*.Assembly*.cs
+*.g.*
 
 /DES-Core/core/obj/*
 /DES-Core/core/bin/*
