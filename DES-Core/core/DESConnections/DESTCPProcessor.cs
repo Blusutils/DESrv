@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DESCore.DESConnections {
     /// <summary>
@@ -90,22 +86,24 @@ namespace DESCore.DESConnections {
         /// </summary>
         /// <param name="client">TCP socket client object</param>
         private void Process(TcpClient client) {
-            var stream = client.GetStream();
-            while (true) {
-                if (!client.Connected) {
-                    Log.Info("Connection closed", "DESrv TCP Processor");
-                    break;
+            try {
+                var stream = client.GetStream();
+                while (true) {
+                    if (!client.Connected) {
+                        Log.Info("Connection closed", "DESrv TCP Processor");
+                        break;
+                    }
+                    while (!stream.DataAvailable) ; // do nothing and wait
+
+                    byte[] bytes = new byte[client.Available];
+
+                    stream.Read(bytes, 0, bytes.Length);
+
+                    DESTCPReciveEvent.Instance.CallAll(client, bytes);
+                    /*string recv = Encoding.UTF8.GetString(bytes);
+                    Log.Debug(recv);*/
                 }
-                while (!stream.DataAvailable); // do nothing and wait
-
-                byte[] bytes = new byte[client.Available];
-
-                stream.Read(bytes, 0, bytes.Length);
-
-                DESTCPReciveEvent.Instance.CallAll(client, bytes);
-                /*string recv = Encoding.UTF8.GetString(bytes);
-                Log.Debug(recv);*/
-            }
+            } catch (Exception ex) { Log.Error($"Error in {ex.Source}. Exception: {ex.Message}\nStack trace: \t{ex.StackTrace}"); }
         }
     }
 }

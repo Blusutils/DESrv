@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace DESCore {
     /// <summary>
@@ -18,6 +14,10 @@ namespace DESCore {
         /// </summary>
         public DESCEnd.CEnd CEnd;
         /// <summary>
+        /// PDK Loader
+        /// </summary>
+        public DESPDK.PDKLoader PDKLoader;
+        /// <summary>
         /// Configuration
         /// </summary>
         private Dictionary<string, string> config;
@@ -32,14 +32,16 @@ namespace DESCore {
         /// Create new instance of <see cref="DESCoreRunner"/>
         /// </summary>
         public DESCoreRunner () {
-
+            
         }
         /// <summary>
         /// Setup configuration of runner
         /// </summary>
         /// <param name="args">Commandline args</param>
         /// <param name="config">Configuration (dictioanry)</param>
-        public void Setup(string[] args, Dictionary<string, string> config) {
+        public void SetupRuntime(string[] args, Dictionary<string, string> config) {
+            this.PDKLoader = new DESPDK.PDKLoader(Path.Combine(".", "extensions"));
+            this.PDKLoader.AddAllExtensionsFromDir("./extensions");
             var parsed = Utils.ArgParser.Parse(args);
             foreach (var key in parsed.Keys) {
                 config[key] = parsed[key];
@@ -62,6 +64,9 @@ namespace DESCore {
         /// <exception cref="NotImplementedException">If connection type is not implemented yet</exception>
         public void Go() {
             DESConnections.DESTCPReciveEvent.CreateInstance();
+            Console.WriteLine(this.PDKLoader.GetAvailableExtensions()[0].ToString());
+            foreach (var ext in this.PDKLoader.GetAvailableExtensions())
+                try { this.PDKLoader.LoadExtension(ext); } catch (Exception ex) { CEndLog.Error($"Error in extension (from {ex.Source}). Exception: {ex.Message}\nStack trace: \t{ex.StackTrace}"); }
             string servermode;
             servermode = config.TryGetValue("servermode", out servermode) ? servermode : "notconfigured";
             switch (servermode.ToLower().Trim(' '))

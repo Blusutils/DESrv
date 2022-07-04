@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Net.WebSockets;
 /// DELETE THIS!
 namespace DESCore.DESConnections {
@@ -30,7 +26,7 @@ namespace DESCore.DESConnections {
                         + "Sec-WebSocket-Accept: " + Convert.ToBase64String(
                             System.Security.Cryptography.SHA1.Create().ComputeHash(
                                 Encoding.UTF8.GetBytes(
-                                    new System.Text.RegularExpressions.Regex("Sec-WebSocket-Key: (.*)").Match(recv).Groups[1].Value.Trim() + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11"
+                                    new Regex("Sec-WebSocket-Key: (.*)").Match(recv).Groups[1].Value.Trim() + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11"
                                 )
                             )
                         ) + EOL

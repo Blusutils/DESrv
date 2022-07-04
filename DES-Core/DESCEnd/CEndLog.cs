@@ -21,7 +21,7 @@ namespace DESCEnd.Logging {
         /// <summary>
         /// Default directory to write logs here
         /// </summary>
-        public string TargetDir = Path.Combine(Environment.CurrentDirectory, "logs");
+        public string TargetDir = Path.Combine(".", "logs");
         /// <summary>
         /// Logging pattern (useless, because <see cref="String.Format(string, object?[])"/> is not as flexible as i wish)
         /// </summary>

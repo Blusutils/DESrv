@@ -7,7 +7,14 @@
     <Nullable>enable</Nullable>
     <AssemblyName>des-run</AssemblyName>
     <Win32Resource>C:\Users\EgorBron\projects\DES\DES-Core\core\resource.res</Win32Resource>
+    <StartupObject>DESCore.Program</StartupObject>
+    <Authors>EgorBron</Authors>
+    <Company>Blusutils</Company>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DESCEnd\DESCEnd.csproj" />

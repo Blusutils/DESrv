@@ -27,7 +27,7 @@
                 FileLogging = new DESCEnd.Logging.FileLogger()
             }, new DESCEnd.Exceptor()));
             // setup config
-            coreRunner.Setup(args, Utils.ConfigReader.Read());
+            coreRunner.SetupRuntime(args, Utils.ConfigReader.Read());
             // run
             coreRunner.Go();
         }
