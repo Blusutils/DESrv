@@ -28,8 +28,8 @@ namespace DESCore.DESPDK {
         /// <param name="extname">Extension filename</param>
         public void AddExtension (string extname) {
             Assembly pdkobj = Assembly.LoadFrom(extname);
-            var a = pdkobj.CreateInstance(extname) as PDKAbstractExtension;
-            pdkobjects.Add(a);
+            object a = pdkobj.CreateInstance("PDKTest.Class1"); // неймспейс.класс; надо унифицировать как-то
+            pdkobjects.Add((PDKAbstractExtension)a);
         }
         /// <summary>
         /// Read default directory and load all extensions from it
@@ -43,7 +43,9 @@ namespace DESCore.DESPDK {
         /// <param name="targetDir">Target directory</param>
         public void AddAllExtensionsFromDir(string targetDir) {
             foreach (var file in Directory.GetFiles(targetDir)) {
-                AddExtension(file);
+                if (File.Exists(file) && file.EndsWith(".dll")) {
+                    AddExtension(file);
+                }
             }
         }
         /// <summary>
@@ -53,11 +55,12 @@ namespace DESCore.DESPDK {
         public void LoadExtension(PDKAbstractExtension extension) {
             if (extension.ExtType == 1) extension.Entrypoint(); // plugin
             else if (extension.ExtType == 2) { // addon
+                Console.WriteLine("plugin");
                 foreach (var ext in pdkobjects) {
                     if (ext.ExtType == 1 && ext.ID == extension.Reference)
                         ext.LoadSubExtension(extension);
                     }
-            };
+            } else { Console.WriteLine("wtf", extension, extension.ExtType.GetType().Name); };
         }
         /// <summary>
         /// Get list of available (added) extensions

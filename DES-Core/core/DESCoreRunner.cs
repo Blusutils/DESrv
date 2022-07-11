@@ -64,9 +64,9 @@ namespace DESCore {
         /// <exception cref="NotImplementedException">If connection type is not implemented yet</exception>
         public void Go() {
             DESConnections.DESTCPReciveEvent.CreateInstance();
-            Console.WriteLine(this.PDKLoader.GetAvailableExtensions()[0].ToString());
+            CEndLog.Debug($"Added {this.PDKLoader.GetAvailableExtensions().ToArray().Length} extensions: {string.Join(", ", this.PDKLoader.GetAvailableExtensions())}");
             foreach (var ext in this.PDKLoader.GetAvailableExtensions())
-                try { this.PDKLoader.LoadExtension(ext); } catch (Exception ex) { CEndLog.Error($"Error in extension (from {ex.Source}). Exception: {ex.Message}\nStack trace: \t{ex.StackTrace}"); }
+                try { this.PDKLoader.LoadExtension(ext); ext.Entrypoint(); } catch (Exception ex) { CEndLog.Error($"Error in extension (from {ex.Source}). Exception: {ex.Message}\nStack trace: \t{ex.StackTrace}"); }
             string servermode;
             servermode = config.TryGetValue("servermode", out servermode) ? servermode : "notconfigured";
             switch (servermode.ToLower().Trim(' '))

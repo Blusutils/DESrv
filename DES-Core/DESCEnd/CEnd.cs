@@ -7,7 +7,7 @@ namespace DESCEnd {
     /// </summary>
     public delegate void CEndTarget();
     /// <summary>
-    /// DESrv ControlledEnd class
+    /// DESrv CEnd (ControlledEnd) class
     /// </summary>
     public class CEnd {
         /// <summary>

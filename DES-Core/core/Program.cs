@@ -1,4 +1,6 @@
-﻿namespace DESCore {
+﻿//#define PROD//
+using System;
+namespace DESCore {
     /// <summary>
     /// DESrv entrypoint class
     /// </summary>
@@ -12,21 +14,21 @@
             // setup DESCEndLib runner
             coreRunner.SetupCEnd(new DESCEnd.CEnd(new DESCEnd.Logging.CEndLog() {
                 ConsoleLoggingLevel =
-                //#if PROD
-                    //DESCEnd.LogLevel.Info,
-                //#else
+                #if PROD
+                    DESCEnd.Logging.LogLevel.Info,
+                #else
                     DESCEnd.Logging.LogLevel.Debug,
-                //#endif
+                #endif
                 FileLoggingLevel =
-                //#if PROD
-                    //DESCEnd.LogLevel.Info,
-                //#else
+                #if PROD
+                DESCEnd.Logging.LogLevel.Info,
+                #else
                     DESCEnd.Logging.LogLevel.Debug,
-                //#endif
+                #endif
                 ConsoleLogging = true,
                 FileLogging = new DESCEnd.Logging.FileLogger()
             }, new DESCEnd.Exceptor()));
-            // setup config
+            // setup runtime and config
             coreRunner.SetupRuntime(args, Utils.ConfigReader.Read());
             // run
             coreRunner.Go();
