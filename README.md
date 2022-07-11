@@ -111,3 +111,11 @@ All configuration parameters is available in docs.
 * * `bool` `not required` 
 * * Prefers all sockets to use secured connection (in example WSS instead standard Websockets). 
 </details> --> 
+
+## How to use extensions (Plugins or Addons)
+That's very simple! Just put `.desext.dll` file in `./extensions` folder in DESrv directory and run server with `use-exts` argument:
+```batch
+:: cmd
+des-run --servermode tcpsock --use-exts ExamplePlugin ExampleAddon_ExamplePlugin
+```
+Plugins can be named like `pluginname.desext.dll`, addons like `addonname_targetpluginname.desext.dll` (don't change `.desext.dll` file extension).
