@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\pdk\PDK\PDK\PDK.csproj" />
     <ProjectReference Include="..\core\DESCore.csproj" />
   </ItemGroup>
 

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Reflection;
+using DESPDK;
 #pragma warning disable CS8618
-namespace DESCore.DESPDK {
+namespace DESPDKUtils {
     /// <summary>
     /// Extension loader class
     /// </summary>
@@ -28,8 +29,13 @@ namespace DESCore.DESPDK {
         /// <param name="extname">Extension filename</param>
         public void AddExtension (string extname) {
             Assembly pdkobj = Assembly.LoadFrom(extname);
-            object a = pdkobj.CreateInstance("PDKTest.Class1"); // неймспейс.класс; надо унифицировать как-то
-            pdkobjects.Add((PDKAbstractExtension)a);
+            Console.WriteLine(pdkobj.ManifestModule.Name);
+            var a = pdkobj.CreateInstance($"{pdkobj.ManifestModule.Name.Replace(".dll", "").Replace(".desext", "")}.Extension") as PDKAbstractExtension;
+            Console.WriteLine("1");
+            //a.ID = "1";
+            Console.WriteLine(a.ID == "Test" ? a.ID : "pizda");
+            Console.WriteLine("2");
+            pdkobjects.Add(a);
         }
         /// <summary>
         /// Read default directory and load all extensions from it
@@ -43,7 +49,8 @@ namespace DESCore.DESPDK {
         /// <param name="targetDir">Target directory</param>
         public void AddAllExtensionsFromDir(string targetDir) {
             foreach (var file in Directory.GetFiles(targetDir)) {
-                if (File.Exists(file) && file.EndsWith(".dll")) {
+                if (File.Exists(file) && file.EndsWith(".desext.dll")) {
+                    Console.WriteLine(file);
                     AddExtension(file);
                 }
             }
@@ -60,7 +67,7 @@ namespace DESCore.DESPDK {
                     if (ext.ExtType == 1 && ext.ID == extension.Reference)
                         ext.LoadSubExtension(extension);
                     }
-            } else { Console.WriteLine("wtf", extension, extension.ExtType.GetType().Name); };
+            } else { Console.WriteLine("wtf", extension.GetID(), extension.ExtType.GetType().Name); };
         }
         /// <summary>
         /// Get list of available (added) extensions

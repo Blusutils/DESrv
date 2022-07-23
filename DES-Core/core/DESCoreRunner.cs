@@ -16,7 +16,7 @@ namespace DESCore {
         /// <summary>
         /// PDK Loader
         /// </summary>
-        public DESPDK.PDKLoader PDKLoader;
+        public DESPDKUtils.PDKLoader PDKLoader;
         /// <summary>
         /// Configuration
         /// </summary>
@@ -40,7 +40,7 @@ namespace DESCore {
         /// <param name="args">Commandline args</param>
         /// <param name="config">Configuration (dictioanry)</param>
         public void SetupRuntime(string[] args, Dictionary<string, string> config) {
-            this.PDKLoader = new DESPDK.PDKLoader(Path.Combine(".", "extensions"));
+            this.PDKLoader = new DESPDKUtils.PDKLoader(Path.Combine(".", "extensions"));
             this.PDKLoader.AddAllExtensionsFromDir("./extensions");
             var parsed = Utils.ArgParser.Parse(args);
             foreach (var key in parsed.Keys) {
@@ -66,7 +66,7 @@ namespace DESCore {
             DESConnections.DESTCPReciveEvent.CreateInstance();
             CEndLog.Debug($"Added {this.PDKLoader.GetAvailableExtensions().ToArray().Length} extensions: {string.Join(", ", this.PDKLoader.GetAvailableExtensions())}");
             foreach (var ext in this.PDKLoader.GetAvailableExtensions())
-                try { this.PDKLoader.LoadExtension(ext); ext.Entrypoint(); } catch (Exception ex) { CEndLog.Error($"Error in extension (from {ex.Source}). Exception: {ex.Message}\nStack trace: \t{ex.StackTrace}"); }
+                try { this.PDKLoader.LoadExtension(ext); ext.Entrypoint(); Console.WriteLine(ext.GetID()); } catch (Exception ex) { CEndLog.Error($"Error in extension (from {ex.Source}). Exception: {ex.Message}\nStack trace: \t{ex.StackTrace}"); }
             string servermode;
             servermode = config.TryGetValue("servermode", out servermode) ? servermode : "notconfigured";
             switch (servermode.ToLower().Trim(' '))
