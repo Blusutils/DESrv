@@ -44,22 +44,22 @@ des-run <optional params>
 Linux:
 ```bash
 ./des-unix-prepare && ./des-run <optional params>
+# des-unix-prepare fixes some troubles and artifacts on Unix-like systems what can occur after runs. 
 ```
 </details>
 <details>
 <summary><h3>For plugin/add-on development</h3></summary>
 
-1. Make sure that you have already installed DESrv If not, [go here](#for-production). 
+1. Make sure that you have already installed DESrv. 
+If not, [go here](#for-production). 
 
-2. Download PDK on [releases page](https://github.com/Blusutils/DESrv/releases/latest). 
-
-3. Go to the [docs](https://github.com/Blusutils/DESrv/wiki) for more information and tutorials. 
+2. Go to the [docs](https://github.com/Blusutils/DESrv/wiki) for more information and tutorials. 
 
 </details>
 
-## Guide to configuration and commandline
-DESrv needs configuration to run. You can set it using `des-config` in binaries. Out config file can be found in `AppData/Local/DESrv` on Windows or in `/user/DESrv` on Linux. 
-All theese values can be overrided when you pass commandline argument with same name as parameter in config. In example:
+## Quick guide to configuration and command line arguments
+DESrv needs configuration to run. You can set it using `des-config` in binaries. Out config file can be found in same directory with all binaries (file named as `desconfig.json`).
+All values in this file can be overrided when you pass commandline argument with same name as field name in config. In example:
 ```jsonc
 // config file 
 {
@@ -70,7 +70,7 @@ All theese values can be overrided when you pass commandline argument with same 
 }
 ```
 ```batch
-:: cmd
+:: Windows cmd
 des-run --servermode udpsock --loglevel warn
 ```
 In this example servermode and loglevel will be overriden for this run of server but port will stay 9090. 
@@ -110,12 +110,28 @@ All configuration parameters is available in docs.
 * prefersecure 
 * * `bool` `not required` 
 * * Prefers all sockets to use secured connection (in example WSS instead standard Websockets). 
+
+* randommode
+* * `bool` `not required`
+* * Sets random integers generator (`dotrand`, `cpprand`, `randomorg` or any other from plugins). By default set to `dotrand` (standard .NET random). 
 </details> --> 
 
 ## How to use extensions (Plugins or Addons)
-That's very simple! Just put `.desext.dll` file in `./extensions` folder in DESrv directory and run server with `use-exts` argument:
+That's very simple! Just put `.desext.dll` file in `./extensions` folder in DESrv directory. 
+
+By default DESrv runs with all found extensions. So, you need to l run server with `use-exts` argument:
 ```batch
-:: cmd
+:: Windows cmd
 des-run --servermode tcpsock --use-exts ExamplePlugin ExampleAddon_ExamplePlugin
 ```
-Plugins can be named like `pluginname.desext.dll`, addons like `addonname_targetpluginname.desext.dll` (don't change `.desext.dll` file extension).
+You can also put extensions what you'll use to configuration. 
+
+Plugins should be named like `PluginName.desext.dll`, and addons like `AddonName_TargetPlugiNname.desext.dll` (don't change `.desext.dll` file extension: it needed to detect DLLs what contains PDKExtesion class).
+
+<!-- ## "Bad random" issues
+DESrv was written on .NET C#, which has very bad pseudorandom. But you can choose what random you'll use. By default, three methods available:
+* Standard System.Random
+* C++ random
+* [Random.org](https://random.org) API random
+* OpenLavaRand random *TODO*
+If you want to use another random implementation, create plugin with class, derived from `RandProtocol`, then add it to configuration. More info in docs. -->
