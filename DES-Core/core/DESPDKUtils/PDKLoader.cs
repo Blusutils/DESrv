@@ -2,7 +2,7 @@
 using System.Reflection;
 using DESPDK;
 #pragma warning disable CS8618
-namespace DESPDKUtils {
+namespace DESCore.DESPDKUtils {
     /// <summary>
     /// Extension loader class
     /// </summary>
@@ -29,12 +29,7 @@ namespace DESPDKUtils {
         /// <param name="extname">Extension filename</param>
         public void AddExtension (string extname) {
             Assembly pdkobj = Assembly.LoadFrom(extname);
-            Console.WriteLine(pdkobj.ManifestModule.Name);
             var a = pdkobj.CreateInstance($"{pdkobj.ManifestModule.Name.Replace(".dll", "").Replace(".desext", "")}.Extension") as PDKAbstractExtension;
-            Console.WriteLine("1");
-            //a.ID = "1";
-            Console.WriteLine(a.ID == "Test" ? a.ID : "pizda");
-            Console.WriteLine("2");
             pdkobjects.Add(a);
         }
         /// <summary>
@@ -50,7 +45,6 @@ namespace DESPDKUtils {
         public void AddAllExtensionsFromDir(string targetDir) {
             foreach (var file in Directory.GetFiles(targetDir)) {
                 if (File.Exists(file) && file.EndsWith(".desext.dll")) {
-                    Console.WriteLine(file);
                     AddExtension(file);
                 }
             }
@@ -60,14 +54,14 @@ namespace DESPDKUtils {
         /// </summary>
         /// <param name="extension">Extension to load</param>
         public void LoadExtension(PDKAbstractExtension extension) {
-            if (extension.ExtType == 1) extension.Entrypoint(); // plugin
-            else if (extension.ExtType == 2) { // addon
-                Console.WriteLine("plugin");
+            var exttype = (int)extension.GetFieldValue("ExtType");
+            if (exttype == 1) extension.Entrypoint(); // plugin
+            else if (exttype == 2) { // addon
                 foreach (var ext in pdkobjects) {
                     if (ext.ExtType == 1 && ext.ID == extension.Reference)
                         ext.LoadSubExtension(extension);
                     }
-            } else { Console.WriteLine("wtf", extension.GetID(), extension.ExtType.GetType().Name); };
+            } else { Console.WriteLine($"Found an invalid extension with unknown type {extension.GetFieldValue("ExtType")}: {extension}"); };
         }
         /// <summary>
         /// Get list of available (added) extensions

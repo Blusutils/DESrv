@@ -16,7 +16,7 @@ namespace DESCore {
         /// <summary>
         /// PDK Loader
         /// </summary>
-        public DESPDKUtils.PDKLoader PDKLoader;
+        public DESPDKUtils.PDKLoader pdkLoader;
         /// <summary>
         /// Configuration
         /// </summary>
@@ -40,8 +40,8 @@ namespace DESCore {
         /// <param name="args">Commandline args</param>
         /// <param name="config">Configuration (dictioanry)</param>
         public void SetupRuntime(string[] args, Dictionary<string, string> config) {
-            this.PDKLoader = new DESPDKUtils.PDKLoader(Path.Combine(".", "extensions"));
-            this.PDKLoader.AddAllExtensionsFromDir("./extensions");
+            this.pdkLoader = new DESPDKUtils.PDKLoader(Path.Combine(".", "extensions"));
+            this.pdkLoader.AddAllExtensionsFromDir("./extensions");
             var parsed = Utils.ArgParser.Parse(args);
             foreach (var key in parsed.Keys) {
                 config[key] = parsed[key];
@@ -64,9 +64,16 @@ namespace DESCore {
         /// <exception cref="NotImplementedException">If connection type is not implemented yet</exception>
         public void Go() {
             DESConnections.DESTCPReciveEvent.CreateInstance();
-            CEndLog.Debug($"Added {this.PDKLoader.GetAvailableExtensions().ToArray().Length} extensions: {string.Join(", ", this.PDKLoader.GetAvailableExtensions())}");
-            foreach (var ext in this.PDKLoader.GetAvailableExtensions())
-                try { this.PDKLoader.LoadExtension(ext); ext.Entrypoint(); Console.WriteLine(ext.GetID()); } catch (Exception ex) { CEndLog.Error($"Error in extension (from {ex.Source}). Exception: {ex.Message}\nStack trace: \t{ex.StackTrace}"); }
+            CEndLog.Debug($"Added {pdkLoader.GetAvailableExtensions().ToArray().Length} extensions: {string.Join(", ", pdkLoader.GetAvailableExtensions())}");
+            foreach (var ext in pdkLoader.GetAvailableExtensions()) {
+                try { 
+                    pdkLoader.LoadExtension(ext);
+                } catch (Exception ex) { 
+                    CEndLog.Error($"Error in extension (from {ex.Source}). Exception: {ex.Message}\nStack trace: \t{ex.StackTrace}"); 
+                }
+            }
+
+            // Code below added just for test; later you will able to use any count of connection using extensions
             string servermode;
             servermode = config.TryGetValue("servermode", out servermode) ? servermode : "notconfigured";
             switch (servermode.ToLower().Trim(' '))
@@ -88,8 +95,10 @@ namespace DESCore {
                 case "udpsock":
                     CEndLog.Notice($"Trying to run using UDP socket");
                     throw new NotImplementedException("UDP is not implemented for now!");
+                case "notconfigured":
+                    throw new NotImplementedException("Please provide a valid type of connection");
                 default:
-                    throw new NotImplementedException("HEY BRO WHAT THE FUCK?! Invalid server mode!");
+                    throw new NotImplementedException("Invalid server mode. Please provide a valid type of connection");
             }
         }
     }

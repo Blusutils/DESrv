@@ -9,18 +9,8 @@ namespace PDKTest {
         public new string DESVersion = "0.0.1";
         public new string Author = "EgorBron";
 
-        public Extension() {
-            ID = "Test1";
-            ExtType = 1;
-            Name = "Test PLugin";
-            Version = "0.0.0";
-            DESVersion = "0.0.1";
-            Author = "EgorBron";
-            Console.WriteLine(ID);
-    }
-
         public override void Entrypoint() {
-            Console.WriteLine("Hello World!", ID);
+            Console.WriteLine("Hello World!", GetFieldValue("ID"));
         }
         public override void LoadSubExtension(PDKAbstractExtension extension) {
 
