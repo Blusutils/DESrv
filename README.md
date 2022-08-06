@@ -80,40 +80,40 @@ All configuration parameters is available in docs.
 <summary><h3>List of all configuration parameters</h3></summary>
 
 * servermode 
-* * `string`
-* * What type of connection server will use. 
+  * `string`
+  * What type of connection server will use. 
 
 * host 
-* * `string` `not required`
-* * Default host IP to bind it to sockets. If not set, server will run on `localhost` (`127.0.0.1`). 
+  * `string` `not required`
+  * Default host IP to bind it to sockets. If not set, server will run on `localhost` (`127.0.0.1`). 
 
 * port
-* * `int` `not required`
-* * Default port used to connect to the server. If not set, server will pick `9090` port. 
+  * `int` `not required`
+  * Default port used to connect to the server. If not set, server will pick `9090` port. 
 
 * loglevel
-* * `string` `not required`
-* * DES CEnd logger level. If not set, "debug" will used by default. 
+  * `string` `not required`
+  * DES CEnd logger level. If not set, "debug" will used by default. 
 
 * superuser
-* * `string` `not required` 
-* * Super-user login credentails in `name:password`. If not set, Super-user feature will not be used.
+  * `string` `not required` 
+  * Super-user login credentails in `name:password`. If not set, Super-user feature will not be used.
 
 * sidetunnel 
-* * `bool` `not required` 
-* * Enables "SideTunnel" feature (only for Add-ons that supports it). 
+  * `bool` `not required` 
+  * Enables "SideTunnel" feature (only for Add-ons that supports it). 
 
 * sequredchannel `or` securedchannel
-* * `bool` `not required` 
-* * Enables "SequredChannel" feature (only for Plugins and Add-ons that supports it). And all ok with name of this thing, I didn't make a typo. 
+  * `bool` `not required` 
+  * Enables "SequredChannel" feature (only for Plugins and Add-ons that supports it). And all ok with name of this thing, I didn't make a typo. 
 
 * prefersecure 
-* * `bool` `not required` 
-* * Prefers all sockets to use secured connection (in example WSS instead standard Websockets). 
+  * `bool` `not required` 
+  * Prefers all sockets to use secured connection (in example WSS instead standard Websockets). 
 
 * randommode
-* * `bool` `not required`
-* * Sets random integers generator (`dotrand`, `cpprand`, `randomorg` or any other from plugins). By default set to `dotrand` (standard .NET random). 
+  * `bool` `not required`
+  * Sets random integers generator (`dotrand`, `cpprand`, `randomorg` or any other from plugins). By default set to `dotrand` (standard .NET random). 
 </details> --> 
 
 ## How to use extensions (Plugins or Addons)
@@ -128,10 +128,10 @@ You can also put extensions what you'll use to configuration.
 
 Plugins should be named like `PluginName.desext.dll`, and addons like `AddonName_TargetPlugiNname.desext.dll` (don't change `.desext.dll` file extension: it needed to detect DLLs what contains PDKExtesion class).
 
-<!-- ## "Bad random" issues
+## "Bad random" issues
 DESrv was written on .NET C#, which has very bad pseudorandom. But you can choose what random you'll use. By default, three methods available:
 * Standard System.Random
 * C++ random
 * [Random.org](https://random.org) API random
 * OpenLavaRand random *TODO*
-If you want to use another random implementation, create plugin with class, derived from `RandProtocol`, then add it to configuration. More info in docs. -->
+If you want to use another random implementation, create plugin with class, derived from `RandProtocol`, then add it to configuration. More info in docs.
