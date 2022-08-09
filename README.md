@@ -21,15 +21,13 @@ You can easily add needed functionality (in example advanced socket data handler
 
 3. Type:
 
-* on Windows:
-
 ```batch
+:: on Windows
 des-config
 ```
 
-* on Linux:
-
 ```bash
+# on *nix
 ./des-config
 ```
 
@@ -37,14 +35,13 @@ des-config
 
 5. Run DESrv:
 
-Windows:
 ```batch
+:: on Windows
 des-run <optional params>
 ```
-Linux:
 ```bash
-./des-unix-prepare && ./des-run <optional params>
-# des-unix-prepare fixes some troubles and artifacts on Unix-like systems what can occur after runs. 
+# on *nix
+./des-run <optional params>
 ```
 </details>
 <details>
@@ -70,8 +67,8 @@ All values in this file can be overrided when you pass commandline argument with
 }
 ```
 ```batch
-:: Windows cmd
-des-run --servermode udpsock --loglevel warn
+:: on Windows
+ds-run --servermode udpsock --loglevel warn
 ```
 In this example servermode and loglevel will be overriden for this run of server but port will stay 9090. 
 
@@ -121,7 +118,7 @@ That's very simple! Just put `.desext.dll` file in `./extensions` folder in DESr
 
 By default DESrv runs with all found extensions. So, you need to l run server with `use-exts` argument:
 ```batch
-:: Windows cmd
+:: on Windows
 des-run --servermode tcpsock --use-exts ExamplePlugin ExampleAddon_ExamplePlugin
 ```
 You can also put extensions what you'll use to configuration. 
