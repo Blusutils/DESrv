@@ -134,4 +134,5 @@ DESrv was written on .NET C#, which has very bad pseudorandom. But you can choos
 * C++ random
 * [Random.org](https://random.org) API random
 * OpenLavaRand random *TODO*
-If you want to use another random implementation, create plugin with class, derived from `RandProtocol`, then add it to configuration. More info in docs.
+
+If you want to use another random implementation, create plugin with class, implements `IRandom` interface, then add it to configuration. More info in docs.
