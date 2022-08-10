@@ -116,7 +116,7 @@ All configuration parameters is available in docs.
 ## How to use extensions (Plugins or Addons)
 That's very simple! Just put `.desext.dll` file in `./extensions` folder in DESrv directory. 
 
-By default DESrv runs with all found extensions. So, you need to l run server with `use-exts` argument:
+By default DESrv runs with all found extensions. So, you need to run server with `use-exts` argument:
 ```batch
 :: on Windows
 des-run --servermode tcpsock --use-exts ExamplePlugin ExampleAddon_ExamplePlugin
@@ -130,6 +130,6 @@ DESrv was written on .NET C#, which has very bad pseudorandom. But you can choos
 * Standard System.Random
 * C++ random
 * [Random.org](https://random.org) API random
-* OpenLavaRand random *TODO*
+* [LavaRnd](https://www.lavarand.org/) random *TODO*
 
 If you want to use another random implementation, create plugin with class, implements `IRandom` interface, then add it to configuration. More info in docs.
