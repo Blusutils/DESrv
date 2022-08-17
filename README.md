@@ -2,18 +2,25 @@
 Powerful, flexible and extendable server for usage in different tasks. Includes Core and PDK.
 
 ## About this
-**DESrv** is an all-in-one server for usage in different tasks: websocket-based server, game server under UDP sockets, simple database, etc.
-It bases on three key components:
-* Core (server basic logic)
-* Plugin(s) (3rd-party extensions for server)
-* Add-ons (3rd- or 1st-party extensions for Plugins)
+**DESrv** is an all-in-one server for usage in different tasks (in example: websocket echo-server, game server under UDP sockets, simple database, etc.). 
 
-DESrv have good APIs for Plugins and Add-ons (PDK, Plugin Development Kit), and also have support for some databases and connection types (TCP/UDP sockets, websockets, HTTP) out-of-the-box.
+**DESrv** bases on theese key components:
+* Core (server basic logic)
+* Extensions
+  * Plugin(s) (3rd-party extensions for server)
+  * Add-ons (3rd- or 1st-party extensions for Plugins)
+
+**DESrv** have APIs for Plugins and Add-ons (PDK, Plugin Development Kit), and also have support for some databases and connection types (TCP/UDP sockets, websockets, HTTP) out-of-the-box.
 You can easily add needed functionality (in example advanced socket data handler) for server by writing simple (or more complex) plugin or using existing by other developers.
 
 ## Installing
 <details>
-<summary><h3>For standard usage</h3></summary>
+<summary><h3>For standard usage</h3> (click to reveal...)</summary>
+
+0. Prerequesties:
+  * .NET 6.0
+  * Windows or *nix system
+  * (optional) Internet connection
 
 1. Download binaries for your OS and platform on [releases page](https://github.com/Blusutils/DESrv/releases/latest).
 
@@ -21,34 +28,31 @@ You can easily add needed functionality (in example advanced socket data handler
 
 3. Type:
 
-* on Windows:
-
 ```batch
+:: on Windows
 des-config
 ```
 
-* on Linux:
-
 ```bash
+# on *nix
 ./des-config
 ```
 
-4. Follow the instructions in console to configure server.
+Follow the instructions in console to perform basic configuration of server.
 
-5. Run DESrv:
+4. Run DESrv:
 
-Windows:
 ```batch
+:: on Windows
 des-run <optional params>
 ```
-Linux:
 ```bash
-./des-unix-prepare && ./des-run <optional params>
-# des-unix-prepare fixes some troubles and artifacts on Unix-like systems what can occur after runs. 
+# on *nix
+./des-run <optional params>
 ```
 </details>
 <details>
-<summary><h3>For plugin/add-on development</h3></summary>
+<summary><h3>For plugin/add-on development</h3> (click to reveal...)</summary>
 
 1. Make sure that you have already installed DESrv. 
 If not, [go here](#for-production). 
@@ -56,8 +60,10 @@ If not, [go here](#for-production).
 2. Go to the [docs](https://github.com/Blusutils/DESrv/wiki) for more information and tutorials. 
 
 </details>
+<details>
+<summary><h2>Quick guides & recipes</h2> click here to reveal...</summary>
 
-## Quick guide to configuration and command line arguments
+### Quick guide to configuration and command line arguments
 DESrv needs configuration to run. You can set it using `des-config` in binaries. Out config file can be found in same directory with all binaries (file named as `desconfig.json`).
 All values in this file can be overrided when you pass commandline argument with same name as field name in config. In example:
 ```jsonc
@@ -70,8 +76,8 @@ All values in this file can be overrided when you pass commandline argument with
 }
 ```
 ```batch
-:: Windows cmd
-des-run --servermode udpsock --loglevel warn
+:: on Windows
+ds-run --servermode udpsock --loglevel warn
 ```
 In this example servermode and loglevel will be overriden for this run of server but port will stay 9090. 
 
@@ -80,58 +86,63 @@ All configuration parameters is available in docs.
 <summary><h3>List of all configuration parameters</h3></summary>
 
 * servermode 
-* * `string`
-* * What type of connection server will use. 
+  * `string`
+  * What type of connection server will use. 
 
 * host 
-* * `string` `not required`
-* * Default host IP to bind it to sockets. If not set, server will run on `localhost` (`127.0.0.1`). 
+  * `string` `not required`
+  * Default host IP to bind it to sockets. If not set, server will run on `localhost` (`127.0.0.1`). 
 
 * port
-* * `int` `not required`
-* * Default port used to connect to the server. If not set, server will pick `9090` port. 
+  * `int` `not required`
+  * Default port used to connect to the server. If not set, server will pick `9090` port. 
 
 * loglevel
-* * `string` `not required`
-* * DES CEnd logger level. If not set, "debug" will used by default. 
+  * `string` `not required`
+  * DES CEnd logger level. If not set, "debug" will used by default. 
 
 * superuser
-* * `string` `not required` 
-* * Super-user login credentails in `name:password`. If not set, Super-user feature will not be used.
+  * `string` `not required` 
+  * Super-user login credentails in `name:password`. If not set, Super-user feature will not be used.
 
 * sidetunnel 
-* * `bool` `not required` 
-* * Enables "SideTunnel" feature (only for Add-ons that supports it). 
+  * `bool` `not required` 
+  * Enables "SideTunnel" feature (only for Add-ons that supports it). 
 
 * sequredchannel `or` securedchannel
-* * `bool` `not required` 
-* * Enables "SequredChannel" feature (only for Plugins and Add-ons that supports it). And all ok with name of this thing, I didn't make a typo. 
+  * `bool` `not required` 
+  * Enables "SequredChannel" feature (only for Plugins and Add-ons that supports it). And all ok with name of this thing, I didn't make a typo. 
 
 * prefersecure 
-* * `bool` `not required` 
-* * Prefers all sockets to use secured connection (in example WSS instead standard Websockets). 
+  * `bool` `not required` 
+  * Prefers all sockets to use secured connection (in example WSS instead standard Websockets). 
 
 * randommode
-* * `bool` `not required`
-* * Sets random integers generator (`dotrand`, `cpprand`, `randomorg` or any other from plugins). By default set to `dotrand` (standard .NET random). 
+  * `bool` `not required`
+  * Sets random integers generator (`dotrand`, `cpprand`, `randomorg` or any other from plugins). By default set to `dotrand` (standard .NET random). 
 </details> --> 
 
-## How to use extensions (Plugins or Addons)
+### How to use extensions (Plugins or Addons)
 That's very simple! Just put `.desext.dll` file in `./extensions` folder in DESrv directory. 
 
-By default DESrv runs with all found extensions. So, you need to l run server with `use-exts` argument:
+By default DESrv runs with all found extensions. So, you need to run server with `use-exts` argument:
 ```batch
-:: Windows cmd
+:: on Windows
 des-run --servermode tcpsock --use-exts ExamplePlugin ExampleAddon_ExamplePlugin
 ```
 You can also put extensions what you'll use to configuration. 
 
 Plugins should be named like `PluginName.desext.dll`, and addons like `AddonName_TargetPlugiNname.desext.dll` (don't change `.desext.dll` file extension: it needed to detect DLLs what contains PDKExtesion class).
 
-<!-- ## "Bad random" issues
+### "Bad random" issues
 DESrv was written on .NET C#, which has very bad pseudorandom. But you can choose what random you'll use. By default, three methods available:
 * Standard System.Random
 * C++ random
 * [Random.org](https://random.org) API random
-* OpenLavaRand random *TODO*
-If you want to use another random implementation, create plugin with class, derived from `RandProtocol`, then add it to configuration. More info in docs. -->
+* [LavaRnd](https://www.lavarand.org/) random *TODO*
+
+If you want to use another random implementation, create plugin with class, implements `IRandom` interface, then add it to configuration. More info in docs.
+</details>
+
+## Contributing 
+See [CONTRIBUTING](https://github.com/Blusutils/DESrv/blob/master/CONTRIBUTING.md) for more info
