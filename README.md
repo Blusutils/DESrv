@@ -1,5 +1,5 @@
-# Dedicated External Server (DESrv or DES) <img src="https://github.com/Blusutils/DESrv/blob/master/des_logo.png" align="center" width="100">
-Powerful, flexible and extendable server for usage in different tasks. Includes Core and PDK.
+# Dedicated Extendable Server (DESrv or DES) <img src="https://github.com/Blusutils/DESrv/blob/master/des_logo.png" align="center" width="100">
+Flexible and extendable server for usage in different tasks. Includes Core and PDK.
 
 ## About this
 **DESrv** is an all-in-one server for usage in different tasks (in example: websocket echo-server, game server under UDP sockets, simple database, etc.). 
@@ -10,8 +10,8 @@ Powerful, flexible and extendable server for usage in different tasks. Includes 
   * Plugin(s) (3rd-party extensions for server)
   * Add-ons (3rd- or 1st-party extensions for Plugins)
 
-**DESrv** have APIs for Plugins and Add-ons (PDK, Plugin Development Kit), and also have support for some databases and connection types (TCP/UDP sockets, websockets, HTTP) out-of-the-box.
-You can easily add needed functionality (in example advanced socket data handler) for server by writing simple (or more complex) plugin or using existing by other developers.
+**DESrv** have APIs for Plugins and Add-ons (PDK, Plugin Development Kit), also have support for some databases and connection types (TCP/UDP sockets, websockets, HTTP, KCP, FTP) out-of-the-box.
+You can easily implement needed functionality (in example socket data handler) for server by writing simple (or more complex) plugin or using existing by other developers.
 
 ## Installing
 <details>
@@ -69,7 +69,6 @@ All values in this file can be overrided when you pass commandline argument with
 ```jsonc
 // config file 
 {
-  "servermode": "tcpsock", 
   "loglevel": "debug",
   "port": 9090,
   // other config params
@@ -77,17 +76,13 @@ All values in this file can be overrided when you pass commandline argument with
 ```
 ```batch
 :: on Windows
-ds-run --servermode udpsock --loglevel warn
+ds-run --loglevel warn
 ```
-In this example servermode and loglevel will be overriden for this run of server but port will stay 9090. 
+In this example loglevel will be overriden for this run of server but port will stay 9090. 
 
 All configuration parameters is available in docs. 
 <!-- <details>
 <summary><h3>List of all configuration parameters</h3></summary>
-
-* servermode 
-  * `string`
-  * What type of connection server will use. 
 
 * host 
   * `string` `not required`
@@ -123,7 +118,7 @@ All configuration parameters is available in docs.
 </details> --> 
 
 ### How to use extensions (Plugins or Addons)
-That's very simple! Just put `.desext.dll` file in `./extensions` folder in DESrv directory. 
+That's very simple! Just put `.desext` file in `./extensions` folder in DESrv directory. 
 
 By default DESrv runs with all found extensions. So, you need to run server with `use-exts` argument:
 ```batch
@@ -132,7 +127,7 @@ des-run --servermode tcpsock --use-exts ExamplePlugin ExampleAddon_ExamplePlugin
 ```
 You can also put extensions what you'll use to configuration. 
 
-Plugins should be named like `PluginName.desext.dll`, and addons like `AddonName_TargetPlugiNname.desext.dll` (don't change `.desext.dll` file extension: it needed to detect DLLs what contains PDKExtesion class).
+Plugins should be named like `PluginName.desext`, and addons like `AddonName_TargetPlugiNname.desext` (`.desext` files is actually a .NET DLLs; don't change extension: it needed to detect files what is valid extensions).
 
 ### "Bad random" issues
 DESrv was written on .NET C#, which has very bad pseudorandom. But you can choose what random you'll use. By default, three methods available:
