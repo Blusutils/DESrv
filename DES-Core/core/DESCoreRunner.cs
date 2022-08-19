@@ -1,10 +1,10 @@
 ﻿using System.Text;
-
+using System.Net.Sockets;
 namespace DESCore {
     /// <summary>
     /// DESrv main runner
     /// </summary>
-    class DESCoreRunner {
+    sealed class DESCoreRunner {
         /// <summary>
         /// <see cref="DESCEnd.Logging.CEndLog"/> logger
         /// </summary>
@@ -17,6 +17,10 @@ namespace DESCore {
         /// PDK Loader
         /// </summary>
         public DESPDKUtils.PDKLoader pdkLoader;
+        /// <summary>
+        /// List of extensions IDs to load
+        /// </summary>
+        private string[] extsToLoad;
         /// <summary>
         /// Configuration
         /// </summary>
@@ -32,7 +36,12 @@ namespace DESCore {
         /// Create new instance of <see cref="DESCoreRunner"/>
         /// </summary>
         public DESCoreRunner () {
-            
+            if (!File.Exists(Path.Combine(".", "des-run.dll"))) {
+                Console.BackgroundColor = ConsoleColor.DarkMagenta;
+                Console.WriteLine($"ABORTING DESrv RUN: CURRENT WORKDIR ISN'T DEFAULT.\nYou started DESrv from non-default directory (i.e. a folder that does not contain the files needed to start DESrv). Please restart server from a default directory.");
+                Console.ResetColor(); 
+                Environment.Exit(1);
+            }
         }
         /// <summary>
         /// Setup configuration of runner
@@ -40,8 +49,8 @@ namespace DESCore {
         /// <param name="args">Commandline args</param>
         /// <param name="config">Configuration (dictioanry)</param>
         public void SetupRuntime(string[] args, Dictionary<string, string> config) {
-            this.pdkLoader = new DESPDKUtils.PDKLoader(Path.Combine(".", "extensions"));
-            this.pdkLoader.AddAllExtensionsFromDir("./extensions");
+            pdkLoader = new DESPDKUtils.PDKLoader(Path.Combine(".", "extensions"));
+            pdkLoader.AddAllExtensionsFromDir("./extensions");
             var parsed = Utils.ArgParser.Parse(args);
             foreach (var key in parsed.Keys) {
                 config[key] = parsed[key];
@@ -63,11 +72,13 @@ namespace DESCore {
         /// </summary>
         /// <exception cref="NotImplementedException">If connection type is not implemented yet</exception>
         public void Go() {
-            DESConnections.DESTCPReciveEvent.CreateInstance();
             CEndLog.Debug($"Added {pdkLoader.GetAvailableExtensions().ToArray().Length} extensions: {string.Join(", ", pdkLoader.GetAvailableExtensions())}");
             foreach (var ext in pdkLoader.GetAvailableExtensions()) {
-                try { 
-                    pdkLoader.LoadExtension(ext);
+                try {
+                    if (extsToLoad.Contains(ext.ID) || extsToLoad.Length == 0) {
+                        pdkLoader.LoadExtension(ext);
+                        new DESCEnd.CEnd(CEndLog, new DESCEnd.Exceptor()).Run(() => ext.Entrypoint());
+                    }
                 } catch (Exception ex) { 
                     CEndLog.Error($"Error in extension (from {ex.Source}). Exception: {ex.Message}\nStack trace: \t{ex.StackTrace}"); 
                 }
@@ -76,30 +87,38 @@ namespace DESCore {
             // Code below added just for test; later you will able to use any count of connection using extensions
             string servermode;
             servermode = config.TryGetValue("servermode", out servermode) ? servermode : "notconfigured";
-            switch (servermode.ToLower().Trim(' '))
-            {
-                case "websocket":
-                    CEndLog.Notice($"Trying to run using Websocket");
-                    var websockproc = new DESConnections.DESWebSocketsProcessor(config);
-                    CEnd.Run(websockproc.Runner);
-                    break;
-                case "tcpsock":
-                    CEndLog.Notice($"Trying to run using TCP socket");
-                    var tcpsockproc = new DESConnections.DESTCPProcessor(config);
-                    DESConnections.DESTCPReciveEvent.Instance.Callbacks += (client, data) => {
-                        CEndLog.Debug(Encoding.UTF8.GetString(data));
-                        return true;
-                    };
-                    CEnd.Run(tcpsockproc.Runner);
-                    break;
-                case "udpsock":
-                    CEndLog.Notice($"Trying to run using UDP socket");
-                    throw new NotImplementedException("UDP is not implemented for now!");
-                case "notconfigured":
-                    throw new NotImplementedException("Please provide a valid type of connection");
-                default:
-                    throw new NotImplementedException("Invalid server mode. Please provide a valid type of connection");
-            }
+            string ipadress;
+            ipadress = config.TryGetValue("ipadress", out ipadress) ? ipadress : "127.0.0.1";
+            string portS; int port;
+            port = config.TryGetValue("ipadress", out portS) ? int.Parse(portS) : 9090;
+            CEndLog.Notice($"Server will start on {ipadress}:{port}");
+            CEndLog.Fatal(@"DESrv does not support work in direct socket mode. Use ""DirectSock"" extension instead.");
+            //switch (servermode.ToLower().Trim(' '))
+            //{
+            //    case "websocket":
+            //        CEndLog.Notice($"Trying to run using Websocket");
+            //        var websockproc = new DESConnections.DESWebSocketsProcessor(config);
+            //        CEnd.Run(websockproc.Runner);
+            //        break;
+            //    case "tcpsock":
+            //        CEndLog.Notice($"Trying to run using TCP socket");
+            //        var tcpsockproc = new DESConnections.DESTCPProcessor(config);
+            //        DESConnections.DESTCPReciveEvent.Instance.Callbacks += (object[] args) => {
+            //            var client = (TcpClient)args[0];
+            //            CEndLog.Debug(Encoding.UTF8.GetString((byte[])args[1]));
+            //            client.Close();
+            //            return true;
+            //        };
+            //        CEnd.Run(tcpsockproc.Runner);
+            //        break;
+            //    case "udpsock":
+            //        CEndLog.Notice($"Trying to run using UDP socket");
+            //        throw new NotImplementedException("UDP is not implemented for now!");
+            //    case "notconfigured":
+            //        throw new NotImplementedException("Please provide a valid type of connection");
+            //    default:
+            //        throw new NotImplementedException("Invalid server mode. Please provide a valid type of connection");
+            //}
         }
     }
 }

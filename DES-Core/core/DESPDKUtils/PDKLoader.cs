@@ -6,7 +6,7 @@ namespace DESCore.DESPDKUtils {
     /// <summary>
     /// Extension loader class
     /// </summary>
-    public class PDKLoader {
+    public sealed class PDKLoader {
         /// <summary>
         /// List of extensions
         /// </summary>
@@ -24,13 +24,25 @@ namespace DESCore.DESPDKUtils {
             curdir = workDir;
         }
         /// <summary>
+        /// Writes "micro error log" to console
+        /// </summary>
+        /// <param name="message">Message to write</param>
+        private static void Microlog(string message) {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(message);
+            Console.ResetColor();
+        }
+        /// <summary>
         /// Add an extension by its filename
         /// </summary>
         /// <param name="extname">Extension filename</param>
         public void AddExtension (string extname) {
             Assembly pdkobj = Assembly.LoadFrom(extname);
-            var a = pdkobj.CreateInstance($"{pdkobj.ManifestModule.Name.Replace(".dll", "").Replace(".desext", "")}.Extension") as PDKAbstractExtension;
-            pdkobjects.Add(a);
+            try {
+                var a = pdkobj.CreateInstance($"{pdkobj.ManifestModule.Name.Replace(".dll", "").Replace(".desext", "")}.Extension") as PDKAbstractExtension;
+                if (a == null) { Microlog($"Extension {pdkobj.ManifestModule.Name} is invalid (entrypoint class \"Extension\" not found)"); return; }
+                pdkobjects.Add(a);
+            } catch (InvalidCastException) { Microlog($"Extension {pdkobj.ManifestModule.Name} is invalid (entrypoint class \"Extension\" not derived from PDKAbstractExtension)"); }
         }
         /// <summary>
         /// Read default directory and load all extensions from it
@@ -55,13 +67,18 @@ namespace DESCore.DESPDKUtils {
         /// <param name="extension">Extension to load</param>
         public void LoadExtension(PDKAbstractExtension extension) {
             var exttype = (int)extension.GetFieldValue("ExtType");
-            if (exttype == 1) extension.Entrypoint(); // plugin
-            else if (exttype == 2) { // addon
-                foreach (var ext in pdkobjects) {
-                    if (ext.ExtType == 1 && ext.ID == extension.Reference)
-                        ext.LoadSubExtension(extension);
-                    }
-            } else { Console.WriteLine($"Found an invalid extension with unknown type {extension.GetFieldValue("ExtType")}: {extension}"); };
+            switch (exttype) {
+                case 1:  // plugin
+                    extension.OnLoad();
+                    break;
+                case 2: // addon
+                        foreach (var ext in pdkobjects) {
+                            if (ext.ExtType == 1 && ext.ID == extension.Reference)
+                                ext.LoadSubExtension(extension);
+                        }
+                    break;
+                default: Microlog($"Found an invalid extension with unknown type {extension.GetFieldValue("ExtType")}: {extension}"); break;
+            }
         }
         /// <summary>
         /// Get list of available (added) extensions

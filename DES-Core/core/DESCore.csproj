@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\pdk\PDK\PDK\PDK.csproj" />
+    <ProjectReference Include="..\..\PDK\PDK\PDK.csproj" />
     <ProjectReference Include="..\DESCEnd\DESCEnd.csproj" />
   </ItemGroup>
 

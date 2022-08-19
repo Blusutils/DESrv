@@ -11,6 +11,7 @@ namespace PDKTest {
 
         public override void Entrypoint() {
             Console.WriteLine("Hello World!", GetFieldValue("ID"));
+            Console.WriteLine(new DESPDK.Random.CppRandom().GetRandInt());
         }
         public override void LoadSubExtension(PDKAbstractExtension extension) {
 

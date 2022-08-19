@@ -4,7 +4,7 @@ namespace DESCore {
     /// <summary>
     /// DESrv entrypoint class
     /// </summary>
-    class Program {
+    sealed class Program {
         /// <summary>
         /// DESrv entrypoint
         /// </summary>
@@ -31,7 +31,7 @@ namespace DESCore {
             // setup runtime and config
             coreRunner.SetupRuntime(args, Utils.ConfigReader.Read());
             // run
-            coreRunner.Go();
+            try { coreRunner.Go(); } finally { Console.WriteLine("Press Enter to close console..."); Console.Read(); }
         }
     }
 }

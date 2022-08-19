@@ -1,6 +1,0 @@
-C:\Users\EgorBron\projects\DES\pdk\PDK\PDK\bin\Debug\PDK.dll
-C:\Users\EgorBron\projects\DES\pdk\PDK\PDK\bin\Debug\PDK.pdb
-C:\Users\EgorBron\projects\DES\pdk\PDK\PDK\obj\Debug\PDK.csproj.AssemblyReference.cache
-C:\Users\EgorBron\projects\DES\pdk\PDK\PDK\obj\Debug\PDK.csproj.CoreCompileInputs.cache
-C:\Users\EgorBron\projects\DES\pdk\PDK\PDK\obj\Debug\PDK.dll
-C:\Users\EgorBron\projects\DES\pdk\PDK\PDK\obj\Debug\PDK.pdb

@@ -10,9 +10,7 @@ namespace DESCore.Utils {
         /// </summary>
         /// <returns><see cref="Dictionary{string, string}"/> (string, string) with readed data from JSON file</returns>
         public static Dictionary<string, string> Read() {
-            var DESPATH = Path.Combine("C:", "Users", Environment.UserName, "AppData", "Local", "DESrv");
-            var configPath = Path.Combine(DESPATH, "config.json");
-            if (!Directory.Exists(DESPATH)) Directory.CreateDirectory(DESPATH);
+            var configPath = Path.Combine(".", "config.json");
             var notExists = () => {
                 _ = File.Create(configPath);
                 using StreamWriter file = new(configPath);

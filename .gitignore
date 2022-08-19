@@ -50,3 +50,10 @@
 /DES-Core/core/bin/*.cache
 
 DES-Core/core/bin/Debug/net6.0/DESCEnd.dll
+/pdk/CppRand/x64/Debug/CppRand.tlog
+/pdk/CppRand/x64/Debug
+/pdk/PDK/obj/Debug/net6.0
+/pdk/x64/Debug
+/SocketSaber
+/BSDRP/.vs/BSDRP/v17
+/BSDRP/BSDRP/obj/Debug
