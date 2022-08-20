@@ -1,26 +1,30 @@
-# Dedicated Extendable Server (DESrv or DES) <img src="https://github.com/Blusutils/DESrv/blob/master/des_logo.png" align="center" width="100">
+# Dedicated Extendable Server (DESrv or DES) <img src="./des_logo.png" align="center" width="100">
 Flexible and extendable server for usage in different tasks. Includes Core and PDK.
 
 ## About this
-**DESrv** is an all-in-one server for usage in different tasks (in example: websocket echo-server, game server under UDP sockets, simple database, etc.). 
+**DESrv** is an all-in-one server for usage in different tasks. 
 
-**DESrv** bases on theese key components:
-* Core (server basic logic)
-* Extensions
+This software bases on theese key components:
+* Core (server runtime basic logic)
+  * Runner based on CEnd
+  * PDK loader
+* Plugin development kit (PDK) and Extensions
   * Plugin(s) (3rd-party extensions for server)
   * Add-ons (3rd- or 1st-party extensions for Plugins)
 
-**DESrv** have APIs for Plugins and Add-ons (PDK, Plugin Development Kit), also have support for some databases and connection types (TCP/UDP sockets, websockets, HTTP, KCP, FTP) out-of-the-box.
-You can easily implement needed functionality (in example socket data handler) for server by writing simple (or more complex) plugin or using existing by other developers.
+**DESrv** have APIs for Plugins and Add-ons (PDK, Plugin Development Kit), also have support for some databases and connection types out-of-the-box.
+You can easily implement or extend needed functionality (in example socket data handler) for server by writing simple (or more complex) plugin or using existing by other developers.
 
 ## Installing
 <details>
-<summary><h3>For standard usage</h3> (click to reveal...)</summary>
+<summary><h3 id="des-for-standard">For standard usage</h3> (click to reveal...)</summary>
 
 0. Prerequesties:
-  * .NET 6.0
-  * Windows or *nix system
-  * (optional) Internet connection
+    * .NET 6.0
+    * Windows or *nix system
+    * Extensions what you need
+    * (optional) Internet connection
+    * (optional) Connection client
 
 1. Download binaries for your OS and platform on [releases page](https://github.com/Blusutils/DESrv/releases/latest).
 
@@ -32,7 +36,6 @@ You can easily implement needed functionality (in example socket data handler) f
 :: on Windows
 des-config
 ```
-
 ```bash
 # on *nix
 ./des-config
@@ -55,7 +58,7 @@ des-run <optional params>
 <summary><h3>For plugin/add-on development</h3> (click to reveal...)</summary>
 
 1. Make sure that you have already installed DESrv. 
-If not, [go here](#for-production). 
+If not, [go here](#des-for-standard). 
 
 2. Go to the [docs](https://github.com/Blusutils/DESrv/wiki) for more information and tutorials. 
 
@@ -65,7 +68,7 @@ If not, [go here](#for-production).
 
 ### Quick guide to configuration and command line arguments
 DESrv needs configuration to run. You can set it using `des-config` in binaries. Out config file can be found in same directory with all binaries (file named as `desconfig.json`).
-All values in this file can be overrided when you pass commandline argument with same name as field name in config. In example:
+All values in this file is overridable on server run. Just pass commandline argument with same name as field name in config. In example:
 ```jsonc
 // config file 
 {
@@ -140,4 +143,11 @@ If you want to use another random implementation, create plugin with class, impl
 </details>
 
 ## Contributing 
-See [CONTRIBUTING](https://github.com/Blusutils/DESrv/blob/master/CONTRIBUTING.md) for more info
+See [CONTRIBUTING](./CONTRIBUTING.md) for more info. 
+
+There's also contains inforamtion about builds from source code. 
+
+## License 
+DESrv licensed under `MIT License`
+
+
