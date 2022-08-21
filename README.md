@@ -79,7 +79,7 @@ All values in this file is overridable on server run. Just pass commandline argu
 ```
 ```batch
 :: on Windows
-ds-run --loglevel warn
+des-run --loglevel warn
 ```
 In this example loglevel will be overriden for this run of server but port will stay 9090. 
 
@@ -107,7 +107,7 @@ All configuration parameters is available in docs.
   * `bool` `not required` 
   * Enables "SideTunnel" feature (only for Add-ons that supports it). 
 
-* sequredchannel `or` securedchannel
+* sequredchannel
   * `bool` `not required` 
   * Enables "SequredChannel" feature (only for Plugins and Add-ons that supports it). And all ok with name of this thing, I didn't make a typo. 
 
@@ -126,14 +126,14 @@ That's very simple! Just put `.desext` file in `./extensions` folder in DESrv di
 By default DESrv runs with all found extensions. So, you need to run server with `use-exts` argument:
 ```batch
 :: on Windows
-des-run --servermode tcpsock --use-exts ExamplePlugin ExampleAddon_ExamplePlugin
+des-run --use-exts ExamplePlugin ExampleAddon_ExamplePlugin
 ```
 You can also put extensions what you'll use to configuration. 
 
 Plugins should be named like `PluginName.desext`, and addons like `AddonName_TargetPlugiNname.desext` (`.desext` files is actually a .NET DLLs; don't change extension: it needed to detect files what is valid extensions).
 
 ### "Bad random" issues
-DESrv was written on .NET C#, which has very bad pseudorandom. But you can choose what random you'll use. By default, three methods available:
+DESrv was written on .NET C#, which has very bad pseudorandom. But you can choose what random you'll use. By default, four (three working) methods available:
 * Standard System.Random
 * C++ random
 * [Random.org](https://random.org) API random
