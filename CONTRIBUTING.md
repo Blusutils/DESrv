@@ -13,7 +13,7 @@ You also can suggest anything about DESrv in the same place.
 
 ### Localization
 
-You can suggest translation to your language for Wiki, Documentation and Core on our [SimpleTranslate](https://simpletranslate.herokuapp.com/blusutils-desrv) page.
+You can suggest translation to your language for Wiki, Documentation and Core on our [SimpleTranslate](https://simpletranslate.net/projects/blusutils-desrv) page.
 
 > **Note**: no need to translate into Russian or English. Only correction suggestions.
 
