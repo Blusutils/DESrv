@@ -40,20 +40,20 @@ namespace DESPDK {
         /// <summary>
         /// Main method
         /// </summary>
-        public abstract void Entrypoint();
+        public virtual void Entrypoint() { }
         /// <summary>
         /// Load addon to this extension (for plugins)
         /// </summary>
         /// <param name="extension">Extension needed to load</param>
-        public abstract void LoadSubExtension(PDKAbstractExtension extension);
+        public virtual void LoadSubExtension(PDKAbstractExtension extension) { extension.Load(); }
         /// <summary>
         /// Event what calls when extension loads
         /// </summary>
-        public abstract void OnLoad();
+        public virtual void Load() { }
         /// <summary>
         /// Event what calls when extension unloads
         /// </summary>
-        public abstract void OnUnload();
+        public virtual void Unload() { }
 
         public sealed override string ToString() {
             var extype = (int)GetFieldValue("ExtType");

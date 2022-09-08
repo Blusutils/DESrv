@@ -1,5 +1,6 @@
 ﻿using DESCEnd.Logging;
 using System;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace DESCEnd {
     /// <summary>
@@ -70,7 +71,7 @@ namespace DESCEnd {
             logger.Info($"Thread {targetThread.Name} started");
             targetThread.Join();
             if (runResult != null) {
-                logger.Error($"Thread {targetThread.Name} (in {runResult.Source}) failed. Exception: {runResult.Message}\nStack trace: \t{runResult.StackTrace}");
+                logger.Error($"Thread {targetThread.Name} failed (from method {runResult.TargetSite}, caused by {runResult.Source}). Exception: {runResult.GetType()}: {runResult.Message}\nStack trace: \t{runResult.StackTrace}");
                 if (fails < 6) {
                     logger.Warn($"Restarting thread {targetThread.Name}");
                     Thread.Sleep(1000);

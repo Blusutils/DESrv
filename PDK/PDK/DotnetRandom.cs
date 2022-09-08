@@ -1,13 +1,13 @@
 ﻿namespace DESPDK.Random {
-    public class DotnetRandom : IRandom {
+    public class DotnetRandom : RandomBase {
         static System.Random rand = new System.Random();
-        public int GetRandInt() {
+        public override int GetRandInt() {
             return rand.Next();
         }
-        public int GetRandInt(int startRange, int endRange) {
+        public override int GetRandInt(int startRange, int endRange) {
             return rand.Next(startRange, endRange);
         }
-        public void Seed(int value) {
+        public override void Seed(int value) {
             rand = new System.Random(value);
         }
     }

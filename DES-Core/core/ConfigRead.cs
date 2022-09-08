@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DESCore.Utils {
+﻿namespace DESCore.Utils {
     /// <summary>
     /// Configuration reader
     /// </summary>
@@ -8,8 +6,8 @@ namespace DESCore.Utils {
         /// <summary>
         /// Read the config
         /// </summary>
-        /// <returns><see cref="Dictionary{string, string}"/> (string, string) with readed data from JSON file</returns>
-        public static Dictionary<string, string> Read() {
+        /// <returns><see cref="ConfigurationModel"/> with readed data from JSON file</returns>
+        public static ConfigurationModel Read() {
             var configPath = Path.Combine(".", "config.json");
             var notExists = () => {
                 _ = File.Create(configPath);
@@ -22,8 +20,8 @@ namespace DESCore.Utils {
 
             using (StreamReader r = new StreamReader(configPath)) {
                 string json = r.ReadToEnd();
-                Dictionary<string, string> config = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(json);
-                return config;
+                ConfigurationModel.Instance = System.Text.Json.JsonSerializer.Deserialize<ConfigurationModel>(json);
+                return ConfigurationModel.Instance;
             }
         }
     }

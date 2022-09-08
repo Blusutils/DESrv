@@ -1,23 +1,23 @@
 ﻿using System.Runtime.InteropServices;
 
 namespace DESPDK.Random {
-    public class CppRandom : IRandom {
-        [DllImport("CppRand.dll")]
+    public class CppRandom : RandomBase {
+        [DllImport("CppRand.dll", EntryPoint = "?GetRandIntDll@@YAHXZ")]
         public static extern int GetRandIntDll();
-        [DllImport("CppRand.dll")]
-        public static extern int GetRandIntDll(int startRange, int endRange);
-        [DllImport("CppRand.dll")]
+        [DllImport("CppRand.dll", EntryPoint = "?GetRandIntDllRanged@@YAHHH@Z")]
+        public static extern int GetRandIntDllRanged(int startRange, int endRange);
+        [DllImport("CppRand.dll", EntryPoint = "?SeedDll@@YAXH@Z")]
         public static extern void SeedDll(int value);
 
-        public int GetRandInt() {
+        public override int GetRandInt() {
             return GetRandIntDll();
         }
 
-        public int GetRandInt(int startRange, int endRange) {
-            return GetRandIntDll(startRange, endRange);
+        public override int GetRandInt(int startRange, int endRange) {
+            return GetRandIntDllRanged(startRange, endRange);
         }
 
-        public void Seed(int value) {
+        public override void Seed(int value) {
             SeedDll(value);
         }
     }

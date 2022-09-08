@@ -1,0 +1,3 @@
+﻿  dllmain.cpp
+     Создается библиотека x64\bin\Debug\CppRand.lib и объект x64\bin\Debug\CppRand.exp
+  CppRand.vcxproj -> C:\Users\EgorBron\projects\DES\PDK\CppRand\x64\bin\Debug\CppRand.dll

@@ -2,11 +2,13 @@
 using System.Reflection;
 using DESPDK;
 #pragma warning disable CS8618
-namespace DESCore.DESPDKUtils {
+namespace DESCore
+{
     /// <summary>
     /// Extension loader class
     /// </summary>
-    public sealed class PDKLoader {
+    public sealed class PDKLoader
+    {
         /// <summary>
         /// List of extensions
         /// </summary>
@@ -19,7 +21,8 @@ namespace DESCore.DESPDKUtils {
         /// Create new instance of <see cref="PDKLoader"/>
         /// </summary>
         /// <param name="workDir">Directory to load extensons from it</param>
-        public PDKLoader(string workDir) {
+        public PDKLoader(string workDir)
+        {
             if (!Directory.Exists(workDir)) Directory.CreateDirectory(workDir);
             curdir = workDir;
         }
@@ -27,7 +30,8 @@ namespace DESCore.DESPDKUtils {
         /// Writes "micro error log" to console
         /// </summary>
         /// <param name="message">Message to write</param>
-        private static void Microlog(string message) {
+        private static void Microlog(string message)
+        {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(message);
             Console.ResetColor();
@@ -35,28 +39,36 @@ namespace DESCore.DESPDKUtils {
         /// <summary>
         /// Add an extension by its filename
         /// </summary>
-        /// <param name="extname">Extension filename</param>
-        public void AddExtension (string extname) {
-            Assembly pdkobj = Assembly.LoadFrom(extname);
-            try {
-                var a = pdkobj.CreateInstance($"{pdkobj.ManifestModule.Name.Replace(".dll", "").Replace(".desext", "")}.Extension") as PDKAbstractExtension;
-                if (a == null) { Microlog($"Extension {pdkobj.ManifestModule.Name} is invalid (entrypoint class \"Extension\" not found)"); return; }
+        /// <param name="extToLoad">Extension filename</param>
+        public void AddExtension(string extToLoad)
+        {
+            Assembly pdkobj = Assembly.LoadFrom(extToLoad);
+            try
+            {
+                string extname = pdkobj.ManifestModule.Name;
+                var a = pdkobj.CreateInstance($"{extname.Substring(0, extname.Length - 4)}.Extension") as PDKAbstractExtension;
+                if (a == null) { Microlog($"Extension {extname} is invalid (unable to find entrypoint class \"Extension\")"); return; }
                 pdkobjects.Add(a);
-            } catch (InvalidCastException) { Microlog($"Extension {pdkobj.ManifestModule.Name} is invalid (entrypoint class \"Extension\" not derived from PDKAbstractExtension)"); }
+            }
+            catch (InvalidCastException) { Microlog($"Extension {pdkobj.ManifestModule.Name} is invalid (entrypoint class \"Extension\" not derived from PDKAbstractExtension)"); }
         }
         /// <summary>
         /// Read default directory and load all extensions from it
         /// </summary>
-        public void AddAllExtensionsFromDir() {
+        public void AddAllExtensionsFromDir()
+        {
             AddAllExtensionsFromDir(curdir);
         }
         /// <summary>
         /// Read directory and load all extensions from it
         /// </summary>
         /// <param name="targetDir">Target directory</param>
-        public void AddAllExtensionsFromDir(string targetDir) {
-            foreach (var file in Directory.GetFiles(targetDir)) {
-                if (File.Exists(file) && file.EndsWith(".desext.dll")) {
+        public void AddAllExtensionsFromDir(string targetDir)
+        {
+            foreach (var file in Directory.GetFiles(targetDir))
+            {
+                if (File.Exists(file) && file.EndsWith(".dll"))
+                {
                     AddExtension(file);
                 }
             }
@@ -65,17 +77,20 @@ namespace DESCore.DESPDKUtils {
         /// Load an extension and execute it
         /// </summary>
         /// <param name="extension">Extension to load</param>
-        public void LoadExtension(PDKAbstractExtension extension) {
+        public void LoadExtension(PDKAbstractExtension extension)
+        {
             var exttype = (int)extension.GetFieldValue("ExtType");
-            switch (exttype) {
+            switch (exttype)
+            {
                 case 1:  // plugin
-                    extension.OnLoad();
+                    extension.Load();
                     break;
                 case 2: // addon
-                        foreach (var ext in pdkobjects) {
-                            if (ext.ExtType == 1 && ext.ID == extension.Reference)
-                                ext.LoadSubExtension(extension);
-                        }
+                    foreach (var ext in pdkobjects)
+                    {
+                        if (ext.ExtType == 1 && ext.ID == extension.Reference)
+                            ext.LoadSubExtension(extension);
+                    }
                     break;
                 default: Microlog($"Found an invalid extension with unknown type {extension.GetFieldValue("ExtType")}: {extension}"); break;
             }
@@ -84,7 +99,8 @@ namespace DESCore.DESPDKUtils {
         /// Get list of available (added) extensions
         /// </summary>
         /// <returns><see cref="List{PDKAbstractExtension}"/> of extensions</returns>
-        public List<PDKAbstractExtension> GetAvailableExtensions() {
+        public List<PDKAbstractExtension> GetAvailableExtensions()
+        {
             return pdkobjects;
         }
     }

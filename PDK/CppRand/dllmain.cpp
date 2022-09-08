@@ -2,14 +2,13 @@
 #include "windows.h"
 #include <random>
 
-
-_declspec(dllexport) void SeedDll(int value) {
+__declspec(dllexport) void SeedDll(int value) {
     std::srand(value);
 }
-_declspec(dllexport) int GetRandIntDll() {
+__declspec(dllexport) int GetRandIntDll() {
     return std::rand();
 }
-_declspec(dllexport) int GetRandIntDll(int startRange, int endRange) {
+__declspec(dllexport) int GetRandIntDllRanged(int startRange, int endRange) {
     return startRange + (std::rand() % static_cast<int>(endRange - startRange + 1));
 }
 
