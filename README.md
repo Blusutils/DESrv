@@ -21,7 +21,7 @@ You can easily implement or extend needed functionality (in example socket data 
 ## Installing
 
 <details>
-<summary><h3 id="des-for-standard">For standard usage</h3> (click to reveal...)</summary>
+<summary><h3 id="des-for-standard" id="des-for-standard">For standard usage</h3> (click to reveal...)</summary>
 
 0. Prerequesties:
     * .NET 6.0
