@@ -59,7 +59,7 @@ namespace DESCore
         /// <param name="config">Configuration (dictioanry)</param>
         public void SetupRuntime(string[] args, ConfigurationModel config) {
             var currentAsm = Assembly.GetExecutingAssembly();
-            var despath = currentAsm.Location.Substring(0, currentAsm.Location.Length - "des-run.dll".Length);
+            var despath = currentAsm.Location.Replace(Path.GetFileName(currentAsm.Location), "");
             pdkLoader = new PDKLoader(Path.Combine(despath, "extensions"));
             pdkLoader.AddAllExtensionsFromDir();
             var parsed = Utils.ArgParser.Parse(args);
@@ -76,7 +76,7 @@ namespace DESCore
         public void SetupCEnd(DESCEnd.CEnd cend) {
             CEndLog = cend.logger;
             CEndLog.LogSource = "DESrv Runner";
-            CEndLog.Success("CEnd Setup");
+            CEndLog.Success("CEnd Setup done");
             CEnd = cend;
         }
         /// <summary>
@@ -86,27 +86,34 @@ namespace DESCore
         public void Go() {
             CEndLog.Debug($"Added {pdkLoader.GetAvailableExtensions().ToArray().Length} extensions: {string.Join(", ", pdkLoader.GetAvailableExtensions())}");
             foreach (var ext in pdkLoader.GetAvailableExtensions()) {
-                try {
-                    if (new Version(ext.GetFieldValue("DESVersion").ToString()) != DESVersion) {
-                        CEndLog.Error($"Error in extension {ext}: versions is not same (current DESrv version is {DESVersion}; however, this extension supports only {ext.GetFieldValue("DESVersion")} DESrv)");
-                        continue;
+                new Thread(() => {
+                    try {
+                        var extSuppDes = new Version(ext.GetFieldValue("DESVersion").ToString());
+                        if (extSuppDes.Major != DESVersion.Major && extSuppDes.Minor != DESVersion.Minor && extSuppDes.Build != DESVersion.Build) {
+                            CEndLog.Error($"Error in extension {ext}: versions is not same (current DESrv version is {DESVersion}; however, this extension supports only {ext.GetFieldValue("DESVersion")} DESrv)");
+                            return;
+                        }
+                        if (extsToLoad.Contains(ext.GetFieldValue("ID")) || extsToLoad.ToArray().Length == 0) {
+                            pdkLoader.LoadExtension(ext);
+                            new DESCEnd.CEnd(CEndLog).Run(() => ext.Entrypoint());
+                        }
+                        /*} catch (System.ArgumentNullException) {
+                            CEndLog.Error($"Extension {ext} is null");*/
+                    } catch (Exception ex) {
+                        CEndLog.Error($"Error {ex.GetType()} in extension {ext} (from method {ex.TargetSite}, caused by {ex.Source}). Exception: {ex.Message}\nStack trace: \n{ex.StackTrace}");
                     }
-                    if (extsToLoad.Contains(ext.GetFieldValue("ID")) || extsToLoad.ToArray().Length == 0) {
-                        pdkLoader.LoadExtension(ext);
-                        new DESCEnd.CEnd(CEndLog, new DESCEnd.Exceptor()).Run(() => ext.Entrypoint());
-                    }
-                    /*} catch (System.ArgumentNullException) {
-                        CEndLog.Error($"Extension {ext} is null");*/
-                } catch (Exception ex) {
-                    CEndLog.Error($"Error {ex.GetType()} in extension {ext} (from method {ex.TargetSite}, caused by {ex.Source}). Exception: {ex.Message}\nStack trace: \n{ex.StackTrace}");
-                }
+                }).Start();
             }
 
             var ipadress = config.IpAdress??"127.0.0.1";
             //string portS; int port;
             //port = config.TryGetValue("port", out portS) ? int.Parse(portS) : 9090;
             CEndLog.Notice($"Server will start on {ipadress}");
-            CEndLog.Fatal(@"DESrv does not support work in direct socket mode. Use ""DirectSock"" extension instead.");
+            if (pdkLoader.GetAvailableExtensions().ToArray().Length == 0) {
+                CEndLog.Fatal(@"DESrv does not support work in direct socket mode. Use ""DirectSock"" extension instead.");
+                Environment.Exit(-1);
+            }
+            Thread.Sleep(-1);
         }
     }
 }

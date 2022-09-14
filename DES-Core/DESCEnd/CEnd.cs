@@ -4,9 +4,9 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace DESCEnd {
     /// <summary>
-    /// Represents the method that executes on <see cref="CEnd.Run(CEndTarget)"/>
+    /// Represents the method that executes on <see cref="CEnd.Run(CEndTargetDelegate)"/>
     /// </summary>
-    public delegate void CEndTarget();
+    public delegate void CEndTargetDelegate();
     /// <summary>
     /// DESrv CEnd (ControlledEnd) class
     /// </summary>
@@ -14,11 +14,7 @@ namespace DESCEnd {
         /// <summary>
         /// Logger
         /// </summary>
-        public Logging.CEndLog logger;
-        /// <summary>
-        /// Exit handler
-        /// </summary>
-        public Exceptor exitHandler;
+        public CEndLog logger;
         /// <summary>
         /// For <see cref="Target(object)"/>
         /// </summary>
@@ -28,25 +24,24 @@ namespace DESCEnd {
         /// </summary>
         /// <param name="log"><see cref="CEndLog"/> logger</param>
         /// <param name="exitHandler"><see cref="Exceptor"/> exit handler</param>
-        public CEnd(CEndLog log, Exceptor exitHandler) {
+        public CEnd(CEndLog log) {
             logger = log;
-            this.exitHandler = exitHandler;
         }
         /// <summary>
         /// Target method runner
         /// </summary>
-        /// <param name="target">Target method as <see cref="CEndTarget"/></param>
+        /// <param name="target">Target method as <see cref="CEndTargetDelegate"/></param>
         private void Target(object target) {
             // i added this method only for handling exceptions in thread
             try {
-                if (target is CEndTarget trg)
+                if (target is CEndTargetDelegate trg)
                 trg();
             } catch (Exception ex) {
                 runResult = ex;
                 //logger.Critical($"Error in {ex.Source}: {ex.Message}\n{ex.StackTrace}");
             }
         }
-        private Thread PrepareThread(CEndTarget target, string name) {
+        private Thread PrepareThread(CEndTargetDelegate target, string name) {
             var thr = new Thread(Target);
             thr.Name = name;
             thr.Start(target);
@@ -56,7 +51,7 @@ namespace DESCEnd {
         /// Run method in <see cref="CEnd"/>
         /// </summary>
         /// <param name="target">Target method</param>
-        public void Run(CEndTarget target) {
+        public void Run(CEndTargetDelegate target) {
             var name = "DESCEnd-" + Guid.NewGuid();
             var thr = PrepareThread(target, name);
             Run(thr, target);
@@ -65,7 +60,7 @@ namespace DESCEnd {
         /// Run thread in CEnd
         /// </summary>
         /// <param name="targetThread">Target thread</param>
-        public void Run(Thread targetThread, CEndTarget targetMethod, int fails = 0) {
+        public void Run(Thread targetThread, CEndTargetDelegate targetMethod, int fails = 0) {
             if (!targetThread.Name.StartsWith("DESCEnd-")) targetThread.Name = "DESCEnd-" + Guid.NewGuid() + "-CN-"+targetThread.Name.Replace(" ", "-");
             try { if (!targetThread.IsAlive) targetThread.Start(); } catch (ThreadStateException) { targetThread = PrepareThread(targetMethod, targetThread.Name); }
             logger.Info($"Thread {targetThread.Name} started");

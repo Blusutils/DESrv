@@ -8,7 +8,7 @@
         /// </summary>
         /// <returns><see cref="ConfigurationModel"/> with readed data from JSON file</returns>
         public static ConfigurationModel Read() {
-            var configPath = Path.Combine(".", "config.json");
+            var configPath =System.Reflection.Assembly.GetExecutingAssembly().Location.Replace(Path.GetFileName(System.Reflection.Assembly.GetExecutingAssembly().Location), "config.json");
             var notExists = () => {
                 _ = File.Create(configPath);
                 using StreamWriter file = new(configPath);

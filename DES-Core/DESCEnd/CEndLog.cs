@@ -73,6 +73,10 @@ namespace DESCEnd.Logging {
         /// Default logs source
         /// </summary>
         public string LogSource = "CEnd";
+
+        public delegate void OnLogDelegate(LogLevel level, string message, string source, object[] format);
+        public event OnLogDelegate OnLog;
+
         /// <summary>
         /// Get console color by logging level
         /// </summary>
@@ -100,6 +104,7 @@ namespace DESCEnd.Logging {
         /// <param name="format">Formattion for console stdio (<see cref="Console.WriteLine(string, object?[]?)"/></param>
         public void Log(string message, LogLevel level, string source ="DES CEnd", params object[] format) {
             source = source ?? LogSource;
+            if (OnLog != null) OnLog(level, message, source, format);
             var msg = $"[{source} | {DateTime.Now} | {level.ToString().ToUpper()}] {message}";
             if (ConsoleLogging && level >= ConsoleLoggingLevel) {
               Console.ForegroundColor = GetConsoleColor(level);
