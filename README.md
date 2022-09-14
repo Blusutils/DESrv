@@ -1,6 +1,6 @@
-# Dedicated Extendable Server (DESrv or DES) <img src="./des_logo.png" align="center" width="100">
+# Dedicated Extendible Server (DESrv or DES) <img src="./des_logo.png" align="center" width="100">
 
-Flexible and extendable framework-like server for usage in different tasks. This repo contains Core, DESCEndLib and PDK.
+Flexible and extendible framework-like server for usage in different tasks. This repo contains Core, DESCEndLib and PDK.
 
 ## About this
 
