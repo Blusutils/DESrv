@@ -57,3 +57,8 @@ DES-Core/core/bin/Debug/net6.0/DESCEnd.dll
 /SocketSaber
 /BSDRP/.vs/BSDRP/v17
 /BSDRP/BSDRP/obj/Debug
+/DES-Core/x64/Release
+/DESCEnd/obj
+/PDK/CppRand/x64/Release
+/PDK/PDK/obj/Release/net6.0
+/DESCEnd/.vs

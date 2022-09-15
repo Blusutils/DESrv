@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using System.Net.Sockets;
 
 namespace PDK.Connections {
     public class BaseHttpProcessor : IConnectionProcessor<HttpListenerContext>, IDisposable {

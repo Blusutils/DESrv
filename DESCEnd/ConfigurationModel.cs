@@ -1,12 +1,6 @@
-﻿using System.Collections.Immutable;
-using System.Reflection;
-
-namespace DESCore {
+﻿namespace DESCEnd.Config {
     public class ConfigurationModel {
-        public static ConfigurationModel? Instance;
         public string IpAdress;
-
-        public ConfigurationModel() { }
 
         public void Extend(Dictionary<string, string> config) {
             var flist = new List<string>();
@@ -17,7 +11,7 @@ namespace DESCore {
                 if (flist.Contains(key)) {
                     var field = GetType().GetField(key);
                     var ftype = field.FieldType;
-                    field.SetValue(this, ftype == typeof(string)?key:key);
+                    field.SetValue(this, ftype == typeof(string) ? key : key);
                 }
             }
         }

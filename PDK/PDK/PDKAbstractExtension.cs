@@ -1,5 +1,4 @@
-﻿using System;
-namespace DESPDK {
+﻿namespace DESPDK {
     public abstract class PDKAbstractExtension : AssemblyFieldReader {
         /// <summary>
         /// ID of extension. It mustn't contain spaces and special symbols (for example dots)
@@ -57,7 +56,7 @@ namespace DESPDK {
 
         public sealed override string ToString() {
             var extype = (int)GetFieldValue("ExtType");
-            var whatisthis = extype == 1 || extype == 2 ? (extype==1?"plugin":"addon") : "unknown";
+            var whatisthis = extype == 1 || extype == 2 ? (extype == 1 ? "plugin" : "addon") : "unknown";
             return $"EXT_{whatisthis}_{GetFieldValue("ID") as string}_v{GetFieldValue("Version")}";
         }
 

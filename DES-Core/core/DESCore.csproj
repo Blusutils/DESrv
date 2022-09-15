@@ -13,13 +13,21 @@
     <Company>Blusutils</Company>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\DESCEnd\DESCEnd.csproj" />
     <ProjectReference Include="..\..\PDK\PDK\PDK.csproj" />
-    <ProjectReference Include="..\DESCEnd\DESCEnd.csproj" />
   </ItemGroup>
 
 </Project>

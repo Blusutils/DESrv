@@ -1,6 +1,4 @@
 ﻿using DESCEnd.Logging;
-using System;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace DESCEnd {
     /// <summary>
@@ -14,7 +12,7 @@ namespace DESCEnd {
         /// <summary>
         /// Logger
         /// </summary>
-        public CEndLog logger;
+        public static CEndLog Logger;
         /// <summary>
         /// For <see cref="Target(object)"/>
         /// </summary>
@@ -22,10 +20,13 @@ namespace DESCEnd {
         /// <summary>
         /// Create a new instance of <see cref="CEnd"/>
         /// </summary>
+        public CEnd() { }
+        /// <summary>
+        /// Create a new instance of <see cref="CEnd"/> with logger
+        /// </summary>
         /// <param name="log"><see cref="CEndLog"/> logger</param>
-        /// <param name="exitHandler"><see cref="Exceptor"/> exit handler</param>
         public CEnd(CEndLog log) {
-            logger = log;
+            Logger = log;
         }
         /// <summary>
         /// Target method runner
@@ -35,7 +36,7 @@ namespace DESCEnd {
             // i added this method only for handling exceptions in thread
             try {
                 if (target is CEndTargetDelegate trg)
-                trg();
+                    trg();
             } catch (Exception ex) {
                 runResult = ex;
                 //logger.Critical($"Error in {ex.Source}: {ex.Message}\n{ex.StackTrace}");
@@ -61,17 +62,17 @@ namespace DESCEnd {
         /// </summary>
         /// <param name="targetThread">Target thread</param>
         public void Run(Thread targetThread, CEndTargetDelegate targetMethod, int fails = 0) {
-            if (!targetThread.Name.StartsWith("DESCEnd-")) targetThread.Name = "DESCEnd-" + Guid.NewGuid() + "-CN-"+targetThread.Name.Replace(" ", "-");
+            if (!targetThread.Name.StartsWith("DESCEnd-")) targetThread.Name = "DESCEnd-" + Guid.NewGuid() + "-CN-" + targetThread.Name.Replace(" ", "-");
             try { if (!targetThread.IsAlive) targetThread.Start(); } catch (ThreadStateException) { targetThread = PrepareThread(targetMethod, targetThread.Name); }
-            logger.Info($"Thread {targetThread.Name} started");
+            Logger.Info($"Thread {targetThread.Name} started");
             targetThread.Join();
             if (runResult != null) {
-                logger.Error($"Thread {targetThread.Name} failed (from method {runResult.TargetSite}, caused by {runResult.Source}). Exception: {runResult.GetType()}: {runResult.Message}\nStack trace: \t{runResult.StackTrace}");
+                Logger.Error($"Thread {targetThread.Name} failed (from method {runResult.TargetSite}, caused by {runResult.Source}). Exception: {runResult.GetType()}: {runResult.Message}\nStack trace: \t{runResult.StackTrace}");
                 if (fails < 6) {
-                    logger.Warn($"Restarting thread {targetThread.Name}");
+                    Logger.Warn($"Restarting thread {targetThread.Name}");
                     Thread.Sleep(1000);
                     Run(targetThread, targetMethod, fails + 1);
-                } else { logger.Critical($"Maximum restart attempts retrieved for {targetThread.Name}. Aborting."); }
+                } else { Logger.Critical($"Maximum restart attempts retrieved for {targetThread.Name}. Aborting."); }
             };
         }
     }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DESCore.Utils {
+﻿namespace DESCore.Utils {
     /// <summary>
     /// Commandline arguments parser
     /// </summary>
@@ -19,8 +17,8 @@ namespace DESCore.Utils {
                     last = elem.Substring(1);
                     result.Add(last, "");
                 } else {
-                    result.TryGetValue(last??"nocategory", out string val);
-                    result[last??"nocategory"] = val.ToString() + " " + elem;
+                    result.TryGetValue(last ?? "nocategory", out string val);
+                    result[last ?? "nocategory"] = val.ToString() + " " + elem;
                 }
             }
             return result;

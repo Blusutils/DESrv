@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DESCEnd.Logging {
+﻿namespace DESCEnd.Logging {
     /// <summary>
     /// Logging levels enumeration
     /// </summary>
@@ -44,7 +42,7 @@ namespace DESCEnd.Logging {
             file.WriteLine(message);
         }
         // separate different runs of programm by new line
-        ~FileLogger () {
+        ~FileLogger() {
             using StreamWriter file = new(TargetDir + "\\" + String.Format(LogNameSchema, "DESCendLog", $"{DateTime.Now.Year}-{DateTime.Now.Month}-{DateTime.Now.Day}") + ".log", append: true);
             file.WriteLine("\n");
         }
@@ -102,17 +100,17 @@ namespace DESCEnd.Logging {
         /// <param name="level">Log level</param>
         /// <param name="source">Log source</param>
         /// <param name="format">Formattion for console stdio (<see cref="Console.WriteLine(string, object?[]?)"/></param>
-        public void Log(string message, LogLevel level, string source ="DES CEnd", params object[] format) {
+        public void Log(string message, LogLevel level, string source = "DES CEnd", params object[] format) {
             source = source ?? LogSource;
             if (OnLog != null) OnLog(level, message, source, format);
             var msg = $"[{source} | {DateTime.Now} | {level.ToString().ToUpper()}] {message}";
             if (ConsoleLogging && level >= ConsoleLoggingLevel) {
-              Console.ForegroundColor = GetConsoleColor(level);
-              Console.WriteLine(msg, format);
-              Console.ResetColor();
+                Console.ForegroundColor = GetConsoleColor(level);
+                Console.WriteLine(msg, format);
+                Console.ResetColor();
             };
             if (FileLogging != null && level >= FileLoggingLevel)
-              FileLogging.Log(msg, source);
+                FileLogging.Log(msg, source);
         }
         /// <summary>
         /// Send Debug log to console stdout and file logger (if anything of it passed). Simular to: Log(message, LogLevel.Debug, source, object[])
@@ -121,7 +119,7 @@ namespace DESCEnd.Logging {
         /// <param name="source">Log source</param>
         /// <param name="format">Formattion for console stdio (<see cref="Console.WriteLine(string, object?[]?)"/></param>
         public void Debug(string message, string source = null, params object[] format) {
-            Log(message, LogLevel.Debug, source??LogSource, format);
+            Log(message, LogLevel.Debug, source ?? LogSource, format);
         }
         /// <summary>
         /// Send Notice log to console stdout and file logger (if anything of it passed). Simular to: Log(message, LogLevel.Notice, source, object[])
@@ -130,7 +128,7 @@ namespace DESCEnd.Logging {
         /// <param name="source">Log source</param>
         /// <param name="format">Formattion for console stdio (<see cref="Console.WriteLine(string, object?[]?)"/></param>
         public void Notice(string message, string source = null, params object[] format) {
-            Log(message, LogLevel.Notice, source??LogSource, format);
+            Log(message, LogLevel.Notice, source ?? LogSource, format);
         }
         /// <summary>
         /// Send Info log to console stdout and file logger (if anything of it passed). Simular to: Log(message, LogLevel.Info, source, object[])
@@ -139,7 +137,7 @@ namespace DESCEnd.Logging {
         /// <param name="source">Log source</param>
         /// <param name="format">Formattion for console stdio (<see cref="Console.WriteLine(string, object?[]?)"/></param>
         public void Info(string message, string source = null, params object[] format) {
-            Log(message, LogLevel.Info, source??LogSource, format);
+            Log(message, LogLevel.Info, source ?? LogSource, format);
         }
         /// <summary>
         /// Send Sucess log to console stdout and file logger (if anything of it passed). Simular to: Log(message, LogLevel.Sucess, source, object[])
@@ -148,7 +146,7 @@ namespace DESCEnd.Logging {
         /// <param name="source">Log source</param>
         /// <param name="format">Formattion for console stdio (<see cref="Console.WriteLine(string, object?[]?)"/></param>
         public void Success(string message, string source = null, params object[] format) {
-            Log(message, LogLevel.Success, source??LogSource, format);
+            Log(message, LogLevel.Success, source ?? LogSource, format);
         }
         /// <summary>
         /// Send Warn log to console stdout and file logger (if anything of it passed). Simular to: Log(message, LogLevel.Warn, source, object[])
@@ -157,7 +155,7 @@ namespace DESCEnd.Logging {
         /// <param name="source">Log source</param>
         /// <param name="format">Formattion for console stdio (<see cref="Console.WriteLine(string, object?[]?)"/></param>
         public void Warn(string message, string source = null, params object[] format) {
-            Log(message, LogLevel.Warn, source??LogSource, format);
+            Log(message, LogLevel.Warn, source ?? LogSource, format);
         }
         /// <summary>
         /// Send Error log to console stdout and file logger (if anything of it passed). Simular to: Log(message, LogLevel.Error, source, object[])
@@ -166,7 +164,7 @@ namespace DESCEnd.Logging {
         /// <param name="source">Log source</param>
         /// <param name="format">Formattion for console stdio (<see cref="Console.WriteLine(string, object?[]?)"/></param>
         public void Error(string message, string source = null, params object[] format) {
-            Log(message, LogLevel.Error, source??LogSource, format);
+            Log(message, LogLevel.Error, source ?? LogSource, format);
         }
         /// <summary>
         /// Send Critical log to console stdout and file logger (if anything of it passed). Simular to: Log(message, LogLevel.Critical, source, object[])
@@ -175,7 +173,7 @@ namespace DESCEnd.Logging {
         /// <param name="source">Log source</param>
         /// <param name="format">Formattion for console stdio (<see cref="Console.WriteLine(string, object?[]?)"/></param>
         public void Critical(string message, string source = null, params object[] format) {
-            Log(message, LogLevel.Critical, source??LogSource, format);
+            Log(message, LogLevel.Critical, source ?? LogSource, format);
         }
         /// <summary>
         /// Send Fatal log to console stdout and file logger (if anything of it passed). Simular to: Log(message, LogLevel.Fatal, source, object[])
@@ -184,7 +182,7 @@ namespace DESCEnd.Logging {
         /// <param name="source">Log source</param>
         /// <param name="format">Formattion for console stdio (<see cref="Console.WriteLine(string, object?[]?)"/></param>
         public void Fatal(string message, string source = null, params object[] format) {
-            Log(message, LogLevel.Fatal, source??LogSource, format);
+            Log(message, LogLevel.Fatal, source ?? LogSource, format);
         }
     }
 }
