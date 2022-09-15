@@ -42,6 +42,12 @@ namespace DESCEnd {
                 //logger.Critical($"Error in {ex.Source}: {ex.Message}\n{ex.StackTrace}");
             }
         }
+        /// <summary>
+        /// Prepares <see cref="CEndTargetDelegate"/> to run in thread
+        /// </summary>
+        /// <param name="target">Target method</param>
+        /// <param name="name">Thread name</param>
+        /// <returns>Prepared thread</returns>
         private Thread PrepareThread(CEndTargetDelegate target, string name) {
             var thr = new Thread(Target);
             thr.Name = name;
@@ -58,10 +64,10 @@ namespace DESCEnd {
             Run(thr, target);
         }
         /// <summary>
-        /// Run thread in CEnd
+        /// Run thread in <see cref="CEnd"/>
         /// </summary>
         /// <param name="targetThread">Target thread</param>
-        public void Run(Thread targetThread, CEndTargetDelegate targetMethod, int fails = 0) {
+        private void Run(Thread targetThread, CEndTargetDelegate targetMethod, int fails = 0) {
             if (!targetThread.Name.StartsWith("DESCEnd-")) targetThread.Name = "DESCEnd-" + Guid.NewGuid() + "-CN-" + targetThread.Name.Replace(" ", "-");
             try { if (!targetThread.IsAlive) targetThread.Start(); } catch (ThreadStateException) { targetThread = PrepareThread(targetMethod, targetThread.Name); }
             Logger.Info($"Thread {targetThread.Name} started");
