@@ -37,7 +37,7 @@ namespace DESCore {
         /// </summary>
         public DESCoreRunner() {
             Assembly currentAsm = Assembly.GetExecutingAssembly();
-            DESVersion = currentAsm.GetName().Version ?? new Version(0, 0, 0, 0);
+            DESVersion = currentAsm.GetName().Version ?? new Version(1, 0, 0, 0);
             /*if (!File.Exists(Path.Combine(".", "des-run.dll"))) {
                 Console.BackgroundColor = ConsoleColor.DarkMagenta;
                 Console.WriteLine($"ABORTING DESrv RUN: des-run.dll NOT FOUND.\nUnable to find des-run.dll (main DESrv file). It may be happend either if you started DESrv from non-default directory or perform invalid installation. Please restart server directly from a default directory or reinstall them.");
