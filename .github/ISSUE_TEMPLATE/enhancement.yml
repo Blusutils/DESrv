@@ -1,0 +1,16 @@
+name: Enhancement
+description: Found a bug in DESrv? Describe it in issue and help us fix it!
+title: "[Enhancement]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting something new to DESrv!
+  - type: textarea
+    id: enhancement
+    attributes:
+      label: Enhancement describation
+      description: Please provide a clear and concise description of your idea.
+    validations:
+      required: true
