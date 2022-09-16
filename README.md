@@ -1,6 +1,6 @@
 # Dedicated Extendible Server (DESrv or DES) <img src="./des_logo.png" align="center" width="100">
 
-Flexible and extendible framework-like server for usage in different tasks. This repo contains Core, DESCEndLib and PDK.
+Flexible and extendible framework-like server for usage in different tasks. This repo contains Core and PDK.
 
 ## About this
 
@@ -9,7 +9,7 @@ Flexible and extendible framework-like server for usage in different tasks. This
 This software bases on theese key components:
 
 * Core (server runtime basic logic)
-  * Runner based on CEnd
+  * Runner based on [DESCEndLib](https://github.com/Blusutils/DESCEndLib)
   * PDK loader
 * Plugin development kit (PDK, plugin framework) and Extensions
   * Plugin(s) (3rd-party extensions for server)
