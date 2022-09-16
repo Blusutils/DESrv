@@ -31,7 +31,7 @@ namespace DESCore {
         /// <summary>
         /// Configuration
         /// </summary>
-        private DESCEnd.Config.ConfigurationModel config;
+        private OurConfig config;
         /// <summary>
         /// Create new instance of <see cref="DESCoreRunner"/>
         /// </summary>
@@ -53,7 +53,7 @@ namespace DESCore {
         /// </summary>
         /// <param name="args">Commandline args</param>
         /// <param name="config">Configuration (dictioanry)</param>
-        public void SetupRuntime(string[] args, DESCEnd.Config.ConfigurationModel config) {
+        public void SetupRuntime(string[] args, OurConfig config) {
             var currentAsm = Assembly.GetExecutingAssembly();
             var despath = currentAsm.Location.Replace(Path.GetFileName(currentAsm.Location), "");
 
@@ -117,7 +117,7 @@ namespace DESCore {
                 }).Start();
             }
 
-            var ipadress = config.IpAdress ?? "127.0.0.1";
+            var ipadress = config.ipAdress ?? "127.0.0.1";
             //string portS; int port;
             //port = config.TryGetValue("port", out portS) ? int.Parse(portS) : 9090;
             CEnd.Logger.Notice(Localizer.Translate("desrv.core.startnotice", "Server will start on {0}", ipadress));

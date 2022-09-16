@@ -26,8 +26,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\DESCEndLib\DESCEnd.csproj" />
     <ProjectReference Include="..\..\DESCEnd\DESCEnd.csproj" />
     <ProjectReference Include="..\..\PDK\PDK\PDK.csproj" />
+    <ProjectReference Include="..\des-config\des-config.csproj" />
   </ItemGroup>
 
 </Project>

@@ -16,7 +16,7 @@ namespace DESCore {
             var loglevel = System.Diagnostics.FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).IsDebug ?
                     DESCEnd.Logging.LogLevel.Info : DESCEnd.Logging.LogLevel.Debug;
             // setup runtime and config
-            coreRunner.SetupRuntime(args, DESCEnd.Config.ConfigReader.Read());
+            coreRunner.SetupRuntime(args, DESCEnd.Config.ConfigReader.Read<OurConfig>());
             // setup DESCEndLib runner
             coreRunner.SetupCEnd(new DESCEnd.CEnd(new DESCEnd.Logging.CEndLog() {
                 ConsoleLoggingLevel = loglevel,

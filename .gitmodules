@@ -1,0 +1,3 @@
+[submodule "DESCEndLib"]
+	path = DESCEndLib
+	url = https://github.com/Blusutils/DESCEndLib.git
