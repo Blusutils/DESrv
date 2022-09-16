@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using DESCEnd.Config;
 
 namespace DESCore {
-    internal class OurConfig : ConfigurationModel {
+    public class OurConfig : ConfigurationModel {
         public string ipAdress { get; set; }
+        public int logLevel { get; set; }
+        public string[] extsToLoad { get; set; }
     }
 }
