@@ -1,0 +1,57 @@
+name: Bug Report
+description: Found a bug in DESrv? Describe it in issue and help us fix it!
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: textarea
+    id: bug-describation
+    attributes:
+      label: Bug describation
+      description: Please provide a clear and concise description of what the bug is.
+      placeholder: Describe the bug
+    validations:
+      required: true
+  - type: textarea
+    id: desrv-ver
+    attributes:
+      label: Version of DESrv
+      description: Version of DESrv what you used when this bug occurs, e. g. v1.0.5, v1.1.10-beta
+      placeholder: Version of DESrv
+    validations:
+      required: true
+  - type: textarea
+    id: pdk-ver
+    attributes:
+      label: Version of PDK
+      description: Version of PDK what you used when this bug occurs, e. g. v1.0.5, v1.1.10-beta
+      placeholder: Version of PDK
+    validations:
+      required: true
+  - type: textarea
+    id: descendlib-ver
+    attributes:
+      label: Version of DESCEndLib
+      description: Version of DESCEndLib what you used when this bug occurs, e. g. v1.0.5, v1.1.10-beta
+      placeholder: Version of DESCEndLib
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output or screenshots links
+      description: Please copy and paste any relevant log output or add links to screenshots with your problem
+      render: shell
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: How it can be reproduced
+      description: Please describe, how to reproduce this bug (if it possible), or leave this field.
+  - type: textarea
+    id: other-ctx
+    attributes:
+      label: Additional context
+      description: Add any other context about the problem here.
