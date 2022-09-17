@@ -1,4 +1,9 @@
 ﻿namespace DESPDK {
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
+    public class PDKExtensionAttribute : Attribute {
+        public PDKExtensionAttribute() { }
+    }
+
     public abstract class PDKAbstractExtension : AssemblyFieldReader {
         /// <summary>
         /// ID of extension. It mustn't contain spaces and special symbols (for example dots)

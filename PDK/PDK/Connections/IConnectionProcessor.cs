@@ -11,6 +11,7 @@
         public void Runner();
         protected T AcceptConnection();
         public void Process(T client);
+        public void Listen();
         public void Close();
     }
 }

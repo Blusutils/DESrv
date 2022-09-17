@@ -31,7 +31,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\DESCEndLib\DESCEnd.csproj" />
+    <PackageReference Include="DESCEndLib" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\PDK\CppRand\CppRand.vcxproj">
+      <ReferenceOutputAssembly>True</ReferenceOutputAssembly>
+    </ProjectReference>
     <ProjectReference Include="..\..\PDK\PDK\PDK.csproj" />
     <ProjectReference Include="..\des-config\des-config.csproj" />
   </ItemGroup>

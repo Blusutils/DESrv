@@ -1,10 +1,19 @@
 ﻿using System.Net;
+using System.Net.Sockets;
 
 namespace PDK.Connections {
     public class BaseHttpProcessor : IConnectionProcessor<HttpListenerContext>, IDisposable {
         IPAddress ip;
         int port;
         HttpListener httpServer;
+        List<HttpListenerContext> clients = new List<HttpListenerContext>();
+
+        public delegate void NewClientConnectedDelegate(HttpListenerContext client);
+        public event NewClientConnectedDelegate NewClientConnectedEvent;
+
+        public delegate void ClientGotDataDelegate(HttpListenerContext client, string data, byte[] bytes);
+        public event ClientGotDataDelegate ClientGotDataEvent;
+
         public BaseHttpProcessor(string ip = "", int port = 0) {
             this.ip = IPAddress.Parse(ip);
             this.port = port;
@@ -16,9 +25,9 @@ namespace PDK.Connections {
         public virtual void Runner() {
             while (true) {
                 var client = AcceptConnection();
-                //Log.Success("Accepted TCP connection", "DESrv TCP Processor");
+                //Log.Success("Accepted HTTP connection", "DESrv TCP Processor");
                 var thr = new Thread(() => { Process(client); });
-                thr.Name = $"DESrv-PDK-TCPProcessor-{client}";
+                thr.Name = $"DESrv-PDK-HTTPProcessor-{client}";
                 thr.Start();
             }
         }
@@ -26,7 +35,7 @@ namespace PDK.Connections {
         protected virtual HttpListenerContext AcceptConnection() {
             return httpServer.GetContext();
         }
-
+        public void Listen() => throw new NotImplementedException();
         public virtual void Process(HttpListenerContext client) {
             //try {
             //    var stream = client.GetStream();

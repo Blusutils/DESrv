@@ -29,6 +29,8 @@ namespace PDK.Connections {
             return socket.AcceptTcpClient();
         }
 
+        public void Listen() => throw new NotImplementedException();
+
         public virtual void Process(TcpClient client) {
             //try {
             //    var stream = client.GetStream();
@@ -63,5 +65,7 @@ namespace PDK.Connections {
             ip = null;
             port = 0;
         }
+
+        
     }
 }

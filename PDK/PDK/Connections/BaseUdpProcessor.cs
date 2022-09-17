@@ -6,6 +6,14 @@ namespace PDK.Connections {
         IPAddress ip;
         int port;
         Socket socket;
+        List<UdpClient> clients = new List<UdpClient>();
+
+        public delegate void NewClientConnectedDelegate(UdpClient client);
+        public event NewClientConnectedDelegate NewClientConnectedEvent;
+
+        public delegate void ClientGotDataDelegate(UdpClient client, string data, byte[] bytes);
+        public event ClientGotDataDelegate ClientGotDataEvent;
+
         public BaseUdpProcessor(string ip = "", int port = 0) {
             this.ip = IPAddress.Parse(ip);
             this.port = port;
@@ -24,7 +32,7 @@ namespace PDK.Connections {
             //    thr.Start();
             //}
         }
-
+        public void Listen() => throw new NotImplementedException();
         protected virtual UdpClient AcceptConnection() {
             throw new NotImplementedException();
             //return socket.AcceptUdpClient();

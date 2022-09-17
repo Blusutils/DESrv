@@ -1,11 +1,21 @@
 ﻿using System.Net;
 using System.Net.Sockets;
+using System.Text;
+using System.Xml.Serialization;
 
 namespace PDK.Connections {
     public class BaseTcpProcessor : IConnectionProcessor<TcpClient>, IDisposable {
         IPAddress ip;
         int port;
         TcpListener socket;
+        List<TcpClient> clients = new List<TcpClient>();
+
+        public delegate void NewClientConnectedDelegate(TcpClient client);
+        public event NewClientConnectedDelegate NewClientConnectedEvent;
+
+        public delegate void ClientGotDataDelegate(TcpClient client, string data, byte[] bytes);
+        public event ClientGotDataDelegate ClientGotDataEvent;
+
         public BaseTcpProcessor(string ip = "", int port = 0) {
             this.ip = IPAddress.Parse(ip);
             this.port = port;
@@ -24,7 +34,30 @@ namespace PDK.Connections {
         }
 
         protected virtual TcpClient AcceptConnection() {
-            return socket.AcceptTcpClient();
+            var cl = socket.AcceptTcpClient();
+            NewClientConnectedEvent?.Invoke(cl);
+            clients.Add(cl);
+            return cl;
+        }
+
+        public virtual void Listen() {
+            while (true) {
+                foreach (var c in clients) {
+                    try {
+                        var stream = c.GetStream();
+                        if (!c.Connected) {
+                            c.Close();
+                            clients.Remove(c);
+                            continue;
+                        }
+                        if (!stream.DataAvailable) continue;
+                        byte[] bytes = new byte[c.Available];
+                        stream.Read(bytes, 0, bytes.Length);
+                        string recv = Encoding.UTF8.GetString(bytes);
+                        ClientGotDataEvent?.Invoke(c, recv, bytes);
+                    } catch (Exception e) { Console.WriteLine(e.ToString()); continue; }
+                }
+            }
         }
 
         public virtual void Process(TcpClient client) {

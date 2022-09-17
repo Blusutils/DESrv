@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.IO;
+using System.Reflection;
 using DESPDK;
 #pragma warning disable CS8618
 namespace DESCore {
@@ -28,28 +29,34 @@ namespace DESCore {
         /// <param name="extToLoad">Extension filename</param>
         public void AddExtension(string extToLoad) {
             Assembly pdkobj = Assembly.LoadFrom(extToLoad);
-            try {
-                string extname = pdkobj.ManifestModule.Name;
-                var a = pdkobj.CreateInstance($"{extname.Substring(0, extname.Length - 4)}.Extension") as PDKAbstractExtension;
-                if (a == null) {
-                    DESCoreRunner.GetLogger().Error(
-                        DESCoreRunner.Localizer.Translate(
-                            "desrv.pdk.errors.invalidext.noentrypoint1",
-                            "Extension {0} is invalid (unable to find entrypoint class \"Extension\")",
-                            extname
-                        )
-                    );
-                    return;
+
+            string extname = pdkobj.ManifestModule.Name;
+
+            foreach (var typ in pdkobj.GetTypes()) {
+                if (typ.IsClass && typ.GetCustomAttribute<PDKExtensionAttribute>() != null) {
+                    try {
+                        var a = Activator.CreateInstance(typ) as PDKAbstractExtension;
+                        if (a == null) {
+                            DESCoreRunner.GetLogger().Error(
+                                DESCoreRunner.Localizer.Translate(
+                                    "desrv.pdk.errors.invalidext.noentrypoint1",
+                                    "Extension {0} is invalid (unable to find entrypoint class)",
+                                    extname
+                                )
+                            );
+                            return;
+                        }
+                        pdkobjects.Add(a);
+                    } catch (InvalidCastException) {
+                        DESCoreRunner.GetLogger().Error(
+                            DESCoreRunner.Localizer.Translate(
+                                "desrv.pdk.errors.invalidext.noentrypoint2",
+                                "Extension {0} is invalid (entrypoint class \"Extension\" not derived from PDKAbstractExtension)",
+                                pdkobj.ManifestModule.Name
+                            )
+                        );
+                    }
                 }
-                pdkobjects.Add(a);
-            } catch (InvalidCastException) {
-                DESCoreRunner.GetLogger().Error(
-                    DESCoreRunner.Localizer.Translate(
-                        "desrv.pdk.errors.invalidext.noentrypoint2",
-                        "Extension {0} is invalid (entrypoint class \"Extension\" not derived from PDKAbstractExtension)",
-                        pdkobj.ManifestModule.Name
-                    )
-                );
             }
         }
         /// <summary>
