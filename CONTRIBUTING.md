@@ -65,9 +65,11 @@ Feel free to create forks and pull requests with improvements. See guide below t
 
     * Please provide clear and concise (as you can) description of what the bug is, versions of Core and libraries you are using.
 
-    * It can help us understand the problem and fix it faster.
+    * If bug is able to reproduce, please describe how it can be reproduce (code examples, video, etc.)
 
     * If it possible, please attach a relevant log output (`*desrv directory*/logs`) and/or screenshots. Additional context that can be useful also welcome.
+
+    > These items can help us understand the problem and fix it faster.
 
 3. Enhancements
 
@@ -76,6 +78,8 @@ Feel free to create forks and pull requests with improvements. See guide below t
     * The enhancements must not harm the DESrv Core and PDK code base. They must also be implementable.
 
 4. Changes in code
+
+    * The pull requests must not harm the DESrv Core and PDK code base. They must also be applicable to current code base. 
 
     * Please stick to DESrv code styling (our modified Java style instead of classic C# style).
         * Brackets on the same line.
@@ -111,8 +115,6 @@ Feel free to create forks and pull requests with improvements. See guide below t
       }
     }
     ```
-
-    * The pull requests must not harm the DESrv Core and PDK code base. They must also be applicable to current code base.
 
 5. Localization
     * coming soon because SimpleTranslate not done yet
