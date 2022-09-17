@@ -1,6 +1,6 @@
-# Contributions ways & guidelines
+# Contribution guidelines
 
-**DESrv** is **opensource** project what welomes to any contributions.
+**DESrv** is **opensource** project what welomes to any contributions. Please follow these guidelines to make them.
 
 ## Ways to contribute
 
@@ -13,13 +13,13 @@ You also can suggest anything about DESrv in the same place.
 
 ### Localization
 
-You can suggest translation to your language for Wiki, Documentation and Core on our [SimpleTranslate](https://simpletranslate.net/projects/blusutils-desrv) page.
+You can suggest translation to your language for Wiki, Documentation and Core on our [SimpleTranslate](https://simpletranslate.net/projects/blusutils-desrv) page (or by creating PR if website offline).
 
 > **Note**: no need to translate into Russian or English. Only correction suggestions.
 
 ### Source code
 
-Feel free to create forks and PRs with improvements. See guide below to learn how to.
+Feel free to create forks and pull requests with improvements. See guide below to learn how to.
 
 #### Prerequesties
 
@@ -55,6 +55,64 @@ Feel free to create forks and PRs with improvements. See guide below to learn ho
 
 6. Open PR in original repository.
 
-## Contribution guidelines
+## Other contribution guidelines
 
-Coming soon!
+1. Targets of contributions
+
+    * We do not consider contributions related to extensions/addons or DESCEndLib, only Core and PDK (DESCEndLib has its [own repository](https://github.com/Blusutils/DESCEndLib)).
+
+2. Bug reports.
+
+    * Please provide clear and concise (as you can) description of what the bug is, versions of Core and libraries you are using.
+
+    * It can help us understand the problem and fix it faster.
+
+    * If it possible, please attach a relevant log output (`*desrv directory*/logs`) and/or screenshots. Additional context that can be useful also welcome.
+
+3. Enhancements
+
+    * Please describe your suggestion as clearly and completely as possible. If you are able, add code examples.
+
+    * The enhancements must not harm the DESrv Core and PDK code base. They must also be implementable.
+
+4. Changes in code
+
+    * Please stick to DESrv code styling (our modified Java style instead of classic C# style).
+        * Brackets on the same line.
+        * Tab size - 4 spaces.
+        * Delegates must end with `Delegate`, events with `Event`.
+        * Interfaces must starts with `I`, abstract classes with `Abstract`.
+        * `PascalCase` for class, struct, interface, namespace, delegate, event, record, property, method; `camelCase` for field.
+
+    ```cs
+    // that is recommended
+    interface ITest {}
+    abstract class AbstractFoo {}
+    class FooClass : ITest, AbstractFoo {
+        delegate void SomeDelegate();
+        public void Foo() {
+            if (true) { 
+                return;
+            }
+        }
+    }
+
+    // and that isn't
+    interface Test {}
+    abstract class AbcFoo {}
+    class bar_class : Test, AbcFoo {
+      delegate void some();
+      public void bAR()
+      {
+        if (true)
+        {
+          return;
+        }
+      }
+    }
+    ```
+
+    * The pull requests must not harm the DESrv Core and PDK code base. They must also be applicable to current code base.
+
+5. Localization
+    * coming soon because SimpleTranslate not done yet

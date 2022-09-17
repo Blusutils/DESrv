@@ -6,7 +6,7 @@ Flexible and extendible framework-like server for usage in different tasks. This
 
 **DESrv** is a framework-like server for usage in different tasks.
 
-This software bases on theese key components:
+This software bases on these key components:
 
 * Core (server runtime basic logic)
   * Runner based on [DESCEndLib](https://github.com/Blusutils/DESCEndLib)
@@ -78,7 +78,7 @@ If not, [go here](#des-for-standard).
 ### Quick guide to configuration and command line arguments
 
 DESrv needs configuration to run. You can set it using `des-config` in binaries. Out config file can be found in same directory with all binaries (file named as `config.json`).
-All values in this file is overridable on server run. Just pass commandline argument with same name as field name in config. In example:
+All values in this file is overridable on server run. Just pass command line argument with same name as field name in config. In example:
 
 ```jsonc
 // config file 
@@ -164,7 +164,7 @@ If you want to use another random implementation, create plugin with class, deri
 
 See [CONTRIBUTING](./CONTRIBUTING.md) for more info.
 
-There's also contains inforamtion about builds from source code.
+There's also contains information about builds from source code.
 
 ## License
 
