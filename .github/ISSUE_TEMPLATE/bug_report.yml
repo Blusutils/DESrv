@@ -15,7 +15,7 @@ body:
       placeholder: Describe the bug
     validations:
       required: true
-  - type: textarea
+  - type: input
     id: desrv-ver
     attributes:
       label: Version of DESrv
@@ -23,7 +23,7 @@ body:
       placeholder: Version of DESrv
     validations:
       required: true
-  - type: textarea
+  - type: input
     id: pdk-ver
     attributes:
       label: Version of PDK
@@ -31,7 +31,7 @@ body:
       placeholder: Version of PDK
     validations:
       required: true
-  - type: textarea
+  - type: input
     id: descendlib-ver
     attributes:
       label: Version of DESCEndLib
@@ -44,7 +44,6 @@ body:
     attributes:
       label: Relevant log output or screenshots links
       description: Please copy and paste any relevant log output or add links to screenshots with your problem
-      render: shell
   - type: textarea
     id: reproduction
     attributes:
