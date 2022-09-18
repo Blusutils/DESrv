@@ -24,7 +24,7 @@ Feel free to create forks and pull requests with improvements. See guide below t
 #### Prerequesties
 
 * Visual Studio 2022 (17)
-* .NET 6.0
+* .NET SDK 6.0
 * Git (any version)
 
 #### Fork, clone, modify, push, PR
@@ -57,36 +57,37 @@ Feel free to create forks and pull requests with improvements. See guide below t
 
 ## Other contribution guidelines
 
-1. Targets of contributions
+### 1. Targets of contributions
 
-    * We do not consider contributions related to extensions/addons or DESCEndLib, only Core and PDK (DESCEndLib has its [own repository](https://github.com/Blusutils/DESCEndLib)).
+* We do not consider contributions related to extensions/addons or DESCEndLib, only Core and PDK (DESCEndLib has its [own repository](https://github.com/Blusutils/DESCEndLib)).
 
-2. Bug reports.
+### 2. Bug reports.
 
-    * Please provide clear and concise (as you can) description of what the bug is, versions of Core and libraries you are using.
+* Please provide clear and concise (as you can) description of what the bug is, versions of Core and libraries you are using.
 
-    * If bug is able to reproduce, please describe how it can be reproduce (code examples, video, etc.)
+* If bug is able to reproduce, please describe how it can be reproduce (code examples, video, etc.)
 
-    * If it possible, please attach a relevant log output (`*desrv directory*/logs`) and/or screenshots. Additional context that can be useful also welcome.
+* If it possible, please attach a relevant log output (`*desrv directory*/logs`) and/or screenshots. Additional context that can be useful also welcome.
 
-    > These items can help us understand the problem and fix it faster.
+> These items can help us understand the problem and fix it faster.
 
-3. Enhancements
+### 3. Enhancements
 
-    * Please describe your suggestion as clearly and completely as possible. If you are able, add code examples.
+* Please describe your suggestion as clearly and completely as possible. If you are able, add code examples.
 
-    * The enhancements must not harm the DESrv Core and PDK code base. They must also be implementable.
+* The enhancements must not harm the DESrv Core and PDK code base. They must also be implementable.
 
-4. Changes in code
+### 4. Changes in code
 
-    * The pull requests must not harm the DESrv Core and PDK code base. They must also be applicable to current code base. 
+* The pull requests must not harm the DESrv Core and PDK code base. They must also be applicable to current code base.
 
-    * Please stick to DESrv code styling (our modified Java style instead of classic C# style).
-        * Brackets on the same line.
-        * Tab size - 4 spaces.
-        * Delegates must end with `Delegate`, events with `Event`.
-        * Interfaces must starts with `I`, abstract classes with `Abstract`.
-        * `PascalCase` for class, struct, interface, namespace, delegate, event, record, property, method; `camelCase` for field.
+* Please stick to DESrv code styling (our modified Java style instead of classic C# style):
+    * Brackets on the same line.
+    * Tab size - 4 spaces.
+    * Delegates must end with `Delegate`, events with `Event`.
+    * Interfaces must starts with `I`, abstract classes with `Abstract`.
+    * `PascalCase` for class, struct, interface, namespace, delegate, event, record, property, method; `camelCase` for field.
+    * Example:
 
     ```cs
     // that is recommended
@@ -116,5 +117,5 @@ Feel free to create forks and pull requests with improvements. See guide below t
     }
     ```
 
-5. Localization
-    * coming soon because SimpleTranslate not done yet
+### 5. Localization
+* coming soon because SimpleTranslate not done yet
