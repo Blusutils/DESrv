@@ -22,7 +22,7 @@
         /// </summary>
         public string Description = "";
         /// <summary>
-        /// Version for extension
+        /// Version of extension
         /// </summary>
         public string Version = "-0.0.0";
         /// <summary>

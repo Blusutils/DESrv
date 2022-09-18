@@ -64,10 +64,10 @@ des-run <optional params>
 <details>
 <summary><h3>For plugin/add-on development</h3> (click to reveal...)</summary>
 
-1. Make sure that you have already installed DESrv.
+Make sure that you have already installed DESrv.
 If not, [go here](#des-for-standard).
 
-2. Go to the [docs](https://github.com/Blusutils/DESrv/wiki) for more information and tutorials.
+Go to the [docs](https://github.com/Blusutils/DESrv/wiki) for more information and tutorials. Also recommended to use [template](https://github.com/Blusutils/desrv-pdk-example).
 
 </details>
 <hr>
