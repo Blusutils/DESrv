@@ -14,7 +14,7 @@ body:
       description: Please provide a clear and complete description of your idea.
     validations:
       required: true
-  - type: checkbox
+  - type: checkboxes
     id: agreed
     attributes:
       label: I have read [contribution guidelines](https://github.com/Blusutils/DESrv/blob/master/CONTRIBUTING.md#3-enhancements) for enhancements.
