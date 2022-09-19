@@ -17,5 +17,7 @@ body:
   - type: checkboxes
     id: agreed
     attributes:
-      label: I have read [contribution guidelines](https://github.com/Blusutils/DESrv/blob/master/CONTRIBUTING.md#3-enhancements) for enhancements.
-      required: true
+      label: Agreements
+      options:
+        - label: I have read [contribution guidelines](https://github.com/Blusutils/DESrv/blob/master/CONTRIBUTING.md#3-enhancements) for enhancements.
+          required: true
