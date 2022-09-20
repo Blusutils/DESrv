@@ -1,7 +1,7 @@
 ﻿// dllmain.cpp : Определяет точку входа для приложения DLL.
 #include "windows.h"
 #include <random>
-
+extern "C" {
 __declspec(dllexport) void SeedDll(int value) {
     std::srand(value);
 }
@@ -15,4 +15,4 @@ __declspec(dllexport) int GetRandIntDllRanged(int startRange, int endRange) {
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved) {
     return TRUE;
 }
-
+}
