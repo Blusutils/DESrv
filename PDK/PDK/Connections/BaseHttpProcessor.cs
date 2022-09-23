@@ -1,7 +1,9 @@
 ﻿using System.Net;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
 
 namespace PDK.Connections {
+    [ComVisible(true)]
     public class BaseHttpProcessor : IConnectionProcessor<HttpListenerContext>, IDisposable {
         IPAddress ip;
         int port;

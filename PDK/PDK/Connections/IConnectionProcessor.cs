@@ -1,9 +1,12 @@
-﻿namespace PDK.Connections {
+﻿using System.Runtime.InteropServices;
+
+namespace PDK.Connections {
     /// <summary>
     /// Interface for connection processors
     /// </summary>
     // <typeparam name="T1">A socket type</typeparam>
     /// <typeparam name="T">A client type</typeparam>
+    [ComVisible(true)]
     public interface IConnectionProcessor<T> {
         /// <summary>
         /// New connection handler

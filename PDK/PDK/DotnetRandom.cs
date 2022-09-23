@@ -1,4 +1,7 @@
-﻿namespace DESPDK.Random {
+﻿using System.Runtime.InteropServices;
+
+namespace DESPDK.Random {
+    [ComVisible(true)]
     public class DotnetRandom : RandomBase {
         static System.Random rand = new System.Random();
         public override int GetRandInt() {

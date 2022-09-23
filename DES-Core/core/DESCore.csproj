@@ -32,6 +32,8 @@
 
   <ItemGroup>
     <PackageReference Include="DESCEndLib" Version="1.0.0" />
+    <PackageReference Include="Emgu.CV" Version="4.5.5.4823" />
+    <PackageReference Include="Emgu.CV.Bitmap" Version="4.5.5.4823" />
   </ItemGroup>
 
   <ItemGroup>

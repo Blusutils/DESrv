@@ -1,9 +1,10 @@
 ﻿using System.Net;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
 using System.Text;
-using System.Xml.Serialization;
 
 namespace PDK.Connections {
+    [ComVisible(true)]
     public class BaseTcpProcessor : IConnectionProcessor<TcpClient>, IDisposable {
         IPAddress ip;
         int port;

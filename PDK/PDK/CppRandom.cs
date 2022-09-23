@@ -1,6 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 
 namespace DESPDK.Random {
+    [ComVisible(true)]
     public class CppRandom : RandomBase {
         [DllImport("CppRand.dll", EntryPoint = "?GetRandIntDll@@YAHXZ")]
         public static extern int GetRandIntDll();

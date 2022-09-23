@@ -1,9 +1,11 @@
 ﻿using System.Net;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
 
 
 // TODO!
 namespace PDK.Connections {
+    [ComVisible(true)]
     public class BaseWebSocketProcessor : IConnectionProcessor<TcpClient>, IDisposable {
         IPAddress ip;
         int port;
