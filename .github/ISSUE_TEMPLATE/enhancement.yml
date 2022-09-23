@@ -6,11 +6,18 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for suggesting something new to DESrv!
+        Thanks for suggesting something new to DESrv! But please read [contribution guidelines](https://github.com/Blusutils/DESrv/blob/master/CONTRIBUTING.md#3-enhancements) before you start.
   - type: textarea
     id: enhancement
     attributes:
       label: Enhancement describation
-      description: Please provide a clear and concise description of your idea.
+      description: Please provide a clear and complete description of your idea.
     validations:
       required: true
+  - type: checkboxes
+    id: agreed
+    attributes:
+      label: Agreements
+      options:
+        - label: I have read [contribution guidelines](https://github.com/Blusutils/DESrv/blob/master/CONTRIBUTING.md#3-enhancements) for enhancements.
+          required: true
