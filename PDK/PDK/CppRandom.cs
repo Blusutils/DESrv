@@ -3,11 +3,11 @@
 namespace DESPDK.Random {
     [ComVisible(true)]
     public class CppRandom : RandomBase {
-        [DllImport("CppRand.dll")]
+        [DllImport("CppRand.dll", EntryPoint = "?GetRandIntDll@@YAHXZ")]
         public static extern int GetRandIntDll();
-        [DllImport("CppRand.dll")]
+        [DllImport("CppRand.dll", EntryPoint = "?GetRandIntDllRanged@@YAHHH@Z")]
         public static extern int GetRandIntDllRanged(int startRange, int endRange);
-        [DllImport("CppRand.dll")]
+        [DllImport("CppRand.dll", EntryPoint = "?SeedDll@@YAXH@Z")]
         public static extern void SeedDll(int value);
 
         public override int GetRandInt() {
