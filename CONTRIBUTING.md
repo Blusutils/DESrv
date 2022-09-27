@@ -17,9 +17,11 @@ You can suggest translation to your language for Wiki, Documentation and Core on
 
 > **Note**: no need to translate into Russian or English. Only correction suggestions.
 
-### Source code
+### Source code (and builds from it)
 
 Feel free to create forks and pull requests with improvements. See guide below to learn how to.
+
+This guide also applicable if you wish get DESrv compiled by yourself. Just ignore 1, 3, 5 and 6 (in 2 you need to clone DESrv repo).
 
 #### Prerequesties
 
@@ -40,11 +42,11 @@ Feel free to create forks and pull requests with improvements. See guide below t
 4. Test your changes:
 
     ```batch
-    dotnet build
     :: or build solution directly from VS
+    dotnet build
     ```
 
-5. Push to fork:
+6. Push to fork:
 
     ```batch
     git add .
@@ -53,7 +55,7 @@ Feel free to create forks and pull requests with improvements. See guide below t
     git push origin master
     ```
 
-6. Open PR in original repository.
+7. Open PR in original repository.
 
 ## Other contribution guidelines
 
