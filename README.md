@@ -70,7 +70,7 @@ If not, [go here](#des-for-standard).
 Go to the [docs](https://github.com/Blusutils/DESrv/wiki) for more information and tutorials. Also recommended to use [template](https://github.com/Blusutils/desrv-pdk-example).
 
 </details>
-<hr>
+<!--<hr>
 <details>
 <summary>
 <h2>Quick guides & recipes</h2> click here to reveal...</summary>
@@ -97,7 +97,7 @@ des-run --loglevel warn
 In this example loglevel will be overriden for this run of server but port will stay 9090.
 
 All configuration parameters is available in docs.
-<!-- <details>
+<details>
 <summary><h3>List of all configuration parameters</h3></summary>
 
 * host 
@@ -131,7 +131,7 @@ All configuration parameters is available in docs.
 * randommode
   * `bool` `not required`
   * Sets random integers generator (`dotnet`, `cpp`, `randomorg`, `lava` or any other from plugins). By default set to `dotrand` (standard .NET random). 
-</details> -->
+</details>
 
 ### How to use extensions (Plugins or Addons)
 
@@ -158,7 +158,7 @@ DESrv was written on .NET C#, which has very bad pseudorandom. But you can choos
 * [LavaRnd](https://www.lavarand.org/) random *TODO*
 
 If you want to use another random implementation, create plugin with class, derived from `RandomBase` class, then add it to configuration. More info in docs.
-</details>
+</details>-->
 
 ## Contributing
 
@@ -168,4 +168,4 @@ There's also contains information about builds from source code.
 
 ## License
 
-DESrv licensed under `MIT License`
+DESrv is under [`MIT License`](/LICENSE.txt).
