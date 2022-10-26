@@ -1,5 +1,17 @@
 # Dedicated Extendible Server (DESrv or DES) <img src="./DESrvLogo.svg" align="center" width="100">
 
+[![GitHub Repo stars](https://img.shields.io/github/stars/Blusutils/DESrv?label=Stars&style=flat-square)](https://github.com/Blusutils/DESrv/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/Blusutils/DESrv?label=Forks&style=flat-square)](https://github.com/Blusutils/DESrv/network/members)
+[![GitHub all releases](https://img.shields.io/github/downloads/Blusutils/DESrv/total?label=Downloads&style=flat-square)](https://github.com/Blusutils/DESrv/releases)
+
+[![GitHub issues](https://img.shields.io/github/issues/Blusutils/DESrv?label=Issues&style=flat-square)](https://github.com/Blusutils/DESrv/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/Blusutils/DESrv?label=PRs&style=flat-square)](https://github.com/Blusutils/DESrv/pulls)
+
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/Blusutils/DESrv?label=Latest%20release&style=flat-square)](https://github.com/Blusutils/DESrv/releases/latest)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Blusutils/DESrv/.NET%20build?label=Build%20%28Windows%29&style=flat-square)](https://github.com/Blusutils/DESrv/actions/workflows/dotnet.yml)
+
+[![GitHub license](https://img.shields.io/github/license/Blusutils/DESrv?style=flat-square)](https://github.com/Blusutils/DESrv/blob/master/LICENSE.txt)
+
 Flexible and extendible framework-like server for usage in different tasks. This repo contains Core and PDK.
 
 ## About this
@@ -165,7 +177,3 @@ If you want to use another random implementation, create plugin with class, deri
 See [CONTRIBUTING](./CONTRIBUTING.md) for more info.
 
 There's also contains information about builds from source code.
-
-## License
-
-DESrv is under [`MIT License`](/LICENSE.txt).
