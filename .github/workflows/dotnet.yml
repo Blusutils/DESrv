@@ -16,7 +16,7 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Where am i
-      run: ls D:\a\DESrv\DESrv\
+      run: foreach ($file in Get-ChildItem -Path "D:/a/DESrv/DESrv/" -Recurse -File) {echo $file}
     - name: Restore dependencies
       run: dotnet restore
       working-directory: DES-Core
