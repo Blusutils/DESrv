@@ -20,8 +20,8 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build -o outs -c Debug
-    - uses: actions/upload-artifact@v3.1.1
     - name: Upload artifact
+      uses: actions/upload-artifact@v3.1.1
       with:
         # Artifact name
         name: DESrv # optional, default is artifact
