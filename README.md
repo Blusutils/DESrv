@@ -10,7 +10,7 @@
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/Blusutils/DESrv?label=Latest%20release&style=flat-square)](https://github.com/Blusutils/DESrv/releases/latest)
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Blusutils/DESrv/.NET%20build?label=Build%20%28Windows%29&style=flat-square)](https://github.com/Blusutils/DESrv/actions/workflows/dotnet.yml)
 
-[![GitHub license](https://img.shields.io/github/license/Blusutils/DESrv?style=flat-square)](https://github.com/Blusutils/DESrv/blob/master/LICENSE.txt)
+[![GitHub license](https://img.shields.io/github/license/Blusutils/DESrv?label=License&style=flat-square)](https://github.com/Blusutils/DESrv/blob/master/LICENSE.txt)
 
 Flexible and extendible framework-like server for usage in different tasks. This repo contains Core and PDK.
 
@@ -42,11 +42,13 @@ You can easily implement or extend needed functionality (in example socket data 
     * (optional) Internet connection
     * (optional) Connection client
 
-1. Download binaries on [releases page](https://github.com/Blusutils/DESrv/releases/latest).
+1. Download binaries on [releases page](https://github.com/Blusutils/DESrv/releases/latest) or from artifact in [Actions](https://github.com/Blusutils/DESrv/actions/workflows/dotnet.yml).
 
-2. Open terminal, `cd` (change directory) to with downloaded binaries.
+2. Unzip binaries
 
-3. Type:
+3. Open terminal, `cd` (change directory) to with downloaded binaries.
+
+4. Open terminal and type following:
 
 ```batch
 :: in Windows cmd
@@ -60,7 +62,7 @@ des-config
 
 Follow the instructions in console to perform basic configuration of server.
 
-4. Run DESrv:
+5. Run DESrv:
 
 ```batch
 :: in Windows cmd
