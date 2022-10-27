@@ -1,4 +1,4 @@
-# Contribution guidelines
+# Contribution ways and guidelines
 
 **DESrv** is **opensource** project what welomes to any contributions. Please follow these guidelines to make them.
 
@@ -57,7 +57,7 @@ This guide also applicable if you wish get DESrv compiled by yourself. Just igno
 
 7. Open PR in original repository.
 
-## Other contribution guidelines
+## Contribution guidelines
 
 ### 1. Targets of contributions
 
@@ -88,7 +88,7 @@ This guide also applicable if you wish get DESrv compiled by yourself. Just igno
     * Tab size - 4 spaces.
     * Delegates must end with `Delegate`, events with `Event`.
     * Interfaces must starts with `I`, abstract classes with `Abstract`.
-    * `PascalCase` for class, struct, interface, namespace, delegate, event, record, property, method; `camelCase` for field.
+    * `camelCase` for field; `PascalCase` for anything else.
     * Example:
 
     ```cs
