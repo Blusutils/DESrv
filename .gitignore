@@ -62,3 +62,7 @@ DES-Core/core/bin/Debug/net6.0/DESCEnd.dll
 DESCEnd/
 /PDK/CppRand/x64/bin/Debug
 /PDK/CppRand/x64/object/Debug
+/DES-Core/DESrv.Core/bin
+/DES-Core/DESrv.Core/obj
+/DES-Core/DESrv.Core/Properties
+/DES-Core/DESrv.PDK/obj/Release/net6.0
