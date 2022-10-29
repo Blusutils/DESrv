@@ -2,6 +2,7 @@
 using DESCEnd;
 using DESCEnd.L10n;
 using DESCEnd.Logging;
+using DESrv.PDK.Random;
 
 namespace DESrv {
     /// <summary>
@@ -62,6 +63,8 @@ namespace DESrv {
             Localizer.Load(Path.Combine(despath, "translations"));
             Localizer.Strict = false;
 
+            RandomBase.Randoms.Add(new DotnetRandom());
+
             pdkLoader = new PDKLoader(Path.Combine(despath, "extensions"));
             pdkLoader.AddAllExtensionsFromDir();
 
@@ -71,6 +74,10 @@ namespace DESrv {
             }*/
             config.Extend(parsed);
             this.config = config;
+
+            RandomBase.Randoms.ForEach(x => {
+                if (config.prefferedRandom == x.ExtID) x.IsPreffered = true; else x.IsPreffered = false;
+            });
         }
         /// <summary>
         /// Setup <see cref="DESCEnd.CEnd"/>

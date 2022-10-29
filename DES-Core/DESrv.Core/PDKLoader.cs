@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Reflection;
 using DESrv.PDK;
+using DESrv.PDK.Random;
 #pragma warning disable CS8618
 namespace DESrv {
     /// <summary>
@@ -91,6 +92,9 @@ namespace DESrv {
                         if (ext.ExtType == 1 && ext.ID == extension.Reference)
                             ext.LoadSubExtension(extension);
                     }
+                    break;
+                case 3: // random generator
+                    RandomBase.Randoms.Add((RandomBase)extension.GetFieldValue("randomNumberGenerator"));
                     break;
                 default:
                     DESCoreRunner.GetLogger().Error(

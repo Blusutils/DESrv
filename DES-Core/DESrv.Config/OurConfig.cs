@@ -10,5 +10,6 @@ namespace DESrv.Config {
         public string ipAdress { get; set; }
         public int logLevel { get; set; }
         public string[] extsToLoad { get; set; }
+        public string prefferedRandom { get; set; }
     }
 }
