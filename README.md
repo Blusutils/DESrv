@@ -30,13 +30,10 @@ This software bases on these key components:
 **DESrv** have APIs for Plugins and Add-ons (PDK, Plugin Development Kit), also have support for some databases and connection types out-of-the-box.
 You can easily implement or extend needed functionality (in example socket data handler) for server by writing simple (or more complex) plugin or using existing by other developers.
 
-## Installing
-
-<details>
-<summary><h3 id="des-for-standard" id="des-for-standard">For standard usage</h3> (click to reveal...)</summary>
+<h2 id="des-for-standard" id="des-for-standard">Install</h2>
 
 0. Prerequesties:
-    * .NET 6.0
+    * .NET 6.0 (runtime is enough)
     * Windows (macOS/Linux not tested yet)
     * Extensions what you need
     * (optional) Internet connection
@@ -74,16 +71,35 @@ des-run <optional params>
 ./des-run <optional params>
 ``` -->
 
-</details>
-<details>
-<summary><h3>For plugin/add-on development</h3> (click to reveal...)</summary>
+### Plugin/add-on development
 
 Make sure that you have already installed DESrv.
 If not, [go here](#des-for-standard).
 
 Go to the [docs](https://github.com/Blusutils/DESrv/wiki) for more information and tutorials. Also recommended to use [template](https://github.com/Blusutils/desrv-pdk-example).
 
-</details>
+### Builds from source code
+#### Prerequesties
+
+* Visual Studio 2022 (17)
+* .NET SDK 6.0
+* Git (any version)
+
+1. Clone this repository:
+
+    ```batch
+    git clone https://github.com/Blusutils/DESrv.git
+    ```
+
+2. Run:
+
+    ```batch
+    :: or build solution directly from VS
+    dotnet restore
+    dotnet build -c Debug
+    dotnet run
+    ```
+
 <!--<hr>
 <details>
 <summary>
