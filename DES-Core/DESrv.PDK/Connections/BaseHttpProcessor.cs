@@ -28,6 +28,7 @@ namespace DESrv.PDK.Connections {
             while (true) {
                 var client = AcceptConnection();
                 //Log.Success("Accepted HTTP connection", "DESrv TCP Processor");
+                
                 var thr = new Thread(() => { Process(client); });
                 thr.Name = $"DESrv-PDK-HTTPProcessor-{client}";
                 thr.Start();
@@ -35,9 +36,25 @@ namespace DESrv.PDK.Connections {
         }
 
         protected virtual HttpListenerContext AcceptConnection() {
-            return httpServer.GetContext();
+            var client = httpServer.GetContext();
+            NewClientConnectedEvent?.Invoke(client);
+            clients.Add(client);
+            return client;
         }
-        public void Listen() => throw new NotImplementedException();
+        public void Listen() {
+            while (true) {
+                foreach (var c in clients) {
+                    try {
+                        HttpListenerRequest request = c.Request;
+                        HttpListenerResponse response = c.Response;
+                        response.StatusCode = (int)HttpStatusCode.NoContent;
+                        response.ContentLength64 = 0;
+                        response.OutputStream.Close();
+                    } catch (Exception e) { Console.WriteLine(e.ToString()); continue; }
+                }
+            }
+        }
+
         public virtual void Process(HttpListenerContext client) {
             //try {
             //    var stream = client.GetStream();
