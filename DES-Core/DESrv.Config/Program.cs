@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace DESrv.Config {
     //class GuiForm : Form { }
-    internal class Program {
+    public class Program {
         static T Input<T>(string message, string errorMessage) {
             Console.WriteLine(message);
             var inp = Console.ReadLine();
@@ -17,7 +17,7 @@ namespace DESrv.Config {
             }
             
         }
-        static void Main(string[] args) {
+        public static void Main(string[] args) {
             Console.WriteLine("Welcome to DESrv configuration setup.");
             Console.WriteLine("For now multilanguage is not supported");
             var configPath = System.Reflection.Assembly.GetExecutingAssembly().Location.Replace(Path.GetFileName(System.Reflection.Assembly.GetExecutingAssembly().Location), "config.json");

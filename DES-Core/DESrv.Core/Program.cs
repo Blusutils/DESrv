@@ -1,22 +1,21 @@
 ﻿using System.Reflection;
-
 namespace DESrv {
-    /// <summary>
-    /// DESrv entrypoint class
-    /// </summary>
-    sealed class Program {
-        /// <summary>
-        /// DESrv entrypoint
-        /// </summary>
-        static void Main(string[] args) {
+    public class Program {
+        public static void Main(string[] args) {
             // create runner
             var coreRunner = new DESCoreRunner();
 
             // get logging level
-            var loglevel = System.Diagnostics.FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).IsDebug ?
-                    DESCEnd.Logging.LogLevel.Info : DESCEnd.Logging.LogLevel.Debug;
+            var loglevel =
+#if !DEBUG
+                DESCEnd.Logging.LogLevel.Info;
+#else
+                DESCEnd.Logging.LogLevel.Debug;
+#endif
+            // create config in any way
+            if (!File.Exists("config.json")) DESrv.Config.Program.Main(Array.Empty<string>());
             // setup runtime and config
-            coreRunner.SetupRuntime(args, DESCEnd.Config.ConfigReader.Read<Config.OurConfig > ());
+            coreRunner.SetupRuntime(args, DESCEnd.Config.ConfigReader.Read<DESrv.Config.OurConfig>());
             // setup DESCEndLib runner
             coreRunner.SetupCEnd(new DESCEnd.CEnd(new DESCEnd.Logging.CEndLog() {
                 ConsoleLoggingLevel = loglevel,

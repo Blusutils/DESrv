@@ -1,35 +1,69 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
-
-name: .NET build
+# Artifacts on intermediate per-commit DESrv build
+name: Build DESrv Artifacts
 
 on:
+# only when pushing to main branch
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    branches: [ "master", "main" ]
 
 jobs:
-  build:
 
+  # Build version for Windows
+  buildwin:
+    # yes, it's genius to make a build for Windows on Windows
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v3
+    # just clone DESrv repo
+    - name: Clone repository
+      uses: actions/checkout@v3
+    # setup .NET
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 7.0.x
+    # restore nuget
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore --nologo
       working-directory: DES-Core/
+    # do build!
     - name: Build
-      run: dotnet build --no-restore -c Debug -o outs
+      run: dotnet build --no-restore -c Debug -o outs-win --sc -v n --nologo --os win
       working-directory: DES-Core/
+    # upload build
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.1
       with:
         # Artifact name
-        name: DESrv-Debug
+        name: DESrv-Windows-Debug
         # A file, directory or wildcard pattern that describes what to upload
-        path: DES-Core/outs
+        path: DES-Core/outs-win
+
+
+  buildlinux:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    # just clone DESrv repo
+    - name: Clone repository
+      uses: actions/checkout@v3
+    # setup .NET
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+    # restore nuget
+    - name: Restore dependencies
+      run: dotnet restore --nologo
+      working-directory: DES-Core/
+    # do build!
+    - name: Build
+      run: dotnet build --no-restore -c Debug -o outs-linux --sc -v n --nologo --os linux
+      working-directory: DES-Core/
+    # upload build
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.1.1
+      with:
+        name: DESrv-Linux-Debug
+        path: DES-Core/outs-linux

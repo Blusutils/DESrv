@@ -66,3 +66,6 @@ DESCEnd/
 /DES-Core/DESrv.Core/obj
 /DES-Core/DESrv.Core/Properties
 /DES-Core/DESrv.PDK/obj/Release/net6.0
+/DES-Core/DESrv.Config/obj/Release/net7.0
+/DES-Core/DESrv.PDK/obj/Release/net7.0
+/DES-Core/outs-win
