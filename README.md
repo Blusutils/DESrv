@@ -8,7 +8,7 @@
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/Blusutils/DESrv?label=PRs&style=flat-square)](https://github.com/Blusutils/DESrv/pulls)
 
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/Blusutils/DESrv?label=Latest%20release&style=flat-square)](https://github.com/Blusutils/DESrv/releases/latest)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Blusutils/DESrv/.NET%20build?label=Build%20%28Windows%29&style=flat-square)](https://github.com/Blusutils/DESrv/actions/workflows/dotnet.yml)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Blusutils/DESrv/.NET%20build?label=Build&style=flat-square)](https://github.com/Blusutils/DESrv/actions/workflows/dotnet.yml)
 
 [![GitHub license](https://img.shields.io/github/license/Blusutils/DESrv?label=License&style=flat-square)](https://github.com/Blusutils/DESrv/blob/master/LICENSE.txt)
 
@@ -33,43 +33,30 @@ You can easily implement or extend needed functionality (in example socket data 
 <h2 id="des-for-standard" id="des-for-standard">Install</h2>
 
 0. Prerequesties:
-    * .NET 6.0 (runtime is enough)
-    * Windows (macOS/Linux not tested yet)
-    * Extensions what you need
+    * Windows/Linux (macOS not tested yet)
+    * Extensions what you'll use
     * (optional) Internet connection
     * (optional) Connection client
 
-1. Download binaries on [releases page](https://github.com/Blusutils/DESrv/releases/latest) or from artifact in [Actions](https://github.com/Blusutils/DESrv/actions/workflows/dotnet.yml).
+1. Download binaries on [releases page](https://github.com/Blusutils/DESrv/releases/latest) or from artifact in [Actions](https://github.com/Blusutils/DESrv/actions/workflows/dotnet.yml). DESrv builds starting from v1.2.0 is **standalone**, so you didn't need to download .NET runtime.
 
-2. Unzip binaries
+2. Unzip binaries.
 
 3. Open terminal, `cd` (change directory) to with downloaded binaries.
 
-4. Open terminal and type following:
 
-```batch
-:: in Windows cmd
-des-config
-```
 
-<!-- ```bash
-# in *nix bash
-./des-config
-``` -->
-
-Follow the instructions in console to perform basic configuration of server.
-
-5. Run DESrv:
+5. Run DESrv. Follow the instructions in console to perform basic configuration of server.
 
 ```batch
 :: in Windows cmd
 des-run <optional params>
 ```
-<!-- 
+
 ```bash
 # on *nix
 ./des-run <optional params>
-``` -->
+```
 
 ### Plugin/add-on development
 
@@ -82,7 +69,7 @@ Go to the [docs](https://github.com/Blusutils/DESrv/wiki) for more information a
 #### Prerequesties
 
 * Visual Studio 2022 (17)
-* .NET SDK 6.0
+* .NET SDK 7.0
 * Git (any version)
 
 1. Clone this repository:
@@ -96,8 +83,8 @@ Go to the [docs](https://github.com/Blusutils/DESrv/wiki) for more information a
     ```batch
     :: or build solution directly from VS
     dotnet restore
-    dotnet build -c Debug
-    dotnet run
+    dotnet run -c Debug
+    :: or: dotnet build -c Debug
     ```
 
 <!--<hr>
@@ -107,14 +94,14 @@ Go to the [docs](https://github.com/Blusutils/DESrv/wiki) for more information a
 
 ### Quick guide to configuration and command line arguments
 
-DESrv needs configuration to run. You can set it using `des-config` in binaries. Out config file can be found in same directory with all binaries (file named as `config.json`).
+DESrv has configuration to remember some settings for each run. You can set them using `des-config` in binaries. Out config file can be found in same directory with all binaries (file named as `config.json`).
 All values in this file is overridable on server run. Just pass command line argument with same name as field name in config. In example:
 
 ```jsonc
 // config file 
 {
   "loglevel": "debug",
-  "port": 9090,
+  "ipaddress": "127.0.0.1",
   // other config params
 }
 ```
@@ -124,9 +111,10 @@ All values in this file is overridable on server run. Just pass command line arg
 des-run --loglevel warn
 ```
 
-In this example loglevel will be overriden for this run of server but port will stay 9090.
+In this example loglevel will be overriden for this run of server but IP address will stay 127.0.0.1.
 
-All configuration parameters is available in docs.
+All configuration fields available in docs.
+
 <details>
 <summary><h3>List of all configuration parameters</h3></summary>
 
@@ -134,21 +122,14 @@ All configuration parameters is available in docs.
   * `string` `not required`
   * Default host IP to bind it to sockets. If not set, server will run on `localhost` (`127.0.0.1`). 
 
-* port
-  * `int` `not required`
-  * Default port used to connect to the server. If not set, server will pick `9090` port. 
-
 * loglevel
   * `string` `not required`
   * DES CEnd logger level. If not set, "debug" will used by default. 
 
+-- depreceted in case of usage "RSUDo" plugin
 * superuser
   * `string` `not required` 
   * Super-user login credentails in `name:password`. If not set, Super-user feature will not be used.
-
-* sidetunnel 
-  * `bool` `not required` 
-  * Enables "SideTunnel" feature (only for Add-ons that supports it). 
 
 * sequredchannel
   * `bool` `not required` 
@@ -162,33 +143,7 @@ All configuration parameters is available in docs.
   * `bool` `not required`
   * Sets random integers generator (`dotnet`, `cpp`, `randomorg`, `lava` or any other from plugins). By default set to `dotrand` (standard .NET random). 
 </details>
-
-### How to use extensions (Plugins or Addons)
-
-That's very simple! Just put `.dll` file in `./extensions` folder in DESrv directory.
-
-By default DESrv runs with all found extensions. So, you need to run server with `use-exts` argument:
-
-```batch
-:: on Windows
-des-run --use-exts ExamplePlugin ExampleAddon_ExamplePlugin
-```
-
-You can also put extensions what you'll use to configuration.
-
-Plugins should be named like `PluginID.dll`, and addons like `AddonID_TargetPluginID.dll`.
-
-### "Bad random" issues
-
-DESrv was written on .NET C#, which has very bad pseudorandom. But you can choose what random you'll use. By default, four (two working) methods available:
-
-* Standard System.Random
-* C++ random
-* [Random.org](https://random.org) API random *TODO*
-* [LavaRnd](https://www.lavarand.org/) random *TODO*
-
-If you want to use another random implementation, create plugin with class, derived from `RandomBase` class, then add it to configuration. More info in docs.
-</details>-->
+-->
 
 ## Contributing
 
