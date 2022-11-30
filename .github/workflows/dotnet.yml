@@ -28,7 +28,7 @@ jobs:
       working-directory: DES-Core/
     # do build!
     - name: Build
-      run: dotnet build --no-restore -c Debug -o outs-win --sc -v n --nologo
+      run: dotnet build -c Debug -o outs-win --sc -v n --nologo
       working-directory: DES-Core/
     # upload build
     - name: Upload a Build Artifact
@@ -59,7 +59,7 @@ jobs:
       working-directory: DES-Core/
     # do build!
     - name: Build
-      run: dotnet build --no-restore -c Debug -o outs-linux --sc -v n --nologo
+      run: dotnet build -c Debug -o outs-linux --sc -v n --nologo
       working-directory: DES-Core/
     # upload build
     - name: Upload a Build Artifact
