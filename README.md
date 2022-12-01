@@ -33,7 +33,10 @@ You can easily implement or extend needed functionality (in example socket data 
 <h2 id="des-for-standard" id="des-for-standard">Install</h2>
 
 0. Prerequesties:
-    * Windows/Linux (macOS not tested yet)
+    * An OS
+    * Windows
+    * Linux with installed .NET 6.0 runtime
+        * macOS not tested yet
     * Extensions what you'll use
     * (optional) Internet connection
     * (optional) Connection client
@@ -44,9 +47,7 @@ You can easily implement or extend needed functionality (in example socket data 
 
 3. Open terminal, `cd` (change directory) to with downloaded binaries.
 
-
-
-5. Run DESrv. Follow the instructions in console to perform basic configuration of server.
+4. Run DESrv. Follow the instructions in console to perform basic configuration of server.
 
 ```batch
 :: in Windows cmd

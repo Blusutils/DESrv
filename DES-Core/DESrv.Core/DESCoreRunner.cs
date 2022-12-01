@@ -2,6 +2,7 @@
 using DESCEnd;
 using DESCEnd.L10n;
 using DESCEnd.Logging;
+using DESrv.PDK;
 using DESrv.PDK.Random;
 
 namespace DESrv {
@@ -12,7 +13,7 @@ namespace DESrv {
         /// <summary>
         /// Version of this DESrv build
         /// </summary>
-        public Version DESVersion;
+        public static Version DESVersion;
         /// <summary>
         /// DESCEnd
         /// </summary>
@@ -33,18 +34,9 @@ namespace DESrv {
         /// Configuration
         /// </summary>
         private Config.OurConfig config;
-        /// <summary>
-        /// Create new instance of <see cref="DESCoreRunner"/>
-        /// </summary>
-        public DESCoreRunner() {
-            Assembly currentAsm = Assembly.GetExecutingAssembly();
-            DESVersion = currentAsm.GetName().Version ?? new Version(1, 0, 0, 0);
-            /*if (!File.Exists(Path.Combine(".", "des-run.dll"))) {
-                Console.BackgroundColor = ConsoleColor.DarkMagenta;
-                Console.WriteLine($"ABORTING DESrv RUN: des-run.dll NOT FOUND.\nUnable to find des-run.dll (main DESrv file). It may be happend either if you started DESrv from non-default directory or perform invalid installation. Please restart server directly from a default directory or reinstall them.");
-                Console.ResetColor(); 
-                Environment.Exit(1);
-            }*/
+
+        static DESCoreRunner() {
+            DESVersion = Assembly.GetExecutingAssembly().GetName().Version ?? new Version(1, 0, 0, 0);
         }
         public static CEndLog GetLogger() {
             return CEnd.Logger;
@@ -98,7 +90,8 @@ namespace DESrv {
             foreach (var ext in pdkLoader.GetAvailableExtensions()) {
                 new Thread(() => {
                     try {
-                        var extSuppDes = new Version(ext.GetFieldValue("DESVersion").ToString());
+                        var metadata = ext.GetFieldValue("Metadata") as ExtensionMetadata;
+                        var extSuppDes = new Version(metadata.DESVersion);
                         if (extSuppDes.Major != DESVersion.Major && extSuppDes.Minor != DESVersion.Minor && extSuppDes.Build != DESVersion.Build) {
                             CEnd.Logger.Error(
                                 Localizer.Translate("desrv.pdk.errors.notcompatable",
@@ -107,7 +100,7 @@ namespace DESrv {
                              ));
                             return;
                         }
-                        if (extsToLoad.Contains(ext.GetFieldValue("ID")) || extsToLoad.ToArray().Length == 0) {
+                        if (extsToLoad.Contains(metadata.ID) || extsToLoad.ToArray().Length == 0) {
                             pdkLoader.LoadExtension(ext);
                             new CEnd().Run(() => ext.Entrypoint());
                         }
@@ -117,8 +110,8 @@ namespace DESrv {
                         CEnd.Logger.Error(
                             Localizer.Translate(
                                 "desrv.pdk.errors.exterror",
-                                "Error {0} in extension {1} (from method {2}, caused by {3}). Exception: {4}\nStack trace: \n{5}",
-                                ext.GetType(), ext, ex.TargetSite, ex.Source, ex.Message, ex.StackTrace
+                                "Error {0} in {1} (from method {2}, caused by {3}). Exception: {4}\nStack trace: \n{5}",
+                                ext.ToString(), ext, ex.TargetSite, ex.Source, ex.Message, ex.StackTrace
                             ));
                     }
                 }).Start();

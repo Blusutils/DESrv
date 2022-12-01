@@ -11,7 +11,7 @@ namespace DESrv {
         /// <summary>
         /// List of extensions
         /// </summary>
-        List<PDKAbstractExtension> pdkobjects = new List<PDKAbstractExtension>();
+        List<AbstractPDKExtension> pdkobjects = new List<AbstractPDKExtension>();
         /// <summary>
         /// Current extensions directory
         /// </summary>
@@ -36,7 +36,7 @@ namespace DESrv {
             foreach (var typ in pdkobj.GetTypes()) {
                 if (typ.IsClass && typ.GetCustomAttribute<PDKExtensionAttribute>() != null) {
                     try {
-                        var a = Activator.CreateInstance(typ) as PDKAbstractExtension;
+                        var a = Activator.CreateInstance(typ) as AbstractPDKExtension;
                         if (a == null) {
                             DESCoreRunner.GetLogger().Error(
                                 DESCoreRunner.Localizer.Translate(
@@ -81,16 +81,19 @@ namespace DESrv {
         /// Load an extension and execute it
         /// </summary>
         /// <param name="extension">Extension to load</param>
-        public void LoadExtension(PDKAbstractExtension extension) {
-            var exttype = (int)extension.GetFieldValue("ExtType");
-            switch (exttype) {
+        public void LoadExtension(AbstractPDKExtension extension) {
+            var metadata = extension.GetPropertyValue("Metadata") as ExtensionMetadata;
+            switch (metadata.ExtType) {
                 case 1:  // plugin
                     extension.Load();
                     break;
                 case 2: // addon
                     foreach (var ext in pdkobjects) {
-                        if (ext.ExtType == 1 && ext.ID == extension.Reference)
+                        var md = ext.GetPropertyValue("Metadata") as ExtensionMetadata;
+                        if (md.ExtType == 1 && md.ID == metadata.Reference) {
                             ext.LoadSubExtension(extension);
+                            break;
+                        }
                     }
                     break;
                 case 3: // random generator
@@ -110,7 +113,7 @@ namespace DESrv {
         /// Get list of available (added) extensions
         /// </summary>
         /// <returns><see cref="List{PDKAbstractExtension}"/> of extensions</returns>
-        public List<PDKAbstractExtension> GetAvailableExtensions() {
+        public List<AbstractPDKExtension> GetAvailableExtensions() {
             return pdkobjects;
         }
     }

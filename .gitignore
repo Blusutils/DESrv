@@ -69,3 +69,5 @@ DESCEnd/
 /DES-Core/DESrv.Config/obj/Release/net7.0
 /DES-Core/DESrv.PDK/obj/Release/net7.0
 /DES-Core/outs-win
+/DES-Core/outs-linux
+DES-Core/DESrv.Config/obj/

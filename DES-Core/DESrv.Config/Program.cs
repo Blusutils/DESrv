@@ -1,5 +1,6 @@
 ﻿//using System.Windows.Forms;
 using System.IO;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -42,7 +43,6 @@ namespace DESrv.Config {
             //    }
             //    break;
             //};
-            if (!File.Exists(configPath)) File.Create(configPath);
             var cfg = new OurConfig();
 
 
@@ -50,10 +50,10 @@ namespace DESrv.Config {
             cfg.logLevel = Input<int>("Enter default logging level: ", "Invalid");
             cfg.extsToLoad = Input<string>("Enter default extensions IDs separated by semicolon: ", "Invalid").Split(';');
 
-
-            using (var file = new StreamWriter(configPath)) {
-                file.WriteLine(JsonSerializer.Serialize(cfg));
-            }
+            var f = File.OpenWrite(configPath);
+            f.Write(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(cfg)));
+            f.Close();
+            Thread.Sleep(1000);
         }
     }
 }

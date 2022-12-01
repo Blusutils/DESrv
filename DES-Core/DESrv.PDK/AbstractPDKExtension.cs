@@ -5,44 +5,53 @@ namespace DESrv.PDK {
     public class PDKExtensionAttribute : Attribute {
         public PDKExtensionAttribute() { }
     }
-    [ComVisible(true)]
-    public abstract class PDKAbstractExtension : AssemblyFieldReader {
+    public class ExtensionMetadata {
         /// <summary>
         /// ID of extension. It mustn't contain spaces and special symbols (for example dots)
         /// </summary>
-        public string ID = "";
+        public string ID { get; internal set; } = "";
         /// <summary>
         /// Type of extension: 1 - plugin, 2 - addon
         /// </summary>
-        public int ExtType = 0;
+        public int ExtType { get; internal set; } = 0;
         /// <summary>
         /// Readable name of extension
         /// </summary>
-        public string Name = "";
+        public string Name { get; internal set; } = "";
         /// <summary>
         /// Description for extension
         /// </summary>
-        public string Description = "";
+        public string Description { get; internal set; } = "";
         /// <summary>
         /// Version of extension
         /// </summary>
-        public string Version = "-0.0.0";
+        public string Version { get; internal set; } = "-0.0.0";
         /// <summary>
         /// Version of DESrv what this extension supports
         /// </summary>
-        public string DESVersion = "-0.0.0";
+        public string DESVersion { get; internal set; } = "-0.0.0";
         /// <summary>
         /// Author of extension
         /// </summary>
-        public string Author = "";
+        public string Author { get; internal set; } = "";
         /// <summary>
         /// Array of dependencies for extension
         /// </summary>
-        public string[] Dependencies = Array.Empty<string>();
+        public string[] Dependencies { get; internal set; } = Array.Empty<string>();
         /// <summary>
         /// ID of extension to which this extension refers (for addons)
         /// </summary>
-        public string Reference = "";
+        public string Reference { get; internal set; } = "";
+    }
+    /// <summary>
+    /// An abstract class that provides an interface to implement the information and functionality of an extension
+    /// </summary>
+    [ComVisible(true)]
+    public abstract class AbstractPDKExtension : AbstractFPReaderInClass {
+        /// <summary>
+        /// Metadata of extension
+        /// </summary>
+        public abstract ExtensionMetadata Metadata { get; set; }
         /// <summary>
         /// Main method
         /// </summary>
@@ -51,7 +60,7 @@ namespace DESrv.PDK {
         /// Load addon to this extension (for plugins)
         /// </summary>
         /// <param name="extension">Extension needed to load</param>
-        public virtual void LoadSubExtension(PDKAbstractExtension extension) { extension.Load(); }
+        public virtual void LoadSubExtension(AbstractPDKExtension extension) { extension.Load(); }
         /// <summary>
         /// Event what calls when extension loads
         /// </summary>
@@ -64,11 +73,14 @@ namespace DESrv.PDK {
         public sealed override string ToString() {
             var extype = (int)GetFieldValue("ExtType");
             var whatisthis = extype == 1 || extype == 2 ? (extype == 1 ? "plugin" : "addon") : "unknown";
-            return $"EXT_{whatisthis}_{GetFieldValue("ID") as string}_v{GetFieldValue("Version")}";
+            return $"Extension {{type={whatisthis} id={GetFieldValue("ID") as string} version={GetFieldValue("Version")}}}";
         }
 
         public sealed override object GetFieldValue(string name) {
             return GetType().GetField(name).GetValue(this);
+        }
+        public sealed override object GetPropertyValue(string name) {
+            return GetType().GetProperty(name).GetValue(this);
         }
     }
 }
