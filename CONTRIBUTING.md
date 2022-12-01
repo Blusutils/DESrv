@@ -24,7 +24,7 @@ Feel free to create forks and pull requests with improvements. See guide below t
 #### Prerequesties
 
 * Visual Studio 2022 (17)
-* .NET SDK 6.0
+* .NET SDK 6.0 or above
 * Git (any version)
 
 #### Fork, clone, modify, push, PR
@@ -117,5 +117,5 @@ Feel free to create forks and pull requests with improvements. See guide below t
     }
     ```
 
-### 5. Localization
-* coming soon because SimpleTranslate not done yet
+<!-- ### 5. Localization
+* coming soon because SimpleTranslate not done yet -->

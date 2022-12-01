@@ -13,7 +13,7 @@ namespace DESrv {
         /// <summary>
         /// Version of this DESrv build
         /// </summary>
-        public static Version DESVersion;
+        public static Version? DESVersion = null;
         /// <summary>
         /// DESCEnd
         /// </summary>
@@ -36,7 +36,7 @@ namespace DESrv {
         private Config.OurConfig config;
 
         static DESCoreRunner() {
-            DESVersion = Assembly.GetExecutingAssembly().GetName().Version ?? new Version(1, 0, 0, 0);
+            DESVersion = DESVersion ?? Assembly.GetExecutingAssembly().GetName().Version ?? new Version(1, 0, 0, 0);
         }
         public static CEndLog GetLogger() {
             return CEnd.Logger;

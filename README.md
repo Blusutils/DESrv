@@ -34,9 +34,9 @@ You can easily implement or extend needed functionality (in example socket data 
 
 0. Prerequesties:
     * An OS
-    * Windows
-    * Linux with installed .NET 6.0 runtime
-        * macOS not tested yet
+      * Windows
+      * Linux with installed .NET 6.0 runtime
+      * macOS not tested yet
     * Extensions what you'll use
     * (optional) Internet connection
     * (optional) Connection client
@@ -70,7 +70,7 @@ Go to the [docs](https://github.com/Blusutils/DESrv/wiki) for more information a
 #### Prerequesties
 
 * Visual Studio 2022 (17)
-* .NET SDK 7.0
+* .NET SDK 6.0 or above
 * Git (any version)
 
 1. Clone this repository:

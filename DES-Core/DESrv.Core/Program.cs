@@ -2,6 +2,9 @@
 namespace DESrv {
     public class Program {
         public static void Main(string[] args) {
+
+            DESCoreRunner.DESVersion = new Version(1, 3, 0);
+
             // create runner
             var coreRunner = new DESCoreRunner();
 
