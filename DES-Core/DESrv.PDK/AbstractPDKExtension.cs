@@ -9,39 +9,39 @@ namespace DESrv.PDK {
         /// <summary>
         /// ID of extension. It mustn't contain spaces and special symbols (for example dots)
         /// </summary>
-        public string ID { get; internal set; } = "";
+        public string ID { get; set; } = "";
         /// <summary>
         /// Type of extension: 1 - plugin, 2 - addon
         /// </summary>
-        public int ExtType { get; internal set; } = 0;
+        public int ExtType { get; set; } = 0;
         /// <summary>
         /// Readable name of extension
         /// </summary>
-        public string Name { get; internal set; } = "";
+        public string Name { get; set; } = "";
         /// <summary>
         /// Description for extension
         /// </summary>
-        public string Description { get; internal set; } = "";
+        public string Description { get; set; } = "";
         /// <summary>
         /// Version of extension
         /// </summary>
-        public string Version { get; internal set; } = "-0.0.0";
+        public string Version { get; set; } = "-0.0.0";
         /// <summary>
         /// Version of DESrv what this extension supports
         /// </summary>
-        public string DESVersion { get; internal set; } = "-0.0.0";
+        public string DESVersion { get; set; } = "-0.0.0";
         /// <summary>
         /// Author of extension
         /// </summary>
-        public string Author { get; internal set; } = "";
+        public string Author { get; set; } = "";
         /// <summary>
         /// Array of dependencies for extension
         /// </summary>
-        public string[] Dependencies { get; internal set; } = Array.Empty<string>();
+        public string[] Dependencies { get; set; } = Array.Empty<string>();
         /// <summary>
         /// ID of extension to which this extension refers (for addons)
         /// </summary>
-        public string Reference { get; internal set; } = "";
+        public string Reference { get; set; } = "";
     }
     /// <summary>
     /// An abstract class that provides an interface to implement the information and functionality of an extension
@@ -71,8 +71,13 @@ namespace DESrv.PDK {
         public virtual void Unload() { }
 
         public sealed override string ToString() {
-            var extype = (int)GetFieldValue("ExtType");
-            var whatisthis = extype == 1 || extype == 2 ? (extype == 1 ? "plugin" : "addon") : "unknown";
+            var metadata = GetPropertyValue("Metadata") as ExtensionMetadata;
+            var whatisthis = metadata.ExtType switch {
+                1 => "plugin",
+                2 => "addon",
+                3 => "random",
+                _ => "unknown",
+            };
             return $"Extension {{type={whatisthis} id={GetFieldValue("ID") as string} version={GetFieldValue("Version")}}}";
         }
 
