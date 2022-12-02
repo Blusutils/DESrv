@@ -85,36 +85,35 @@ namespace DESrv {
         /// </summary>
         /// <exception cref="NotImplementedException">If connection type is not implemented yet</exception>
         public void Go() {
-            CEnd.Logger.Debug(Localizer.Translate("desrv.pdk.loadedexts", "Added {0} extensions: {1}",
-                pdkLoader.GetAvailableExtensions().ToArray().Length, string.Join(", ", pdkLoader.GetAvailableExtensions())));
+            var countOfExts = pdkLoader.GetAvailableExtensions().ToArray().Length;
+            var extsRepr = string.Join(", ", pdkLoader.GetAvailableExtensions());
+            var msg = Localizer.Translate("desrv.pdk.loadedexts", "Added {0} extensions: {1}",
+                countOfExts, extsRepr);
+            CEnd.Logger.Debug(msg);
             foreach (var ext in pdkLoader.GetAvailableExtensions()) {
-                new Thread(() => {
-                    try {
-                        var metadata = ext.GetFieldValue("Metadata") as ExtensionMetadata;
-                        var extSuppDes = new Version(metadata.DESVersion);
-                        if (extSuppDes.Major != DESVersion.Major && extSuppDes.Minor != DESVersion.Minor && extSuppDes.Build != DESVersion.Build) {
-                            CEnd.Logger.Error(
-                                Localizer.Translate("desrv.pdk.errors.notcompatable",
-                                "Error in extension {0}: versions is not same (current DESrv version is {1}; however, this extension supports only {2})",
-                                ext, DESVersion, ext.GetFieldValue("DESVersion")
-                             ));
-                            return;
-                        }
-                        if (extsToLoad.Contains(metadata.ID) || extsToLoad.ToArray().Length == 0) {
-                            pdkLoader.LoadExtension(ext);
-                            new CEnd().Run(() => ext.Entrypoint());
-                        }
-                        /*} catch (System.ArgumentNullException) {
-                            CEnd.Logger.Error($"Extension {ext} is null");*/
-                    } catch (Exception ex) {
+                try {
+                    var metadata = ext.GetPropertyValue("Metadata") as ExtensionMetadata;
+                    var extSuppDes = new Version(metadata.DESVersion);
+                    if (extSuppDes.Major != DESVersion.Major && extSuppDes.Minor != DESVersion.Minor && extSuppDes.Build != DESVersion.Build) {
                         CEnd.Logger.Error(
-                            Localizer.Translate(
-                                "desrv.pdk.errors.exterror",
-                                "Error {0} in {1} (from method {2}, caused by {3}). Exception: {4}\nStack trace: \n{5}",
-                                ext.ToString(), ext, ex.TargetSite, ex.Source, ex.Message, ex.StackTrace
-                            ));
+                            Localizer.Translate("desrv.pdk.errors.notcompatable",
+                            "Error in extension {0}: versions is not same (current DESrv version is {1}; however, this extension supports only {2})",
+                            ext, DESVersion, ext.GetFieldValue("DESVersion")
+                         ));
+                        return;
                     }
-                }).Start();
+                    if (extsToLoad.Contains(metadata.ID) || extsToLoad.ToArray().Length == 0) {
+                        pdkLoader.LoadExtension(ext);
+                        new CEnd().Run(() => ext.Entrypoint());
+                    }
+                } catch (Exception ex) {
+                    CEnd.Logger.Error(
+                        Localizer.Translate(
+                            "desrv.pdk.errors.exterror",
+                            "Error {0} in {1} (from method {2}, caused by {3}). Exception: {4}\nStack trace: \n{5}",
+                            ext.ToString(), ext, ex.TargetSite, ex.Source, ex.Message, ex.StackTrace
+                        ));
+                }
             }
 
             var ipadress = config.ipAdress ?? "127.0.0.1";

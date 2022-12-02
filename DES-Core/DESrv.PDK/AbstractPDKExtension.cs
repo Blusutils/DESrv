@@ -78,7 +78,7 @@ namespace DESrv.PDK {
                 3 => "random",
                 _ => "unknown",
             };
-            return $"Extension {{type={whatisthis} id={GetFieldValue("ID") as string} version={GetFieldValue("Version")}}}";
+            return $"Extension {{type={whatisthis} id={metadata.ID} version={metadata.Version}}}";
         }
 
         public sealed override object GetFieldValue(string name) {
