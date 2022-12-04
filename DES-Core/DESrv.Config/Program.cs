@@ -11,7 +11,7 @@ namespace DESrv.Config {
             Console.WriteLine(message);
             var inp = Console.ReadLine();
             try {
-                return (T)Convert.ChangeType(inp, typeof(T));
+                return (T)Convert.ChangeType(inp, typeof(T))!;
             } catch (InvalidCastException) {
                 Console.WriteLine($"{errorMessage}. Try again.");
                 return Input<T>(message, errorMessage);
@@ -43,12 +43,11 @@ namespace DESrv.Config {
             //    }
             //    break;
             //};
-            var cfg = new OurConfig();
-
-
-            cfg.ipAdress = Input<string>("Enter default IP address: ", "Invalid");
-            cfg.logLevel = Input<int>("Enter default logging level: ", "Invalid");
-            cfg.extsToLoad = Input<string>("Enter default extensions IDs separated by semicolon: ", "Invalid").Split(';');
+            var cfg = new OurConfig {
+                ipAdress = Input<string>("Enter default IP address: ", "Invalid"),
+                logLevel = Input<int>("Enter default logging level: ", "Invalid"),
+                extsToLoad = Input<string>("Enter default extensions IDs separated by semicolon: ", "Invalid").Split(';')
+            };
 
             var f = File.OpenWrite(configPath);
             f.Write(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(cfg)));

@@ -17,15 +17,15 @@ namespace DESrv {
         /// <summary>
         /// DESCEnd
         /// </summary>
-        public static CEnd CEnd;
+        public static CEnd? CEnd;
         /// <summary>
         /// Localization
         /// </summary>
-        public static Localizer Localizer;
+        public static Localizer? Localizer;
         /// <summary>
         /// PDK Loader
         /// </summary>
-        public PDKLoader pdkLoader;
+        public PDKLoader? pdkLoader;
         /// <summary>
         /// List of extensions IDs to load
         /// </summary>
@@ -33,10 +33,10 @@ namespace DESrv {
         /// <summary>
         /// Configuration
         /// </summary>
-        private Config.OurConfig config;
+        private Config.OurConfig? config;
 
         static DESCoreRunner() {
-            DESVersion = DESVersion ?? Assembly.GetExecutingAssembly().GetName().Version ?? new Version(1, 0, 0, 0);
+            DESVersion ??= Assembly.GetExecutingAssembly().GetName().Version ?? new Version(1, 0, 0, 0);
         }
         public static CEndLog GetLogger() {
             return CEnd.Logger;
@@ -75,7 +75,7 @@ namespace DESrv {
         /// Setup <see cref="DESCEnd.CEnd"/>
         /// </summary>
         /// <param name="cend">CEnd object</param>
-        public void SetupCEnd(CEnd cend) {
+        public static void SetupCEnd(CEnd cend) {
             CEnd.Logger.LogSource = "DESrv Runner";
             CEnd.Logger.Success(Localizer.Translate("desrv.core.cendsetup", "CEnd Setup done"));
             CEnd = cend;
@@ -98,7 +98,7 @@ namespace DESrv {
                         CEnd.Logger.Error(
                             Localizer.Translate("desrv.pdk.errors.notcompatable",
                             "Error in extension {0}: versions is not same (current DESrv version is {1}; however, this extension supports only {2})",
-                            ext, DESVersion, ext.GetFieldValue("DESVersion")
+                            ext, DESVersion, metadata.DESVersion
                          ));
                         return;
                     }
@@ -111,7 +111,7 @@ namespace DESrv {
                         Localizer.Translate(
                             "desrv.pdk.errors.exterror",
                             "Error {0} in {1} (from method {2}, caused by {3}). Exception: {4}\nStack trace: \n{5}",
-                            ext.ToString(), ext, ex.TargetSite, ex.Source, ex.Message, ex.StackTrace
+                            ext.ToString(), ext, ex.TargetSite!, ex.Source!, ex.Message!, ex.StackTrace!
                         ));
                 }
             }

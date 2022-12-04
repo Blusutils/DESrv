@@ -6,21 +6,21 @@ using System.Text;
 namespace DESrv.PDK.Connections {
     [ComVisible(true)]
     public class BaseTcpProcessor : IConnectionProcessor<TcpClient>, IDisposable {
-        IPAddress ip;
+        IPAddress? ip;
         int port;
-        TcpListener socket;
-        List<TcpClient> clients = new List<TcpClient>();
+        TcpListener? socket;
+        List<TcpClient> clients = new();
 
         public delegate void NewClientConnectedDelegate(TcpClient client);
-        public event NewClientConnectedDelegate NewClientConnectedEvent;
+        public event NewClientConnectedDelegate? NewClientConnectedEvent;
 
         public delegate void ClientGotDataDelegate(TcpClient client, string data, byte[] bytes);
-        public event ClientGotDataDelegate ClientGotDataEvent;
+        public event ClientGotDataDelegate? ClientGotDataEvent;
 
         public BaseTcpProcessor(string ip = "", int port = 0) {
             this.ip = IPAddress.Parse(ip);
             this.port = port;
-            socket = new TcpListener(this.ip, port);
+            socket = new TcpListener(this.ip, this.port);
             socket.Start();
         }
 
@@ -28,9 +28,9 @@ namespace DESrv.PDK.Connections {
             while (true) {
                 var client = AcceptConnection();
                 //Log.Success("Accepted TCP connection", "DESrv TCP Processor");
-                var thr = new Thread(() => { Process(client); });
-                thr.Name = $"DESrv-PDK-TCPProcessor-{client.Client.Handle}-{client.Client.RemoteEndPoint}";
-                thr.Start();
+                new Thread(() => { Process(client); }) {
+                    Name = $"DESrv-PDK-TCPProcessor-{client.Client.Handle}-{client.Client.RemoteEndPoint}"
+                }.Start();
             }
         }
 

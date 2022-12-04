@@ -10,17 +10,17 @@ namespace DESrv {
 
             // get logging level
             var loglevel =
-#if !DEBUG
-                DESCEnd.Logging.LogLevel.Info;
-#else
+#if DEBUG
                 DESCEnd.Logging.LogLevel.Debug;
+#else
+                DESCEnd.Logging.LogLevel.Info;
 #endif
             // create config in any way
             if (!File.Exists("config.json")) DESrv.Config.Program.Main(Array.Empty<string>());
             // setup runtime and config
             coreRunner.SetupRuntime(args, DESCEnd.Config.ConfigReader.Read<DESrv.Config.OurConfig>());
             // setup DESCEndLib runner
-            coreRunner.SetupCEnd(new DESCEnd.CEnd(new DESCEnd.Logging.CEndLog() {
+            DESCoreRunner.SetupCEnd(new DESCEnd.CEnd(new DESCEnd.Logging.CEndLog() {
                 ConsoleLoggingLevel = loglevel,
                 FileLoggingLevel = loglevel,
                 ConsoleLogging = true,

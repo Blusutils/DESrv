@@ -5,16 +5,16 @@ using System.Runtime.InteropServices;
 namespace DESrv.PDK.Connections {
     [ComVisible(true)]
     public class BaseUdpProcessor : IConnectionProcessor<UdpClient>, IDisposable {
-        IPAddress ip;
+        IPAddress? ip;
         int port;
-        Socket socket;
-        List<UdpClient> clients = new List<UdpClient>();
+        Socket? socket;
+        List<UdpClient> clients = new();
 
         public delegate void NewClientConnectedDelegate(UdpClient client);
-        public event NewClientConnectedDelegate NewClientConnectedEvent;
+        public event NewClientConnectedDelegate? NewClientConnectedEvent;
 
         public delegate void ClientGotDataDelegate(UdpClient client, string data, byte[] bytes);
-        public event ClientGotDataDelegate ClientGotDataEvent;
+        public event ClientGotDataDelegate? ClientGotDataEvent;
 
         public BaseUdpProcessor(string ip = "", int port = 0) {
             this.ip = IPAddress.Parse(ip);

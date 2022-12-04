@@ -3,7 +3,7 @@
 namespace DESrv.PDK.Random {
     [ComVisible(true)]
     public class DotnetRandom : RandomBase {
-        static System.Random rand = new System.Random();
+        static System.Random rand = new();
         public override int GetRandInt() {
             return rand.Next();
         }

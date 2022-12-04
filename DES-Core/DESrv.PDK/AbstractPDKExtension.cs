@@ -81,11 +81,7 @@ namespace DESrv.PDK {
             return $"Extension {{type={whatisthis} id={metadata.ID} version={metadata.Version}}}";
         }
 
-        public sealed override object GetFieldValue(string name) {
-            return GetType().GetField(name).GetValue(this);
-        }
-        public sealed override object GetPropertyValue(string name) {
-            return GetType().GetProperty(name).GetValue(this);
-        }
+        public sealed override object? GetFieldValue(string name) => GetType().GetField(name).GetValue(this);
+        public sealed override object? GetPropertyValue(string name) => GetType().GetProperty(name).GetValue(this);
     }
 }

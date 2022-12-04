@@ -5,22 +5,22 @@ using System.Runtime.InteropServices;
 namespace DESrv.PDK.Connections {
     [ComVisible(true)]
     public class BaseHttpProcessor : IConnectionProcessor<HttpListenerContext>, IDisposable {
-        IPAddress ip;
+        IPAddress? ip;
         int port;
-        HttpListener httpServer;
-        List<HttpListenerContext> clients = new List<HttpListenerContext>();
+        HttpListener? httpServer;
+        List<HttpListenerContext> clients = new();
 
         public delegate void NewClientConnectedDelegate(HttpListenerContext client);
-        public event NewClientConnectedDelegate NewClientConnectedEvent;
+        public event NewClientConnectedDelegate? NewClientConnectedEvent;
 
         public delegate void ClientGotDataDelegate(HttpListenerContext client, string data, byte[] bytes);
-        public event ClientGotDataDelegate ClientGotDataEvent;
+        public event ClientGotDataDelegate? ClientGotDataEvent;
 
         public BaseHttpProcessor(string ip = "", int port = 0) {
             this.ip = IPAddress.Parse(ip);
             this.port = port;
             httpServer = new HttpListener();
-            httpServer.Prefixes.Add($"http://{this.ip}:/{port}");
+            httpServer.Prefixes.Add($"http://{this.ip}:/{this.port}");
             httpServer.Start();
         }
 
@@ -28,10 +28,10 @@ namespace DESrv.PDK.Connections {
             while (true) {
                 var client = AcceptConnection();
                 //Log.Success("Accepted HTTP connection", "DESrv TCP Processor");
-                
-                var thr = new Thread(() => { Process(client); });
-                thr.Name = $"DESrv-PDK-HTTPProcessor-{client}";
-                thr.Start();
+
+                new Thread(() => { Process(client); }) {
+                    Name = $"DESrv-PDK-HTTPProcessor-{client}"
+                }.Start();
             }
         }
 
@@ -45,8 +45,8 @@ namespace DESrv.PDK.Connections {
             while (true) {
                 foreach (var c in clients) {
                     try {
-                        HttpListenerRequest request = c.Request;
-                        HttpListenerResponse response = c.Response;
+                        var request = c.Request;
+                        var response = c.Response;
                         response.StatusCode = (int)HttpStatusCode.NoContent;
                         response.ContentLength64 = 0;
                         response.OutputStream.Close();

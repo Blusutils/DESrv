@@ -104,7 +104,7 @@ namespace DESrv {
                         DESCoreRunner.Localizer.Translate(
                             "desrv.pdk.errors.invalidext.unknowntype",
                             "Found an invalid extension with unknown type {0}: {1}",
-                            extension.GetFieldValue("ExtType"), extension
+                            metadata.ExtType, extension
                         )
                     ); break;
             }
