@@ -1,0 +1,2 @@
+dotnet build -c Debug -o outs-linux -v n --nologo
+tar -czvf DESrv_x.x.x_Linux.tar.gz ./outs-linux
