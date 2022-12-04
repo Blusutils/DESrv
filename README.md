@@ -33,10 +33,7 @@ You can easily implement or extend needed functionality (in example socket data 
 <h2 id="des-for-standard" id="des-for-standard">Install</h2>
 
 0. Prerequesties:
-    * An OS
-      * Windows
-      * Linux with installed .NET 6.0 runtime
-      * macOS not tested yet
+    * An OS - either Linux with installed .NET 6.0 runtime or Windows
     * Extensions what you'll use
     * (optional) Internet connection
     * (optional) Connection client
