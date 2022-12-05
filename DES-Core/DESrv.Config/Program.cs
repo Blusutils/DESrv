@@ -43,12 +43,17 @@ namespace DESrv.Config {
             //    }
             //    break;
             //};
+            string rndm() {
+                var i = Input<string>("Enter default random provider: ", "Invalid");
+                if (i is not null or "") return "dotnet";
+                else return i;
+            }
             var cfg = new OurConfig {
                 ipAdress = Input<string>("Enter default IP address: ", "Invalid"),
                 logLevel = Input<int>("Enter default logging level: ", "Invalid"),
-                extsToLoad = Input<string>("Enter default extensions IDs separated by semicolon: ", "Invalid").Split(';')
+                extensionsToLoad = Input<string>("Enter default extensions IDs separated by semicolon: ", "Invalid").Split(';'),
+                randomMode = rndm()
             };
-
             var f = File.OpenWrite(configPath);
             f.Write(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(cfg)));
             f.Close();

@@ -27,10 +27,6 @@ namespace DESrv {
         /// </summary>
         public PDKLoader? pdkLoader;
         /// <summary>
-        /// List of extensions IDs to load
-        /// </summary>
-        private List<string> extsToLoad = new();
-        /// <summary>
         /// Configuration
         /// </summary>
         private Config.OurConfig? config;
@@ -68,7 +64,7 @@ namespace DESrv {
             this.config = config;
 
             RandomBase.Randoms.ForEach(x => {
-                if (config.prefferedRandom == x.ExtID) x.IsPreffered = true; else x.IsPreffered = false;
+                if (config.randomMode == x.ExtID) x.IsPreffered = true; else x.IsPreffered = false;
             });
         }
         /// <summary>
@@ -102,7 +98,7 @@ namespace DESrv {
                          ));
                         return;
                     }
-                    if (extsToLoad.Contains(metadata.ID) || extsToLoad.ToArray().Length == 0) {
+                    if (config.extensionsToLoad.Contains(metadata.ID) || config.extensionsToLoad.ToArray().Length == 0) {
                         pdkLoader.LoadExtension(ext);
                         new CEnd().Run(() => ext.Entrypoint());
                     }
