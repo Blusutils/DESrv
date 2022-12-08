@@ -13,13 +13,23 @@ name: "CodeQL"
 
 on:
   push:
+    paths:
+      # track C#, .NET and VS files
+      - "**.cs"
+      - "**.csproj"
+      - "**.sln"
     branches: 
       - "master"
       - "main"
   pull_request:
+      paths:
+        # track C#, .NET and VS files
+        - "**.cs"
+        - "**.csproj"
+        - "**.sln"
       branches:
-      - "master"
-      - "main"
+        - "master"
+        - "main"
 
 jobs:
   analyze:
