@@ -2,17 +2,23 @@
 name: Build DESrv Artifacts
 
 on:
-# only when pushing to main branch
+  # trigger it only on push
   push:
-    branches: [ "master", "main" ]
+    paths:
+      # track C#, .NET and VS files
+      - "**.cs"
+      - "**.csproj"
+      - "**.sln"
+    # only when pushing to master/main branch 
+    branches: 
+      - "master"
+      - "main"
 
 jobs:
 
-  # Build version for Windows
   buildwin:
     # yes, it's genius to make a build for Windows on Windows
     runs-on: windows-latest
-
     steps:
     # just clone DESrv repo
     - name: Clone repository
@@ -41,9 +47,7 @@ jobs:
 
 
   buildlinux:
-
     runs-on: ubuntu-latest
-
     steps:
     # just clone DESrv repo
     - name: Clone repository
