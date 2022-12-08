@@ -52,7 +52,8 @@ namespace DESrv.Config {
                 ipAdress = Input<string>("Enter default IP address: ", "Invalid"),
                 logLevel = Input<int>("Enter default logging level: ", "Invalid"),
                 extensionsToLoad = Input<string>("Enter default extensions IDs separated by semicolon: ", "Invalid").Split(';'),
-                randomMode = rndm()
+                randomMode = rndm(),
+                mainExtension = Input<string>("Endet main extension ID: ", "Invalid")
             };
             var f = File.OpenWrite(configPath);
             f.Write(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(cfg)));

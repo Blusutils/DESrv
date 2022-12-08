@@ -6,6 +6,7 @@ namespace DESrv.Config {
         public int? logLevel { get; set; }
         public string[]? extensionsToLoad { get; set; }
         public string? randomMode { get; set; }
+        public string? mainExtension { get; set; }
     }
 }
 #pragma warning restore IDE1006
