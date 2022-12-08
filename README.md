@@ -8,7 +8,8 @@
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/Blusutils/DESrv?label=PRs&style=flat-square)](https://github.com/Blusutils/DESrv/pulls)
 
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/Blusutils/DESrv?label=Latest%20release&style=flat-square)](https://github.com/Blusutils/DESrv/releases/latest)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Blusutils/DESrv/.NET%20build?label=Build&style=flat-square)](https://github.com/Blusutils/DESrv/actions/workflows/dotnet.yml)
+[![GitHub Build Status](https://img.shields.io/github/workflow/status/Blusutils/DESrv/.NET%20build?label=Build&style=flat-square)](https://github.com/Blusutils/DESrv/actions/workflows/dotnet.yml)
+[![GitHub CodeQL Status](https://img.shields.io/github/workflow/status/Blusutils/DESrv/CodeQL?label=CodeQL&style=flat-square)](https://github.com/Blusutils/DESrv/actions/workflows/codeql.yml)
 
 [![GitHub license](https://img.shields.io/github/license/Blusutils/DESrv?label=License&style=flat-square)](https://github.com/Blusutils/DESrv/blob/master/LICENSE.txt)
 
