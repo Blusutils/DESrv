@@ -4,6 +4,7 @@ name: Build DESrv Release
 on:
   # trigger it only on new releases
   release:
+    types: [published, edited]
     
 
 jobs:
@@ -37,7 +38,7 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         id: ${{ github.event.release.id }}
-        files: "DESrv_Windows.zip"
+        files: "./DES-Core/DESrv_Windows.zip"
 
 
   buildlinux:
@@ -69,4 +70,4 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         id: ${{ github.event.release.id }}
-        files: "DESrv_Linux.tar.gz"
+        files: "./DES-Core/DESrv_Linux.tar.gz"
