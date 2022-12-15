@@ -8,8 +8,8 @@
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/Blusutils/DESrv?label=PRs&style=flat-square)](https://github.com/Blusutils/DESrv/pulls)
 
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/Blusutils/DESrv?label=Latest%20release&style=flat-square)](https://github.com/Blusutils/DESrv/releases/latest)
-[![GitHub Build Status](https://img.shields.io/github/workflow/status/Blusutils/DESrv/.NET%20build?label=Build&style=flat-square)](https://github.com/Blusutils/DESrv/actions/workflows/dotnet.yml)
-[![GitHub CodeQL Status](https://img.shields.io/github/workflow/status/Blusutils/DESrv/CodeQL?label=CodeQL&style=flat-square)](https://github.com/Blusutils/DESrv/actions/workflows/codeql.yml)
+[![GitHub Build Status](https://img.shields.io/github/actions/workflow/status/Blusutils/DESrv/dotnet.yml?branch=master&label=Build&style=flat-square)](https://github.com/Blusutils/DESrv/actions/workflows/dotnet.yml)
+[![GitHub CodeQL Status](https://img.shields.io/github/actions/workflow/status/Blusutils/DESrv/codeql.yml?branch=master&label=CodeQL&style=flat-square)](https://github.com/Blusutils/DESrv/actions/workflows/codeql.yml)
 
 [![GitHub license](https://img.shields.io/github/license/Blusutils/DESrv?label=License&style=flat-square)](https://github.com/Blusutils/DESrv/blob/master/LICENSE.txt)
 
@@ -31,7 +31,7 @@ This software bases on these key components:
 **DESrv** have APIs for Plugins and Add-ons (PDK, Plugin Development Kit), also have support for some databases and connection types out-of-the-box.
 You can easily implement or extend needed functionality (in example socket data handler) for server by writing simple (or more complex) plugin or using existing by other developers.
 
-<h2 id="des-for-standard" id="des-for-standard">Install</h2>
+## Install
 
 0. Prerequesties:
     * An OS - either Linux with installed .NET 6.0 runtime or Windows
@@ -39,7 +39,7 @@ You can easily implement or extend needed functionality (in example socket data 
     * (optional) Internet connection
     * (optional) Connection client
 
-1. Download binaries on [releases page](https://github.com/Blusutils/DESrv/releases/latest) or from artifact in [Actions](https://github.com/Blusutils/DESrv/actions/workflows/dotnet.yml). DESrv builds starting from v1.2.0 is **standalone**, so you didn't need to download .NET runtime.
+1. Download binaries on [releases page](https://github.com/Blusutils/DESrv/releases/latest) or from artifact in [Actions](https://github.com/Blusutils/DESrv/actions/workflows/dotnet.yml). If you are on Linux you may need to download .NET runtime (check info in latest release). Build for Windows is standalone.
 
 2. Unzip binaries.
 
@@ -60,7 +60,7 @@ des-run <optional params>
 ### Plugin/add-on development
 
 Make sure that you have already installed DESrv.
-If not, [go here](#des-for-standard).
+If not, [go here](#install).
 
 Go to the [docs](https://github.com/Blusutils/DESrv/wiki) for more information and tutorials. Also recommended to use [template](https://github.com/Blusutils/desrv-pdk-example).
 
