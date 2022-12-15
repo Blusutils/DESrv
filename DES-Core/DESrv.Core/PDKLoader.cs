@@ -11,7 +11,7 @@ namespace DESrv {
         /// <summary>
         /// List of extensions
         /// </summary>
-        List<AbstractPDKExtension> pdkobjects = new List<AbstractPDKExtension>();
+        List<AbstractPDKExtension> pdkobjects = new();
         /// <summary>
         /// Current extensions directory
         /// </summary>
@@ -36,8 +36,7 @@ namespace DESrv {
             foreach (var typ in pdkobj.GetTypes()) {
                 if (typ.IsClass && typ.GetCustomAttribute<PDKExtensionAttribute>() != null) {
                     try {
-                        var a = Activator.CreateInstance(typ) as AbstractPDKExtension;
-                        if (a == null) {
+                        if (Activator.CreateInstance(typ) is not AbstractPDKExtension a) {
                             DESCoreRunner.GetLogger().Error(
                                 DESCoreRunner.Localizer.Translate(
                                     "desrv.pdk.errors.invalidext.noentrypoint1",
@@ -47,6 +46,7 @@ namespace DESrv {
                             );
                             return;
                         }
+                        var metadata = a.GetPropertyValue("Metadata") as ExtensionMetadata;
                         pdkobjects.Add(a);
                     } catch (InvalidCastException) {
                         DESCoreRunner.GetLogger().Error(
@@ -71,9 +71,16 @@ namespace DESrv {
         /// </summary>
         /// <param name="targetDir">Target directory</param>
         public void AddAllExtensionsFromDir(string targetDir) {
-            foreach (var file in Directory.GetFiles(targetDir)) {
-                if (File.Exists(file) && file.EndsWith(".dll")) {
-                    AddExtension(file);
+            foreach (var obj in Directory.GetFiles(targetDir)) {
+                if (File.Exists(obj) && obj.EndsWith(".dll")) {
+                    AddExtension(obj);
+                } else if (Directory.Exists(obj)) {
+                    foreach (var file in Directory.GetFiles(Path.Combine(targetDir, obj))) {
+                        if (Directory.Exists(file)) continue;
+                        if (File.Exists(file) && file.EndsWith(".dll")) {
+                            AddExtension(obj);
+                        }
+                    }
                 }
             }
         }
@@ -91,13 +98,23 @@ namespace DESrv {
                     foreach (var ext in pdkobjects) {
                         var md = ext.GetPropertyValue("Metadata") as ExtensionMetadata;
                         if (md.ExtType == 1 && md.ID == metadata.Reference) {
-                            ext.LoadSubExtension(extension);
+                            try {
+                                ext.LoadSubExtension(extension);
+                            } catch (SubExtensionLoadsNotImplementedException ex) {
+                                DESCoreRunner.GetLogger().Error(
+                                    DESCoreRunner.Localizer.Translate(
+                                        "desrv.pdk.errors.invalidext.subextnotsupported",
+                                        ex.Message,
+                                        ex.ext
+                                    )
+                                );
+                            }
                             break;
                         }
                     }
                     break;
                 case 3: // random generator
-                    RandomBase.Randoms.Add((RandomBase)extension.GetFieldValue("randomNumberGenerator"));
+                    RandomBase.Randoms.Add((RandomBase)extension.GetFieldValue("randomNumberGenerator")!);
                     break;
                 default:
                     DESCoreRunner.GetLogger().Error(

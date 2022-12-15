@@ -15,4 +15,8 @@
     <WarningLevel>1</WarningLevel>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="NLua" Version="1.6.0" />
+  </ItemGroup>
+
 </Project>

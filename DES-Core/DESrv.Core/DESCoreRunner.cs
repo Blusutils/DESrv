@@ -46,14 +46,46 @@ namespace DESrv {
             var currentAsm = Assembly.GetExecutingAssembly();
             var despath = currentAsm.Location.Replace(Path.GetFileName(currentAsm.Location), "");
 
-            if (!Directory.Exists(Path.Combine(despath, "translations"))) Directory.CreateDirectory(Path.Combine(despath, "translations"));
+            GetLogger().Debug(
+                "Trying to load translations"
+                );
+            var translationsPath = Path.Combine(despath, PDKConstants.RELATIVE_TRANSLATIONS_PATH);
+            if (!Directory.Exists(translationsPath)) {
+                GetLogger().Debug(
+                "Translations folder not found, creating..."
+                );
+                Directory.CreateDirectory(translationsPath);
+            }
             Localizer = new Localizer();
-            Localizer.Load(Path.Combine(despath, "translations"));
+            Localizer.Load(translationsPath);
             Localizer.Strict = false;
+            GetLogger().Success(
+                Localizer.Translate(
+                            "desrv.core.loadedlangs",
+                            "Loaded languages: {0}",
+                            Directory.GetFiles(translationsPath).Length
+                        )
+                );
+
+            var scriptsPath = Path.Combine(despath, PDKConstants.RELATIVE_SCRIPTS_PATH);
+            if (!Directory.Exists(scriptsPath)) {
+                GetLogger().Debug(
+                "Scripts folder not found, creating..."
+                );
+                Directory.CreateDirectory(scriptsPath);
+            }
+
+            var dependenciesPath = Path.Combine(despath, PDKConstants.RELATIVE_NEUTRAL_DEPENDENCIES_PATH);
+            if (!Directory.Exists(dependenciesPath)) {
+                GetLogger().Debug(
+                "Neutral dependencies folder not found, creating..."
+                );
+                Directory.CreateDirectory(dependenciesPath);
+            }
 
             RandomBase.Randoms.Add(new DotnetRandom());
 
-            pdkLoader = new PDKLoader(Path.Combine(despath, "extensions"));
+            pdkLoader = new PDKLoader(Path.Combine(despath, PDKConstants.RELATIVE_EXTENSIONS_PATH));
             pdkLoader.AddAllExtensionsFromDir();
 
             var parsed = Utils.ArgParser.Parse(args);
@@ -73,7 +105,6 @@ namespace DESrv {
         /// <param name="cend">CEnd object</param>
         public static void SetupCEnd(CEnd cend) {
             CEnd.Logger.LogSource = "DESrv Runner";
-            CEnd.Logger.Success(Localizer.Translate("desrv.core.cendsetup", "CEnd Setup done"));
             CEnd = cend;
         }
         /// <summary>
@@ -90,10 +121,10 @@ namespace DESrv {
                 try {
                     var metadata = ext.GetPropertyValue("Metadata") as ExtensionMetadata;
                     var extSuppDes = new Version(metadata.DESVersion);
-                    if (extSuppDes.Major != DESVersion.Major && extSuppDes.Minor != DESVersion.Minor && extSuppDes.Build != DESVersion.Build) {
+                    if (extSuppDes.Major != DESVersion.Major && extSuppDes.Minor != DESVersion.Minor) {
                         CEnd.Logger.Error(
                             Localizer.Translate("desrv.pdk.errors.notcompatable",
-                            "Error in extension {0}: versions is not same (current DESrv version is {1}; however, this extension supports only {2})",
+                            "Error in extension {0}: major and minor versions is not same (current DESrv version is {1}; however, this extension supports only {2})",
                             ext, DESVersion, metadata.DESVersion
                          ));
                         return;

@@ -17,8 +17,6 @@ namespace DESrv {
 #endif
             // create config in any way
             if (!File.Exists("config.json")) DESrv.Config.Program.Main(Array.Empty<string>());
-            // setup runtime and config
-            coreRunner.SetupRuntime(args, DESCEnd.Config.ConfigReader.Read<DESrv.Config.OurConfig>());
             // setup DESCEndLib runner
             DESCoreRunner.SetupCEnd(new DESCEnd.CEnd(new DESCEnd.Logging.CEndLog() {
                 ConsoleLoggingLevel = loglevel,
@@ -26,6 +24,8 @@ namespace DESrv {
                 ConsoleLogging = true,
                 FileLogging = new DESCEnd.Logging.FileLogger()
             }));
+            // setup runtime and config
+            coreRunner.SetupRuntime(args, DESCEnd.Config.ConfigReader.Read<DESrv.Config.OurConfig>());
             // run
             try { coreRunner.Go(); } finally { Console.WriteLine(DESCoreRunner.Localizer.Translate("desrv.main.closeconsole", "Press any key to close console...")); Console.ReadKey(); }
         }

@@ -1,6 +1,14 @@
 ﻿using System.Runtime.InteropServices;
+using System.Text;
+using NLua;
 
 namespace DESrv.PDK {
+    public class SubExtensionLoadsNotImplementedException : Exception {
+        public AbstractPDKExtension ext;
+        public SubExtensionLoadsNotImplementedException(AbstractPDKExtension ext) : base("Sub extension loading is not supported by {0}") {
+            this.ext = ext;
+        }
+    }
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     public class PDKExtensionAttribute : Attribute {
         public PDKExtensionAttribute() { }
@@ -35,10 +43,6 @@ namespace DESrv.PDK {
         /// </summary>
         public string Author { get; set; } = "";
         /// <summary>
-        /// Array of dependencies for extension
-        /// </summary>
-        public string[] Dependencies { get; set; } = Array.Empty<string>();
-        /// <summary>
         /// ID of extension to which this extension refers (for addons)
         /// </summary>
         public string Reference { get; set; } = "";
@@ -52,23 +56,30 @@ namespace DESrv.PDK {
         /// Metadata of extension
         /// </summary>
         public abstract ExtensionMetadata Metadata { get; set; }
+        protected virtual Lua? LuaState { get; set; }
         /// <summary>
         /// Main method
         /// </summary>
-        public virtual void Entrypoint() { }
+        public abstract void Entrypoint();
         /// <summary>
         /// Load addon to this extension (for plugins)
         /// </summary>
         /// <param name="extension">Extension needed to load</param>
-        public virtual void LoadSubExtension(AbstractPDKExtension extension) { extension.Load(); }
+        public virtual void LoadSubExtension(AbstractPDKExtension extension) { throw new SubExtensionLoadsNotImplementedException(this); }
         /// <summary>
         /// Event what calls when extension loads
         /// </summary>
-        public virtual void Load() { }
+        public abstract void Load();
         /// <summary>
         /// Event what calls when extension unloads
         /// </summary>
-        public virtual void Unload() { }
+        public abstract void Unload();
+
+        public virtual void ProceedLuaScript(Lua? luaState = null, string? script = null) {
+            if (LuaState != luaState) LuaState ??= luaState;
+            LuaState.State.Encoding = Encoding.UTF8;
+            if (script is not null) LuaState.DoExtensionScript(script);
+        }
 
         public sealed override string ToString() {
             var metadata = GetPropertyValue("Metadata") as ExtensionMetadata;
