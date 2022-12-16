@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>DESCEndLib</PackageId>
+    <Title>DESCEndLib</Title>
+    <Version>1.1.1</Version>
+    <Authors>EgorBron</Authors>
+    <Company>Blusutils</Company>
+    <Description>DESCEndLib is logger, thread manager, localizer and config provider in one library.</Description>
+    <PackageProjectUrl>https://github.com/Blusutils/DESCEndLib</PackageProjectUrl>
+    <PackageIcon>DESCendLibLogo.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/Blusutils/DESCEndLib</RepositoryUrl>
+    <PackageTags>desrv;dotnet;logger;i18n;config;blusutils</PackageTags>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="DESCendLibLogo.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
