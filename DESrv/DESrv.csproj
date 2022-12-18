@@ -5,6 +5,15 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <RootNamespace>Blusutils.$(MSBuildProjectName)</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DESrv.Configuration\DESrv.Configuration.csproj" />
+    <ProjectReference Include="..\DESrv.Localization\DESrv.Localization.csproj" />
+    <ProjectReference Include="..\DESrv.Logging\DESrv.Logging.csproj" />
+    <ProjectReference Include="..\DESrv.PDK\DESrv.PDK.csproj" />
+    <ProjectReference Include="..\DESrvUpdater\DESrv.Updater.csproj" />
+  </ItemGroup>
 
 </Project>

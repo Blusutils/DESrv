@@ -1,4 +1,4 @@
-﻿namespace DESCEnd.Config {
+﻿namespace Blusutils.DESrv.Configuration {
     /// <summary>
     /// Abstract class for configs
     /// </summary>
@@ -15,7 +15,7 @@
             foreach (var key in config.Keys) {
                 if (flist.Contains(key)) {
                     var field = GetType().GetField(key);
-                    field.SetValue(this, field.FieldType == typeof(string) ? config[key] : Convert.ChangeType(config[key], field.FieldType));
+                    field?.SetValue(this, field.FieldType == typeof(string) ? config[key] : Convert.ChangeType(config[key], field.FieldType));
                 }
             }
         }

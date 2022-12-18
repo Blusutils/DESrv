@@ -1,4 +1,4 @@
-namespace DESCEnd.TextUtils {
+﻿namespace Blusutils.DESrv.Logging.Utils {
     /// <summary>
     /// Advanced (and better) keyword-based format (with extension methods)
     /// </summary>
