@@ -15,3 +15,7 @@ Properties/*
 *.FileListAbsolute.*
 *.Assembly*.cs
 *.g.*
+*.suo
+*.v2
+*.lock
+*.vsidx

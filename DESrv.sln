@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DESrv", "DESrv\DESrv.csproj", "{B4B3F98E-702A-419A-ACA8-A94EB5EFC36D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DESrv.Updater", "DESrvUpdater\DESrv.Updater.csproj", "{9B7779E6-B6AC-47DC-BCBD-9BE29C03A08D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DESrv.Updater", "DESrv.Updater\DESrv.Updater.csproj", "{9B7779E6-B6AC-47DC-BCBD-9BE29C03A08D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DESrv.Logging", "DESrv.Logging\DESrv.Logging.csproj", "{63EE96FE-906F-4F13-9AE5-7BA652EDE9F5}"
 EndProject

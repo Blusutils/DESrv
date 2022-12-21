@@ -13,7 +13,7 @@
     <ProjectReference Include="..\DESrv.Localization\DESrv.Localization.csproj" />
     <ProjectReference Include="..\DESrv.Logging\DESrv.Logging.csproj" />
     <ProjectReference Include="..\DESrv.PDK\DESrv.PDK.csproj" />
-    <ProjectReference Include="..\DESrvUpdater\DESrv.Updater.csproj" />
+    <ProjectReference Include="..\DESrv.Updater\DESrv.Updater.csproj" />
   </ItemGroup>
 
 </Project>
