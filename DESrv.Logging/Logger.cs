@@ -4,7 +4,7 @@ namespace Blusutils.DESrv.Logging {
     /// <summary>
     /// Main logger
     /// </summary>
-    public class Logger : IDisposable {
+    public class Logger : IDisposable, IDESrvLogService {
         bool disposed = false;
         /// <summary>
         /// Is logs sends to console stdout?
@@ -85,7 +85,7 @@ namespace Blusutils.DESrv.Logging {
                 Console.ResetColor();
             };
             if (FileLogger != null && level >= FileLoggingLevel)
-                FileLogger.Log(msg);
+                FileLogger.Log(msg, level, source);
         }
         /// <summary>
         /// Send Debug log to console stdout (if enabled) and file logger (if exists). Simular to: <see cref="Log(string, LogLevel, string, object[])"/> where <see cref="LogLevel"/> is <see cref="LogLevel.Debug"/>

@@ -9,7 +9,7 @@ namespace Blusutils.DESrv.Logging {
     /// <summary>
     /// File logger
     /// </summary>
-    public class FileLogger : IDisposable {
+    public class FileLogger : IDisposable, IDESrvLogService {
         bool disposed = false;
         /// <summary>
         /// Default directory to write logs
@@ -32,7 +32,7 @@ namespace Blusutils.DESrv.Logging {
         /// </summary>
         /// <param name="message">Message to send</param>
         /// <param name="source">Log source</param>
-        public void Log(string message) {
+        public void Log(string message, LogLevel level, string? source = null) {
             if (TargetDir is null) throw new NullReferenceException("target logging directory is not set");
             if (!Directory.Exists(TargetDir)) {
                 Console.Error.WriteLine("Log directory not found, creating default");

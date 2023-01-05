@@ -1,4 +1,4 @@
-﻿namespace DESrv.PDK {
+﻿namespace Blusutils.DESrv.PDK {
     public class AbstractPDKExtension {
 
     }
