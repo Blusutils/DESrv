@@ -80,9 +80,8 @@ namespace Blusutils.DESrv.Logging {
             };
             var msg = LogMessageSchema.Format(formatForConsole);
             if (ConsoleLogging && level >= ConsoleLoggingLevel) {
-                Console.ForegroundColor = GetConsoleColor(level);
-                Console.WriteLine(msg);
-                Console.ResetColor();
+                SimultaneousConsole.ForegroundColor = GetConsoleColor(level);
+                SimultaneousConsole.WriteLine(msg);
             };
             if (FileLogger != null && level >= FileLoggingLevel)
                 FileLogger.Log(msg, level, source);

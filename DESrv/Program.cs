@@ -23,10 +23,12 @@ var logger = new Blusutils.DESrv.Logging.Logger() {
     LogSource = "DESrv"
 };
 
-var bootstrap = new Bootstrapper () {
-    DESrvVersion = new (2, 0, 0, 0),
-    Localization = new() { CurrentLocale = DESrvConfig.Instance.Locale?? "en-US", Strict = false },
+var bootstrap = new Bootstrapper() {
+    DESrvVersion = new(2, 0, 0, 0),
+    Threader = new(),
+    Localization = new() { CurrentLocale = DESrvConfig.Instance.Locale ?? "en-US", Strict = false },
     Logger = logger,
+    CommandInputProcessor = new CommandInputProcessor()
 };
 
 bootstrap.Start();
