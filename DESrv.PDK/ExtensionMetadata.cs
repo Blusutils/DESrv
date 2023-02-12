@@ -1,0 +1,14 @@
+﻿namespace Blusutils.DESrv.PDK {
+    public class ExtensionMetadata {
+        public required string ID { get; set; }
+        public required ExtensionType ExtensionType { get; set; }
+        public required string Name { get; set; }
+        public required string Author { get; set; }
+        public required string Version { get; set; }
+        public required string TargetDESrvVersion { get; set; }
+        public string? Description { get; set; }
+        public int[]? AllowedPorts { get; set; }
+        public string[]? Dependencies { get; set; }
+        public string? RefersTo { get; set; }
+    }
+}
