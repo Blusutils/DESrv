@@ -6,19 +6,19 @@ DESrvConfig.Instance = DESrvConfig.Read<DESrvConfig>();
 if (DESrvConfig.Instance == null) throw new NullReferenceException(nameof(DESrvConfig.Instance)+" is null");
 
 var logger = new Blusutils.DESrv.Logging.Logger() {
-    ConsoleLogging = DESrvConfig.Instance.UseConsoleLogging,
+    ConsoleLogging = DESrvConfig.Instance.useConsoleLogging,
     ConsoleLoggingLevel =
 #if DEBUG
         Blusutils.DESrv.Logging.LogLevel.Debug,
 #else
-        DESrvConfig.Instance.IsDevelopment ? DESrvConfig.Instance.LogLevelDevelopment : DESrvConfig.Instance.LogLevel,
+        DESrvConfig.Instance.isDevelopment ? DESrvConfig.Instance.logLevelDevelopment : DESrvConfig.Instance.logLevel,
 #endif
-    FileLogger = DESrvConfig.Instance.UseFileLogging ? new() { TargetDir = "./logs" } : null,
+    FileLogger = DESrvConfig.Instance.useFileLogging ? new() { TargetDir = "./logs" } : null,
     FileLoggingLevel =
 #if DEBUG
          Blusutils.DESrv.Logging.LogLevel.Debug,
 #else
-         DESrvConfig.Instance.IsDevelopment ? DESrvConfig.Instance.LogLevelDevelopment : DESrvConfig.Instance.LogLevel,
+         DESrvConfig.Instance.isDevelopment ? DESrvConfig.Instance.logLevelDevelopment : DESrvConfig.Instance.logLevel,
 #endif
     LogSource = "DESrv"
 };
@@ -26,7 +26,7 @@ var logger = new Blusutils.DESrv.Logging.Logger() {
 var bootstrap = new Bootstrapper() {
     DESrvVersion = new(2, 0, 0, 0),
     Threader = new(),
-    Localization = new() { CurrentLocale = DESrvConfig.Instance.Locale ?? "en-US", Strict = false },
+    Localization = new() { CurrentLocale = DESrvConfig.Instance.locale ?? "en-US", Strict = false },
     Logger = logger,
     CommandInputProcessor = new CommandInputProcessor()
 };

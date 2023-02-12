@@ -1,5 +1,6 @@
 ﻿namespace Blusutils.DESrv.PDK {
     public class ExtensionMetadata {
+        object? bindedTo = null;
         public required string ID { get; set; }
         public required ExtensionType ExtensionType { get; set; }
         public required string Name { get; set; }

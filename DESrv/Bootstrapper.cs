@@ -44,11 +44,9 @@ namespace Blusutils.DESrv {
             if (CommandInputProcessor == null)
                 CommandInputProcessor = new CommandInputProcessor();
 
-            if ((DESrvConfig.Instance!.AllowStdioListeners.HasValue && DESrvConfig.Instance!.AllowStdioListeners.Value)
-                    || !DESrvConfig.Instance!.AllowStdioListeners.HasValue) {
-                SimultaneousConsole.OnNewCommandGotEvent += CommandInputProcessor.Process;
-                Threader.QueueSingletonThread(() => SimultaneousConsole.StartRead());
-            }
+            SimultaneousConsole.OnNewCommandGotEvent += CommandInputProcessor.Process;
+            //Threader.QueueSingletonThread(() => SimultaneousConsole.StartRead());
+            new Thread(() => SimultaneousConsole.StartRead()).Start();
         }
     }
 }
