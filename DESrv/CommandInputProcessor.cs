@@ -7,6 +7,17 @@ using Blusutils.DESrv.Logging;
 
 namespace Blusutils.DESrv {
     public class CommandInputProcessor : ICommandInputProcessor {
-        public void Process(string cmd) { /* TODO: PDK.NotifyAll*/ }
+        public void Process(string cmd) {
+            var args = cmd.ToLower().Split(" ");
+            Func<object> anon = args[0] switch {
+                    "write" => () => {
+                        SimultaneousConsole.WriteLine(cmd);
+                        return null;
+                    }
+                    ,
+                    _ => () => { return 0; }
+                };
+            anon();
+        }
     }
 }

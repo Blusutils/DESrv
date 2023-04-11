@@ -15,7 +15,7 @@ namespace Blusutils.DESrv.Configuration {
                         true;
             #else
                         false;
-#endif
+            #endif
         public string locale { get; set; } = "en-US";
         public bool autoCheckUpdates { get; set; } = true;
         public bool autoUpdate { get; set; } = false;
@@ -24,7 +24,6 @@ namespace Blusutils.DESrv.Configuration {
         public LogLevel logLevelDevelopment { get; set; } = LogLevel.Debug;
         public bool useConsoleLogging { get; set; } = true;
         public bool useFileLogging { get; set; } = true;
-        public ConsoleControlSequence? simControlKeys { get; set; } = new();
         public bool? preferSecure { get; set; } = false;
         public string? extensionsDir { get; set; } = "./extensions";
         public int? extensionsFindDepth { get; set; } = 2;

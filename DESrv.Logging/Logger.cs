@@ -49,17 +49,17 @@ namespace Blusutils.DESrv.Logging {
         /// <param name="level">Logging level</param>
         /// <returns>Color from <see cref="ConsoleColor"/></returns>
         static  ConsoleColor GetConsoleColor(LogLevel level) {
-            switch (level) {
-                case LogLevel.Debug: return ConsoleColor.Gray;
-                case LogLevel.Notice: return ConsoleColor.Cyan;
-                case LogLevel.Info: return ConsoleColor.Blue;
-                case LogLevel.Success: return ConsoleColor.Green;
-                case LogLevel.Warn: return ConsoleColor.Yellow;
-                case LogLevel.Error: return ConsoleColor.Red;
-                case LogLevel.Critical: return ConsoleColor.Magenta;
-                case LogLevel.Fatal: return ConsoleColor.DarkMagenta;
-                default: return ConsoleColor.White;
-            }
+            return level switch {
+                LogLevel.Debug => ConsoleColor.Gray,
+                LogLevel.Notice => ConsoleColor.Cyan,
+                LogLevel.Info => ConsoleColor.Blue,
+                LogLevel.Success => ConsoleColor.Green,
+                LogLevel.Warn => ConsoleColor.Yellow,
+                LogLevel.Error => ConsoleColor.Red,
+                LogLevel.Critical => ConsoleColor.Magenta,
+                LogLevel.Fatal => ConsoleColor.DarkMagenta,
+                _ => ConsoleColor.White,
+            };
         }
         /// <summary>
         /// Send log to console stdout (if enabled) and file logger (if exists)
@@ -75,13 +75,12 @@ namespace Blusutils.DESrv.Logging {
                 ["Source"] = source ?? "Null",
                 ["SourceThread"] = Thread.CurrentThread.Name ?? "Null",
                 ["Date"] = DateTime.Now,
-                ["Level"] = lvlString + string.Join("", Enumerable.Repeat(" ", 8 - lvlString.Length)),
+                ["Level"] = lvlString.PadRight(8),
                 ["Message"] = message ?? "*message isn't provided*"
             };
             var msg = LogMessageSchema.Format(formatForConsole);
             if (ConsoleLogging && level >= ConsoleLoggingLevel) {
-                SimultaneousConsole.ForegroundColor = GetConsoleColor(level);
-                SimultaneousConsole.WriteLine(msg);
+                SimultaneousConsole.WriteLine(msg, GetConsoleColor(level));
             };
             if (FileLogger != null && level >= FileLoggingLevel)
                 FileLogger.Log(msg, level, source);

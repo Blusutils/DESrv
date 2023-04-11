@@ -44,9 +44,14 @@ namespace Blusutils.DESrv {
             if (CommandInputProcessor == null)
                 CommandInputProcessor = new CommandInputProcessor();
 
-            SimultaneousConsole.OnNewCommandGotEvent += CommandInputProcessor.Process;
+            Logger.Info("DESrv starting...");
+
             //Threader.QueueSingletonThread(() => SimultaneousConsole.StartRead());
-            new Thread(() => SimultaneousConsole.StartRead()).Start();
+            new Thread(() => {
+                while (true) {
+                    CommandInputProcessor.Process(SimultaneousConsole.ReadLine());
+                }
+            }).Start();
         }
     }
 }
