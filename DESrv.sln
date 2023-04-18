@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DESrv.Localization", "DESrv
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DESrv.Tests", "DESrv.Tests\DESrv.Tests.csproj", "{A964BEBD-0E3F-46B2-A4AA-4D0962F7C79C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DESrv.LuaScriptingApi", "DESrv.LuaScriptingApi\DESrv.LuaScriptingApi.csproj", "{341C94EC-E63B-4DC0-AFA1-E65B069F252C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{A964BEBD-0E3F-46B2-A4AA-4D0962F7C79C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A964BEBD-0E3F-46B2-A4AA-4D0962F7C79C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A964BEBD-0E3F-46B2-A4AA-4D0962F7C79C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{341C94EC-E63B-4DC0-AFA1-E65B069F252C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{341C94EC-E63B-4DC0-AFA1-E65B069F252C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{341C94EC-E63B-4DC0-AFA1-E65B069F252C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{341C94EC-E63B-4DC0-AFA1-E65B069F252C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
