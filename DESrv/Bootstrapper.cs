@@ -47,11 +47,12 @@ namespace Blusutils.DESrv {
             Logger.Info("DESrv starting...");
 
             //Threader.QueueSingletonThread(() => SimultaneousConsole.StartRead());
-            new Thread(() => {
-                while (true) {
-                    CommandInputProcessor.Process(SimultaneousConsole.ReadLine());
-                }
-            }).Start();
+            if (ConsoleService.Console is SimultaneousConsole simc) // shitty dependency injection to prevent bugs with docker; TODO remote command sending API
+                new Thread(() => {
+                    while (true) {
+                        CommandInputProcessor.Process(simc.ReadLine());
+                    }
+                }).Start();
         }
     }
 }

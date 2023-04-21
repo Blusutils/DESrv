@@ -11,7 +11,7 @@ namespace Blusutils.DESrv {
             var args = cmd.ToLower().Split(" ");
             Func<object> anon = args[0] switch {
                     "write" => () => {
-                        SimultaneousConsole.WriteLine(cmd);
+                        ConsoleService.Console.WriteLine(cmd);
                         return null;
                     }
                     ,

@@ -51,7 +51,7 @@ namespace Blusutils.DESrv.Logging {
             return new Message(s.ToString(), msg?.fgColor??ConsoleColor.White, msg?.bgColor ?? ConsoleColor.Black);
         }
     }
-    public static class SimultaneousConsole {
+    public class SimultaneousConsole : IConsoleStream {
 
         private static List<string> history = new();
         private static StringBuilder cmdInput = new();
@@ -64,20 +64,20 @@ namespace Blusutils.DESrv.Logging {
         public static string PromptDefault { get; set; } = "> ";
         public static int SleepTime { get; set; } = 25;
 
-        public static void Write(string text, ConsoleColor fgColor = ConsoleColor.White, ConsoleColor bgColor = ConsoleColor.Black) {
+        public void Write(string text, ConsoleColor fgColor = ConsoleColor.White, ConsoleColor bgColor = ConsoleColor.Black) {
             OutputWriter?.AddText(text, fgColor, bgColor);
         }
 
-        public static void WriteLine(string text, ConsoleColor fgColor = ConsoleColor.White, ConsoleColor bgColor = ConsoleColor.Black) {
+        public void WriteLine(string text, ConsoleColor fgColor = ConsoleColor.White, ConsoleColor bgColor = ConsoleColor.Black) {
             Write(text, fgColor, bgColor);
             Write(Environment.NewLine, fgColor, bgColor);
         }
 
-        public static string ReadLine() {
+        public string ReadLine() {
             return ReadLine(PromptDefault);
         }
 
-        public static string ReadLine(string prompt, string inputText = "") {
+        public string ReadLine(string prompt, string inputText = "") {
             cmdInput = new StringBuilder();
 
             cursorYInit = Console.CursorTop;
@@ -97,7 +97,7 @@ namespace Blusutils.DESrv.Logging {
 
             do // while (cki.Key != ConsoleKey.Enter)
             {
-                if (Console.KeyAvailable) {
+                if (Console.In.Peek() != -1) {
                     cki = Console.ReadKey(true);
 
                     HandleKey(cki);
@@ -125,7 +125,7 @@ namespace Blusutils.DESrv.Logging {
         }
 
         // allows printing all all queued output; useful before stopping program etc.
-        public static void ForcePrintQueue() {
+        public void ForcePrintQueue() {
             var msg = OutputWriter?.GetText();
             var fg = Console.ForegroundColor;
             var bg = Console.BackgroundColor;
@@ -136,7 +136,7 @@ namespace Blusutils.DESrv.Logging {
             Console.BackgroundColor = bg;
         }
 
-        private static void HandleKey(ConsoleKeyInfo cki) {
+        private void HandleKey(ConsoleKeyInfo cki) {
             // ctrl key not pressed or alt key pressed (making ctrl+alt possible which equals altgr key), prevents shortcuts like ctrl+i, but allows ones like altgr+q for @
             if (cki.Key == ConsoleKey.Enter || ((cki.Modifiers & ConsoleModifiers.Control) != 0 &&
                                                 (cki.Modifiers & ConsoleModifiers.Alt) == 0))
@@ -360,13 +360,13 @@ namespace Blusutils.DESrv.Logging {
         }
 
         // sets cursor position to end of user input (behind last character)
-        private static void SetCursorEndOfInput() {
+        private void SetCursorEndOfInput() {
             Console.CursorTop = cursorYInit + (cursorXTotal + cursorXOffset) / Console.BufferWidth; // '/' discards remainder
             Console.CursorLeft = (cursorXTotal + cursorXOffset) % Console.BufferWidth;
         }
 
         // deletes all user input and returns cursor to starting position
-        private static void ClearInput() {
+        private void ClearInput() {
             Console.CursorTop = cursorYInit;
             Console.CursorLeft = cursorXOffset;
 
@@ -377,7 +377,7 @@ namespace Blusutils.DESrv.Logging {
         }
 
         // writes all output cached in the outputwriter to the console, returns true if any text was printed, otherwise returns false
-        private static void PrintText(string prompt) {
+        private void PrintText(string prompt) {
             var output = OutputWriter?.GetText();
 
             if (output?.text.Length == 0)

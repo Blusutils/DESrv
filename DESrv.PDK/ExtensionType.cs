@@ -8,6 +8,6 @@ namespace Blusutils.DESrv.PDK {
     public enum ExtensionType {
         Plugin,
         Addon,
-        SharedLibrary
+        SharedLibrary // TODO use custom ReferencePath to load it!
     }
 }

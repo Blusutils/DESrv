@@ -19,3 +19,4 @@ Properties/*
 *.v2
 *.lock
 *.vsidx
+/DESrv/logs
