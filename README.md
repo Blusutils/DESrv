@@ -12,36 +12,44 @@ The 2.0 update branch.
 ## Install
 For 2.0 branch installation is available only from sources.
 
-0. Prerequesties:
+Prerequesties:
 
 * An OS - either Linux or Windows
-* Visual Studio 2022 (17) (optional)
-* .NET SDK 7.0 or above
+    * macOS NOT tested but SHOULD work
 * Git (any version)
-* Extensions what you'll test
+* (optional) Extensions what you'll test
 * (optional) Internet connection
 * (optional) Connection client
+* .NET SDK 7.0 or above and optionally Visual Studio 2022 (17)
+    * OR Docker + docker-compose
 
-1. Clone this repository:
+At first clone this repository and switch to 2.0 branch:
 
-    ```batch
-    git clone https://github.com/Blusutils/DESrv.git
-    ```
+```bash
+git clone https://github.com/Blusutils/DESrv.git
+cd DESrv
+git switch desrv2.0
+```
 
-2. Switch to 2.0 branch:
+### I have .NET installed
 
-    ```batch
-    git switch desrv2.0
-    ```
+Run following:
 
-3. Run:
+```bash
+# or build solution directly from VS
+dotnet restore
+dotnet run -c Debug
+# or: dotnet build -c Debug
+# or publish
+```
 
-    ```batch
-    :: or build solution directly from VS
-    dotnet restore
-    dotnet run -c Debug
-    :: or: dotnet build -c Debug
-    ```
+### I'm using Docker
+
+Ensure you have docker-compose and run:
+```bash
+docker-compose build
+docker-compose up
+```
 
 ## Contributing
 
