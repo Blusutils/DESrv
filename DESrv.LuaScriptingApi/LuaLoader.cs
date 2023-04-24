@@ -1,5 +1,5 @@
 ﻿namespace Blusutils.DESrv.LuaScriptingApi;
-public class LuaLoader {
+public class LuaLoader { // TODO docs and implementation
 
     string scriptsPath;
 

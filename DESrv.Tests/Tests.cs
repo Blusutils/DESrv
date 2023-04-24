@@ -7,6 +7,9 @@ using Blusutils.DESrv.Configuration;
 using Blusutils.DESrv;
 
 namespace Blusutils.DESrv.Tests;
+/// <summary>
+/// Base setup class for most of tests
+/// </summary>
 public class Tests {
     static Tests() {
         DESrvConfig.Instance = DESrvConfig.Read<DESrvConfig>();

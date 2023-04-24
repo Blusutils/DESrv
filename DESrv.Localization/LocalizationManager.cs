@@ -30,6 +30,14 @@ namespace Blusutils.DESrv.Localization {
                 LoadTranslationFromString(data ??"{}");
         }
 
+        /// <summary>
+        /// Gets translation by key
+        /// </summary>
+        /// <param name="key">Dot-separated key, path to nested string</param>
+        /// <param name="strict">Should an exception be thrown if no key is found</param>
+        /// <returns>Translated string</returns>
+        /// <exception cref="NullReferenceException">When translations is not loaded</exception>
+        /// <exception cref="LocaleKeyException">If something went wrong when trying to get string by key</exception>
         public string? GetTranslation(string key, bool strict = true) {
             if (Translations is null)
                 if (strict)
@@ -42,9 +50,6 @@ namespace Blusutils.DESrv.Localization {
                 if (strict) throw new LocaleKeyException($"{key}", fromExc: e);
                 return null;
             }
-            
-            
-            
         }
         /// <summary>
         /// Load translation from file

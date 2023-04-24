@@ -29,4 +29,8 @@
     <ProjectReference Include="..\DESrv\DESrv.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ConnectionTests\" />
+  </ItemGroup>
+
 </Project>

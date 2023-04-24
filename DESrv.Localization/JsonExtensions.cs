@@ -3,7 +3,17 @@ using System.Text.Json.Serialization;
 
 namespace Blusutils.DESrv.Localization;
 public static class JsonExtensions {
-    public static string GetString(this JsonElement element, string keyPath) {
+
+    /// <summary>
+    /// Gets string by dot-separated key
+    /// </summary>
+    /// <param name="element">JSON element to use</param>
+    /// <param name="keyPath">Dot-separated key, path to nested value</param>
+    /// <returns>Found string or null</returns>
+    /// <exception cref="JsonException">If <paramref name="keyPath"/> is invalid</exception>
+    /// <exception cref="KeyNotFoundException">If <paramref name="keyPath"/> is not contains in JSON</exception>
+    /// <exception cref="InvalidOperationException">If <paramref name="keyPath"/> value is not a string</exception>
+    public static string? GetString(this JsonElement element, string keyPath) {
         var keys = keyPath.Split('.');
         var currentElement = element;
 
