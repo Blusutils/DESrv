@@ -32,7 +32,7 @@ namespace Blusutils.DESrv {
         /// Command processor from <see cref="SimultaneousConsole"/>
         /// </summary>
         public ICommandInputProcessor? CommandInputProcessor { get; set; }
-        public void Start() {
+        public void Start(CancellationToken cancellationToken) {
             if (Threader == null)
                 throw new NullReferenceException("Threader is null, set it in bootstrapper initializer");
             if (Logger == null)
@@ -49,7 +49,7 @@ namespace Blusutils.DESrv {
             //Threader.QueueSingletonThread(() => SimultaneousConsole.StartRead());
             if (ConsoleService.Console is SimultaneousConsole simc) // shitty dependency injection to prevent bugs with docker; TODO remote command sending API
                 new Thread(() => {
-                    while (true) {
+                    while (cancellationToken.IsCancellationRequested) {
                         CommandInputProcessor.Process(simc.ReadLine());
                     }
                 }).Start();

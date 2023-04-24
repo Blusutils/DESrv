@@ -31,4 +31,6 @@ var bootstrap = new Bootstrapper() {
     CommandInputProcessor = new CommandInputProcessor()
 };
 
-bootstrap.Start();
+var cts = new CancellationTokenSource();
+
+bootstrap.Start(cts.Token);
