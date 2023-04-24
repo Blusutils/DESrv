@@ -8,8 +8,8 @@ namespace Blusutils.DESrv.Tests.L10nTests;
 /// </summary>
 public class LocaleTests : Tests {
 
-    Localizer localizerStrict = new() { CurrentLocale = "en", Strict = true };
-    Localizer localizerNonStrict = new() { CurrentLocale = "en", Strict = false };
+    LocalizationProvider localizerStrict = new() { CurrentLocale = "en", Strict = true };
+    LocalizationProvider localizerNonStrict = new() { CurrentLocale = "en", Strict = false };
 
     [OneTimeSetUp]
     public void Setup() {
