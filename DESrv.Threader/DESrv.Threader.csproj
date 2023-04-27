@@ -4,7 +4,8 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>Blusutils.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+    <AssemblyName>Blusutils.DESrv.Threader</AssemblyName>
+    <RootNamespace>Blusutils.DESrv.Threader</RootNamespace>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 

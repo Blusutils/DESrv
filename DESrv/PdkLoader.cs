@@ -11,10 +11,13 @@ namespace Blusutils.DESrv;
 /// <summary>
 /// Container of Metadata, Status and Assembly reference of the extension
 /// </summary>
-/// <param name="Metadata"></param>
-/// <param name="Status"></param>
-/// <param name="Assembly"></param>
-public record class ExtensionContainer(ExtensionMetadata Metadata, ExtensionStatus Status, Assembly Assembly);
+public class ExtensionContainer {
+    public ExtensionMetadata Metadata { get; set; }
+    public ExtensionStatus Status { get; set; }
+    public Assembly Assembly { get; set; }
+    public CancellationToken CancellationToken { get; set; }
+    public object Instance { get; set; }
+}
 
 /// <summary>
 /// Extension loader for Plugin DeVelopment Kit (PDK)
@@ -24,12 +27,12 @@ public class PdkLoader { // TODO implement pdkloader
     /// <summary>
     /// Default location with extensions
     /// </summary>
-    public string? LoadFrom { get; init; }
+    public string? LoadFrom { get; set; }
 
     /// <summary>
     /// List of extensions
     /// </summary>
-    public Dictionary<string, ExtensionContainer>? Extensions { get; } = new();
+    public Dictionary<string, ExtensionContainer> Extensions { get; } = new();
 
     /// <summary>
     /// Add an extension from file
@@ -52,7 +55,7 @@ public class PdkLoader { // TODO implement pdkloader
     /// Load extension by ID
     /// </summary>
     /// <param name="id"></param>
-    public void LoadExtension(string id) { }
+    public ExtensionContainer? LoadExtension(string id) { return null; }
 
     /// <summary>
     /// Unoad extension by ID

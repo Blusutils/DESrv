@@ -90,7 +90,7 @@ public class DESrvConfig : ConfigurationModel {
     public string[]? extensionsWhitelist { get; set; } = Array.Empty<string>();
 
     /// <summary>
-    /// Extesnion that will capture <see cref="SimultaneousConsole.ReadLine"/> after startup
+    /// Extesnion that will capture console input stream after Logman startup
     /// </summary>
     public string? mainExtension { get; set; } = "DESrvInternal";
 

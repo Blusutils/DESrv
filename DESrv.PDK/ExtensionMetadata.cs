@@ -3,7 +3,7 @@
     /// PDK extension metadata
     /// </summary>
     public class ExtensionMetadata {
-        object? bindedTo = null;
+
         /// <summary>
         /// ID of the extension, must be unique and contain only A-Z, a-z, 0-9, _ symbols
         /// </summary>

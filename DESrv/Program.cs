@@ -27,8 +27,7 @@ var bootstrap = new Bootstrapper() {
     DESrvVersion = new(2, 0, 0, 0),
     Threader = new(),
     Localization = new() { CurrentLocale = DESrvConfig.Instance.locale ?? "en-US", Strict = false },
-    Logger = logger,
-    CommandInputProcessor = new CommandInputProcessor()
+    Logger = logger
 };
 
 var cts = new CancellationTokenSource();

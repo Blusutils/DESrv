@@ -16,6 +16,7 @@ interface IDESrvLogService {
     /// </summary>
     /// <param name="message">Message to send</param>
     /// <param name="level">Log level</param>
+    /// <param name="exception">Exception associated with log</param>
     /// <param name="source">Log source</param>
-    public void Log(string message, LogLevel level, string? source = null);
+    public void Log(string message, LogLevel level, Exception? exception = null, string? source = null);
 }

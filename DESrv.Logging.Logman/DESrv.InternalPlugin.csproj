@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>desrv-logman</AssemblyName>
+    <RootNamespace>Blusutils.DESrv.InternalPlugin</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <ProjectReference Include="..\DESrv.PDK\DESrv.PDK.csproj" />
+	  <ProjectReference Include="..\DESrv.Commands\DESrv.Commands.csproj" />
+	  <ProjectReference Include="..\DESrv.Logging\DESrv.Logging.csproj" />
+  </ItemGroup>
+
+</Project>

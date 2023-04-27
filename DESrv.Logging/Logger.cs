@@ -1,4 +1,6 @@
-﻿using Blusutils.DESrv.Logging.Utils;
+﻿using System.Drawing;
+using Blusutils.DESrv.Logging.Utils;
+using static System.Net.Mime.MediaTypeNames;
 using static Blusutils.DESrv.Logging.Utils.AdvFormat;
 
 namespace Blusutils.DESrv.Logging;
@@ -68,8 +70,9 @@ public class Logger : IDisposable, IDESrvLogService {
     /// </summary>
     /// <param name="message">Message to send</param>
     /// <param name="level">Log level</param>
+    /// <param name="exception">Exception associated with log</param>
     /// <param name="source">Log source</param>
-    public void Log(string message, LogLevel level, string? source = null) {
+    public void Log(string message, LogLevel level, Exception? exception = null, string? source = null) {
         source ??= LogSource;
         OnLogEvent?.Invoke(level, message, source);
         var lvlString = level.ToString().ToUpper();
@@ -81,82 +84,102 @@ public class Logger : IDisposable, IDESrvLogService {
             ["Message"] = message ?? "*message isn't provided*"
         };
         var msg = LogMessageSchema.Format(formatForConsole);
+
+        if (exception is not null)
+            msg += $"\n\t{exception.GetType().FullName} from {exception.TargetSite} (caused by {exception.Source}): {exception.Message}\n\t{exception.StackTrace}";
+
         if (ConsoleLogging && level >= ConsoleLoggingLevel) {
-            ConsoleService.Console.WriteLine(msg, GetConsoleColor(level));
+            var fg = Console.ForegroundColor;
+            Console.ForegroundColor = GetConsoleColor(level);
+            Console.WriteLine(msg);
+            Console.ForegroundColor = fg;
         };
         if (FileLogger != null && level >= FileLoggingLevel)
-            FileLogger.Log(msg, level, source);
+            FileLogger.Log(msg, level, exception, source);
     }
     /// <summary>
-    /// Send Debug log to console stdout (if enabled) and file logger (if exists). Simular to: <see cref="Log(string, LogLevel, string, object[])"/> where <see cref="LogLevel"/> is <see cref="LogLevel.Debug"/>
+    /// Send Debug log to console stdout (if enabled) and file logger (if exists). Simular to: <see cref="Log(string, LogLevel, Exception?, string?)"/> with <see cref="LogLevel.Debug"/>
     /// </summary>
     /// <param name="message">Message to send</param>
+    /// <param name="exception">Exception associated with log</param>
     /// <param name="source">Log source</param>
-    public void Debug(string message, string? source = null) {
-        Log(message, LogLevel.Debug, source ?? LogSource);
+    public void Debug(string message, Exception? exception = null, string? source = null) {
+        Log(message, LogLevel.Debug, exception, source ?? LogSource);
     }
     /// <summary>
-    /// Send Notice log to console stdout (if enabled) and file logger (if exists). Simular to: <see cref="Log(string, LogLevel, string, object[])"/> where <see cref="LogLevel"/> is <see cref="LogLevel.Notice"/>
+    /// Send Notice log to console stdout (if enabled) and file logger (if exists). Simular to: <see cref="Log(string, LogLevel, Exception?, string?)"/> with <see cref="LogLevel.Notice"/>
     /// </summary>
     /// <param name="message">Message to send</param>
+    /// <param name="exception">Exception associated with log</param>
     /// <param name="source">Log source</param>
-    public void Notice(string message, string? source = null) {
-        Log(message, LogLevel.Notice, source ?? LogSource);
+    public void Notice(string message, Exception? exception = null, string? source = null) {
+        Log(message, LogLevel.Notice, exception, source ?? LogSource);
     }
     /// <summary>
-    /// Send Info log to console stdout (if enabled) and file logger (if exists). Simular to: <see cref="Log(string, LogLevel, string, object[])"/> where <see cref="LogLevel"/> is <see cref="LogLevel.Info"/>
+    /// Send Info log to console stdout (if enabled) and file logger (if exists). Simular to: <see cref="Log(string, LogLevel, Exception?, string?)"/> with <see cref="LogLevel.Info"/>
     /// </summary>
     /// <param name="message">Message to send</param>
+    /// <param name="exception">Exception associated with log</param>
     /// <param name="source">Log source</param>
-    public void Info(string message, string? source = null) {
-        Log(message, LogLevel.Info, source ?? LogSource);
+    public void Info(string message, Exception? exception = null, string? source = null) {
+        Log(message, LogLevel.Info, exception, source ?? LogSource);
     }
     /// <summary>
-    /// Send Sucess log to console stdout (if enabled) and file logger (if exists). Simular to: <see cref="Log(string, LogLevel, string, object[])"/> where <see cref="LogLevel"/> is <see cref="LogLevel.Success"/>
+    /// Send Sucess log to console stdout (if enabled) and file logger (if exists). Simular to: <see cref="Log(string, LogLevel, Exception?, string?)"/> with <see cref="LogLevel.Success"/>
     /// </summary>
     /// <param name="message">Message to send</param>
+    /// <param name="exception">Exception associated with log</param>
     /// <param name="source">Log source</param>
-    public void Success(string message, string? source = null) {
-        Log(message, LogLevel.Success, source ?? LogSource);
+    public void Success(string message, Exception? exception = null, string? source = null) {
+        Log(message, LogLevel.Success, exception, source ?? LogSource);
     }
     /// <summary>
-    /// Send Warn log to console stdout (if enabled) and file logger (if exists). Simular to: <see cref="Log(string, LogLevel, string, object[])"/> where <see cref="LogLevel"/> is <see cref="LogLevel.Warn"/>
+    /// Send Warn log to console stdout (if enabled) and file logger (if exists). Simular to: <see cref="Log(string, LogLevel, Exception?, string?)"/> with <see cref="LogLevel.Warn"/>
     /// </summary>
     /// <param name="message">Message to send</param>
+    /// <param name="exception">Exception associated with log</param>
     /// <param name="source">Log source</param>
-    public void Warn(string message, string? source = null) {
-        Log(message, LogLevel.Warn, source ?? LogSource);
+    public void Warn(string message, Exception? exception = null, string? source = null) {
+        Log(message, LogLevel.Warn, exception, source ?? LogSource);
     }
     /// <summary>
-    /// Send Error log to console stdout (if enabled) and file logger (if exists). Simular to: <see cref="Log(string, LogLevel, string, object[])"/> where <see cref="LogLevel"/> is <see cref="LogLevel.Error"/>
+    /// Send Error log to console stdout (if enabled) and file logger (if exists). Simular to: <see cref="Log(string, LogLevel, Exception?, string?)"/> with <see cref="LogLevel.Error"/>
     /// </summary>
     /// <param name="message">Message to send</param>
+    /// <param name="exception">Exception associated with log</param>
     /// <param name="source">Log source</param>
-    public void Error(string message, string? source = null) {
-        Log(message, LogLevel.Error, source ?? LogSource);
+    public void Error(string message, Exception? exception = null, string? source = null) {
+        Log(message, LogLevel.Error, exception, source ?? LogSource);
     }
     /// <summary>
-    /// Send Critical log to console stdout (if enabled) and file logger (if exists). Simular to: <see cref="Log(string, LogLevel, string, object[])"/> where <see cref="LogLevel"/> is <see cref="LogLevel.Critical"/>
+    /// Send Critical log to console stdout (if enabled) and file logger (if exists). Simular to: <see cref="Log(string, LogLevel, Exception?, string?)"/> with <see cref="LogLevel.Critical"/>
     /// </summary>
     /// <param name="message">Message to send</param>
+    /// <param name="exception">Exception associated with log</param>
     /// <param name="source">Log source</param>
-    public void Critical(string message, string? source = null) {
-        Log(message, LogLevel.Critical, source ?? LogSource);
+    public void Critical(string message, Exception? exception = null, string? source = null) {
+        Log(message, LogLevel.Critical, exception, source ?? LogSource);
     }
     /// <summary>
-    /// Send Fatal log to console stdout (if enabled) and file logger (if exists). Simular to: <see cref="Log(string, LogLevel, string, object[])"/> where <see cref="LogLevel"/> is <see cref="LogLevel.Fatal"/>
+    /// Send Fatal log to console stdout (if enabled) and file logger (if exists). Simular to: <see cref="Log(string, LogLevel, Exception?, string?)"/> with <see cref="LogLevel.Fatal"/>
     /// </summary>
     /// <param name="message">Message to send</param>
+    /// <param name="exception">Exception associated with log</param>
     /// <param name="source">Log source</param>
-    public void Fatal(string message, string? source = null) {
-        Log(message, LogLevel.Fatal, source ?? LogSource);
+    public void Fatal(string message, Exception? exception = null, string? source = null) {
+        Log(message, LogLevel.Fatal, exception, source ?? LogSource);
     }
 
+    /// <inheritdoc/>
     public void Dispose() {
         Dispose(true);
         GC.SuppressFinalize(this);
     }
 
+    /// <summary>
+    /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+    /// </summary>
+    /// <param name="disposing">Is object starting disposing manually</param>
     protected virtual void Dispose(bool disposing) {
         if (disposed) return;
         if (disposing) {
@@ -167,6 +190,8 @@ public class Logger : IDisposable, IDESrvLogService {
         }
         disposed = true;
     }
+
+    /// <inheritdoc/>
     ~Logger() {
         Dispose(false);
     }

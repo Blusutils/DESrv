@@ -1,14 +1,23 @@
 ﻿namespace Blusutils.DESrv.Configuration;
 
 /// <summary>
-/// Abstract class for configs
+/// Interface for configs
 /// </summary>
-public abstract class AbstractConfig { public abstract void Extend(Dictionary<string, object> config); }
+public interface IConfig {
+    /// <summary>
+    /// Extend config class fields using dict
+    /// </summary>
+    /// <param name="config">Dict to use for extending</param>
+    abstract void Extend(Dictionary<string, object> config);
+}
+
 /// <summary>
 /// Base configuration model
 /// </summary>
-public class ConfigurationModel : AbstractConfig {
-    public sealed override void Extend(Dictionary<string, object> config) {
+public class ConfigurationModel : IConfig {
+
+    /// <inheritdoc/>
+    public void Extend(Dictionary<string, object> config) {
         var flist = new List<string>();
         foreach (var finfo in GetType().GetFields()) {
             flist.Add(finfo.Name);

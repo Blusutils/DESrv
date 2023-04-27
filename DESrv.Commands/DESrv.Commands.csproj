@@ -4,8 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>Blusutils.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <RootNamespace>Blusutils.DESrv.Commands</RootNamespace>
   </PropertyGroup>
 
 </Project>

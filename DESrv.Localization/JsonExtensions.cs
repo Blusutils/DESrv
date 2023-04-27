@@ -2,6 +2,10 @@
 using System.Text.Json.Serialization;
 
 namespace Blusutils.DESrv.Localization;
+
+/// <summary>
+/// Extensions for <see cref="JsonElement"/>
+/// </summary>
 public static class JsonExtensions {
 
     /// <summary>
