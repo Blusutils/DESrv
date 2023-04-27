@@ -7,12 +7,15 @@
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/Blusutils/DESrv?label=PRs&style=flat-square)](https://github.com/Blusutils/DESrv/pulls)
 [![GitHub license](https://img.shields.io/github/license/Blusutils/DESrv?label=License&style=flat-square)](https://github.com/Blusutils/DESrv/blob/master/LICENSE.txt)
 
-The 2.0 update branch.
+## ## ⚠ DESrv is currently in WIP state ⚠ ## ##
+
+A major update 2.0 is now being prepared in which DESrv has been completely rewritten. The `desrv-2.0` branch is now the main branch, and use of the `master` branch is not recommended as it contains non-working code. I hope all this is not for nothing!
 
 ## Install
+
 For 2.0 branch installation is available only from sources.
 
-Prerequesties:
+Prerequisites:
 
 * An OS - either Linux or Windows
     * macOS NOT tested but SHOULD work
@@ -21,7 +24,7 @@ Prerequesties:
 * (optional) Internet connection
 * (optional) Connection client
 * .NET SDK 7.0 or above and optionally Visual Studio 2022 (17)
-    * OR Docker + docker-compose
+    * OR Docker + Docker Compose
 
 At first clone this repository and switch to 2.0 branch:
 
@@ -45,10 +48,10 @@ dotnet run -c Debug
 
 ### I'm using Docker
 
-Ensure you have docker-compose and run:
+Ensure you have Docker Compose and run:
 ```bash
-docker-compose build
-docker-compose up
+docker compose build
+docker compose up
 ```
 
 ## Contributing
