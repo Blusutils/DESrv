@@ -27,7 +27,6 @@ public class Tests {
             FileLogger = DESrvConfig.Instance.useFileLogging ? new() { TargetDir = "./logs" } : null,
             FileLoggingLevel = Blusutils.DESrv.Logging.LogLevel.Debug,
             LogSource = "DESrv"
-        },
-        CommandInputProcessor = new CommandInputProcessor()
+        }
     };
 }

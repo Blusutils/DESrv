@@ -19,17 +19,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DESrv.Tests", "DESrv.Tests\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DESrv.LuaScriptingApi", "DESrv.LuaScriptingApi\DESrv.LuaScriptingApi.csproj", "{341C94EC-E63B-4DC0-AFA1-E65B069F252C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{C58D518C-A739-45F5-8872-F59035FEB376}"
-EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{6798BCCD-232A-4695-8572-61606F7E79D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DESrv.InternalPlugin", "DESrv.Logging.Logman\DESrv.InternalPlugin.csproj", "{DD96266F-3F45-40DB-A9AC-7610825DFB32}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DESrv.InternalPlugin", "DESrv.InternalPlugin\DESrv.InternalPlugin.csproj", "{DD96266F-3F45-40DB-A9AC-7610825DFB32}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DESrv.Threader", "DESrv.Threader\DESrv.Threader.csproj", "{6A7F0139-8689-4D18-87B0-7003FE9213F4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DESrv.Commands", "DESrv.Commands\DESrv.Commands.csproj", "{7B6DA26D-A2B0-47F6-81FD-3D2C30610A65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DESrv.Dip", "DESrv.DIPE\DESrv.Dip.csproj", "{7D6BC576-FC68-4A60-836F-1B453D477E7D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DESrv.Dip", "DESrv.Dip\DESrv.Dip.csproj", "{7D6BC576-FC68-4A60-836F-1B453D477E7D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
