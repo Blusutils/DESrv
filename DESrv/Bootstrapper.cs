@@ -10,6 +10,7 @@ using Blusutils.DESrv.Localization;
 using Blusutils.DESrv.Logging;
 using Blusutils.DESrv.PDK;
 using Blusutils.DESrv.Threader;
+using Blusutils.DESrv.Updater;
 
 namespace Blusutils.DESrv;
 
@@ -17,6 +18,13 @@ namespace Blusutils.DESrv;
 /// DESrv server Bootstrapper
 /// </summary>
 public sealed class Bootstrapper {
+
+    //static Bootstrapper () {
+    //    // Setting AppDomain references resolver
+    //    var domain = AppDomain.CurrentDomain;
+    //    domain.AssemblyResolve += PdkLoader.ResolveAssembly;
+    //}
+
     /// <summary>
     /// Thread manager
     /// </summary>
@@ -24,7 +32,7 @@ public sealed class Bootstrapper {
     /// <summary>
     /// Version of DESrv
     /// </summary>
-    public Version? DESrvVersion { get; set; } = null;
+    public static Version DESrvVersion { get; set; } = new(1,0,0);
     /// <summary>
     /// Localization manager
     /// </summary>
@@ -32,7 +40,7 @@ public sealed class Bootstrapper {
     /// <summary>
     /// Logger
     /// </summary>
-    public Logger? Logger { get; set; } = null;
+    public static Logger Logger { get; set; }
 
     public PdkLoader PdkLoader { get; set; } = new PdkLoader();
 
@@ -50,12 +58,24 @@ public sealed class Bootstrapper {
 
         Logger.Info("DESrv starting...");
 
+        if (DESrvConfig.Instance.autoCheckUpdates && Updater.Updater.CheckVersion(DESrvVersion) is Version nver) {
+            Logger.Warn($"A new version v{nver} is available! {(!DESrvConfig.Instance.autoUpdate ? "Download it on https://github.com/Blusutils/DESrv/releases/latest" : "")}");
+            if (DESrvConfig.Instance.autoUpdate) {
+                Logger.Notice("Update starting...");
+                Updater.Updater.Update();
+            }
+        }
+
+        #region PDK Loader
         Logger.Debug($"Trying to load extensions from {DESrvConfig.Instance?.extensionsDir}");
 
         if (DESrvConfig.Instance?.extensionsDir is null) {
             Logger.Fatal($"Extensions directory is not set, exiting");
             Environment.Exit(1);
         }
+
+        if (!Directory.Exists(DESrvConfig.Instance.extensionsDir))
+            Directory.CreateDirectory(DESrvConfig.Instance.extensionsDir);
 
         PdkLoader.LoadFrom = DESrvConfig.Instance.extensionsDir;
         sw.Start();
@@ -73,47 +93,18 @@ public sealed class Bootstrapper {
             if (extm is null) {
                 Logger.Error($"Extension {ext.Key} is null");
                 continue;
-            }
-            var ver = extm.Metadata.TargetDESrvVersion;
-            var id = extm.Metadata.ID;
-
-            if (DESrvConfig.Instance.extensionsWhitelist is not null && !DESrvConfig.Instance.extensionsWhitelist.Contains(id)) {
-                Logger.Error($"Extension {id} is not in whitelist");
-                extm.Status = ExtensionStatus.Failed;
+            } else if (extm.Status == ExtensionStatus.Failed) {
+                Logger.Error($"Extension {ext.Key} failed");
                 continue;
             }
-
-            if (ver.Major != DESrvVersion.Major || ver.Minor > DESrvVersion.Minor) {
-                Logger.Error($"Extension {id} ({ver}) is incompatable with current DESrv version ({DESrvVersion})");
-                extm.Status = ExtensionStatus.Failed;
-                continue;
-            }
-
-            // TODO process references
-            //extm.Metadata.RefersTo;
-            //extm.Metadata.Dependencies;
-            extm.Status = ExtensionStatus.Loaded;
-            try {
-
-                MethodInfo method = null;
-                foreach (var type in extm.Assembly.DefinedTypes) {
-                    method = type.DeclaredMethods.First(m => m.GetCustomAttributes(false).First(a => a is ExtensionEntrypointAttribute) is not null);
-                }
-
-                new Thread(() => { // TODO threader
-                    while (extm.CancellationToken.IsCancellationRequested) {
-                        method?.Invoke(extm.Instance, null);
-                    }
-                }).Start();
-
-            } catch (Exception ex) {
-                Logger.Error($"Something went wrong during {ext.Key} extension execution.", ex);
-            }
+            
         }
 
         sw.Stop();
-        Logger.Debug($"Adding extensions took 10 seconds {sw.ElapsedMilliseconds}");
+        Logger.Debug($"Adding extensions took {sw.ElapsedMilliseconds}ms");
         Logger.Success($"Added {PdkLoader.Extensions.Count(kv => kv.Value.Status is ExtensionStatus.Loaded or ExtensionStatus.Shared or ExtensionStatus.LoadedAsChildren)} extensions");
+        #endregion
+
 
         //ThreadManager.QueueSingletonThread(() => SimultaneousConsole.StartRead());
         //new Thread(() => {

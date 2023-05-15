@@ -23,11 +23,12 @@ var logger = new Blusutils.DESrv.Logging.Logger() {
     LogSource = "DESrv"
 };
 
+Bootstrapper.DESrvVersion = new(2,0,0,0);
+Bootstrapper.Logger = logger;
+
 var bootstrap = new Bootstrapper() {
-    DESrvVersion = new(2, 0, 0, 0),
     Threader = new(),
-    Localization = new() { CurrentLocale = DESrvConfig.Instance.locale ?? "en-US", Strict = false },
-    Logger = logger
+    Localization = new() { CurrentLocale = DESrvConfig.Instance.locale ?? "en-US", Strict = false }
 };
 
 var cts = new CancellationTokenSource();

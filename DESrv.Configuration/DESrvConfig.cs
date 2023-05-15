@@ -40,7 +40,7 @@ public class DESrvConfig : ConfigurationModel {
     public bool autoCheckUpdates { get; set; } = true;
 
     /// <summary>
-    /// Is Updater module will do updates on every server startup
+    /// Is Updater module will update DESrv on server startup (if it possible)
     /// </summary>
     public bool autoUpdate { get; set; } = false;
 
@@ -55,7 +55,7 @@ public class DESrvConfig : ConfigurationModel {
     public LogLevel logLevel { get; set; } = LogLevel.Debug;
 
     /// <summary>
-    /// Logging level project built with development configuration
+    /// Logging level (in development configuration)
     /// </summary>
     public LogLevel logLevelDevelopment { get; set; } = LogLevel.Debug;
 
@@ -75,7 +75,7 @@ public class DESrvConfig : ConfigurationModel {
     public bool? preferSecure { get; set; } = false;
 
     /// <summary>
-    /// Directory to load extensions froms
+    /// Directory to load extensions from
     /// </summary>
     public string? extensionsDir { get; set; } = "./extensions";
 
@@ -90,7 +90,7 @@ public class DESrvConfig : ConfigurationModel {
     public string[]? extensionsWhitelist { get; set; } = Array.Empty<string>();
 
     /// <summary>
-    /// Extesnion that will capture console input stream after Logman startup
+    /// Extesnion that will capture console input stream after DIP startup
     /// </summary>
     public string? mainExtension { get; set; } = "DESrvInternal";
 

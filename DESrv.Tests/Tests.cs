@@ -16,17 +16,19 @@ public class Tests {
 
         if (DESrvConfig.Instance == null)
             throw new NullReferenceException(nameof(DESrvConfig.Instance) + " is null");
-    }
-    protected Bootstrapper bootstrapper = new() {
-        DESrvVersion = new(2, 0, 0, 0),
-        Threader = new(),
-        Localization = new() { CurrentLocale = "en-US", Strict = false },
-        Logger = new() {
+
+        Bootstrapper.DESrvVersion = new(2, 0, 0, 0);
+
+        Bootstrapper.Logger = new() {
             ConsoleLogging = DESrvConfig.Instance!.useConsoleLogging,
             ConsoleLoggingLevel = Blusutils.DESrv.Logging.LogLevel.Debug,
             FileLogger = DESrvConfig.Instance.useFileLogging ? new() { TargetDir = "./logs" } : null,
             FileLoggingLevel = Blusutils.DESrv.Logging.LogLevel.Debug,
             LogSource = "DESrv"
-        }
+        };
+    }
+    protected Bootstrapper bootstrapper = new() {
+        Threader = new(),
+        Localization = new() { CurrentLocale = "en-US", Strict = false }
     };
 }
