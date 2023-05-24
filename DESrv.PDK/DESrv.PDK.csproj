@@ -8,4 +8,8 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DESrv.LuaScriptingApi\DESrv.LuaScriptingApi.csproj" />
+  </ItemGroup>
+
 </Project>

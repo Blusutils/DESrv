@@ -29,44 +29,44 @@ public class LocaleTests : Tests {
         localizerNonStrict.LoadFromString(json, "en");
     }
 
-    [Test(Description = "Test getting an invalid key in strict localizer")]
-    public void TestInvalidKey() {
+    [Test(Description = "Get an invalid key in strict localizer")]
+    public void InvalidKey() {
         Assert.Throws<LocaleKeyException>(() => localizerStrict.Translate("abcdef"));
     }
 
-    [Test(Description = "Test getting a valid key in strict localizer")]
-    public void TestValidKey() {
+    [Test(Description = "Get a valid key in strict localizer")]
+    public void ValidKey() {
         Assert.That(localizerStrict.Translate("anKey"), Is.EqualTo("test value"));
     }
 
-    [Test(Description = "Test getting a nested key in strict localizer")]
-    public void TestValidKeyNestedOnce() {
+    [Test(Description = "Get a nested key in strict localizer")]
+    public void ValidKeyNestedOnce() {
         Assert.That(localizerStrict.Translate("nested.inner1"), Is.EqualTo("test inner"));
     }
 
-    [Test(Description = "Test getting a double nested key in strict localizer")]
-    public void TestValidKeyNestedTwice() {
+    [Test(Description = "Get a double nested key in strict localizer")]
+    public void ValidKeyNestedTwice() {
         Assert.That(localizerStrict.Translate("nested.moreNested.last"), Is.EqualTo("test last"));
     }
 
 
-    [Test(Description = "Test getting an invalid key in non-strict localizer")]
-    public void TestInvalidKeyUnstrict() {
+    [Test(Description = "Get an invalid key in non-strict localizer")]
+    public void InvalidKeyUnstrict() {
         Assert.That(localizerNonStrict.Translate("abcdef"), Is.Empty);
     }
 
-    [Test(Description = "Test getting an valid key in non-strict localizer")]
-    public void TestValidKeyUnstrict() {
+    [Test(Description = "Get an valid key in non-strict localizer")]
+    public void ValidKeyUnstrict() {
         Assert.That(localizerNonStrict.Translate("anKey"), Is.EqualTo("test value"));
     }
 
-    [Test(Description = "Test getting a nested key in non-strict localizer")]
-    public void TestValidKeyNestedOnceUnstrict() {
+    [Test(Description = "Get a nested key in non-strict localizer")]
+    public void ValidKeyNestedOnceUnstrict() {
         Assert.That(localizerNonStrict.Translate("nested.inner1"), Is.EqualTo("test inner"));
     }
 
-    [Test(Description = "Test getting a double nested key in non-strict localizer")]
-    public void TestValidKeyNestedTwiceUnstrict() {
+    [Test(Description = "Get a double nested key in non-strict localizer")]
+    public void ValidKeyNestedTwiceUnstrict() {
         Assert.That(localizerNonStrict.Translate("nested.moreNested.last"), Is.EqualTo("test last"));
     }
 }

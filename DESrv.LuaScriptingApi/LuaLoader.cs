@@ -1,40 +1,85 @@
-﻿namespace Blusutils.DESrv.LuaScriptingApi;
+﻿using Blusutils.DESrv.Logging.Utils;
+using NLua;
+using NLua.Exceptions;
+
+namespace Blusutils.DESrv.LuaScriptingApi;
 
 /// <summary>
 /// Lua scripts loader
 /// </summary>
-public class LuaLoader { // TODO docs and implementation
+public static class LuaLoader {
 
-    string scriptsPath;
-
+    static string scriptsPath = "scripts";
     /// <summary>
-    /// Lua loader constructor
+    /// Scripts cache
     /// </summary>
-    /// <param name="luaScriptsPath">Path to Lua scripts</param>
-    public LuaLoader(string luaScriptsPath) {
-        scriptsPath = luaScriptsPath;
-    }
+    public static Dictionary<string, ExtensionLuaScriptModel> Cache { get; private set; } = new();
 
     /// <summary>
     /// Load Lua script to memory
     /// </summary>
-    /// <param name="scriptName">Script file name</param>
+    /// <param name="scriptName">Script file name withount extension</param>
     /// <param name="path">Path to script (pass to override)</param>
-    /// <returns>Were successful in loading the script</returns>
-    public bool Load(string scriptName, string? path = null) {
-        path ??= scriptsPath;
-        return true;
+    /// <returns>Script model instance</returns>
+    public static ExtensionLuaScriptModel Load(string scriptName, string? path = null) {
+
+        if (Cache.TryGetValue(scriptName, out var value))
+            return value;
+
+        path ??= Path.Combine(scriptsPath, scriptName+".lua");
+
+        var lua = new Lua();
+        lua.DoFile(path);
+
+        var meta = lua.GetTable("meta");
+        var func = lua.GetTable("func");
+
+        if (meta is null || func is null) {
+            var msg = $"{0} is null; table '{0}' not found in Lua script '{1}'";
+            throw new LuaException(
+                "failed to properly load script in case of missing 'meta' or 'func' table",
+                new NullReferenceException(meta is null ? msg.Format("meta", scriptName) : func is null ? msg.Format("func", scriptName) : "")
+                );
+        }
+
+        var script = new ExtensionLuaScriptModel {
+            Name = meta?["name"] as string ?? scriptName,
+            Author = meta?["author"] as string ?? "unknown author",
+            ExtensionID = meta?["extension"] as string ?? "*",
+            Link = meta?["link"] as string ?? "",
+            Version = new(meta?["version"] as string??"1.0.0"),
+            MinimalExtensionVersion = new(meta?["minimalExtensionVersion"] as string ?? "0.0.0"),
+            InfoTable = meta!,
+            ExecutableSpaceTable = func!
+        };
+
+        Cache[scriptName] = script;
+
+        return script;
     }
 
     /// <summary>
-    /// Run loaded script or load and then run
+    /// Get Lua script from cache or return null
     /// </summary>
-    /// <param name="scriptName">Script file name</param>
-    /// <param name="path">Path to script (pass to override)</param>
-    /// <param name="args">Context to pass to script</param>
-    /// <returns>Script execution result</returns>
-    public object? DoScript(string scriptName, string? path = null, params object[] args) {
-        Load(scriptName, path);
-        return null;
+    /// <param name="scriptName">Script file name withount extension</param>
+    /// <returns>Script model instance or null</returns>
+    public static ExtensionLuaScriptModel? GetScriptOrDefault(string scriptName) {
+        if (Cache.TryGetValue(scriptName, out var value))
+            return value;
+        else
+            return null;
     }
+
+    /// <summary>
+    /// Get Lua script from cache or load it
+    /// </summary>
+    /// <param name="scriptName">Script file name withount extension</param>
+    /// <returns>Script model instance</returns>
+    public static ExtensionLuaScriptModel GetScriptOrLoad(string scriptName) {
+        if (Cache.TryGetValue(scriptName, out var value))
+            return value;
+        else
+            return Load(scriptName);
+    }
+
 }

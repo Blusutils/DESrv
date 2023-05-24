@@ -12,7 +12,7 @@ public class TestStartup : Tests {
     }
 
     [Test(Description = "Check run of DESrv")]
-    public void TestDESrvStartup() {
+    public void DESrvStartup() {
         var cts = new CancellationTokenSource();
         var thr = new Thread(() => bootstrapper.Start(cts.Token));
         thr.Start();

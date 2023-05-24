@@ -20,6 +20,7 @@
         /// checks according to the SemVer principle
         /// (major - incompatible, minor - compatible to a greater extent, minor and patch - fully compatible)</param>
         /// <param name="Description">Description of the extension</param>
+        /// <param name="Link">Link to resource related to extension</param>
         /// <param name="AllowedPorts">What ports should be allowed for this extension (behavior is controlled by the DESrv config)</param>
         /// <param name="Dependencies">List of extensions on which this extension depends</param>
         /// <param name="RefersTo">Parent extension ID (if the current extension is an addon)</param>
@@ -30,6 +31,7 @@
             string Version,
             string TargetDESrvVersion,
             string? Description = null,
+            string? Link = null,
             int[]? AllowedPorts = null,
             string[]? Dependencies = null,
             string? RefersTo = null) {
@@ -42,6 +44,7 @@
                 Version = new Version(Version),
                 TargetDESrvVersion = new Version(TargetDESrvVersion),
                 Description = Description,
+                Link = Link,
                 AllowedPorts = AllowedPorts,
                 Dependencies = Dependencies,
                 RefersTo = RefersTo
