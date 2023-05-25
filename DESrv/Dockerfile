@@ -11,6 +11,12 @@ COPY ["DESrv.Logging/DESrv.Logging.csproj", "DESrv.Logging/"]
 COPY ["DESrv.Localization/DESrv.Localization.csproj", "DESrv.Localization/"]
 COPY ["DESrv.PDK/DESrv.PDK.csproj", "DESrv.PDK/"]
 COPY ["DESrv.Updater/DESrv.Updater.csproj", "DESrv.Updater/"]
+COPY ["DESrv.Commands/DESrv.Commands.csproj", "DESrv.Commands/"]
+COPY ["DESrv.LuaScriptingApi/DESrv.LuaScriptingApi.csproj", "DESrv.LuaScriptingApi/"]
+#COPY ["DESrv.Dip/DESrv.Dip.csproj", "DESrv.Dip/"]
+COPY ["DESrv.InternalPlugin/DESrv.InternalPlugin.csproj", "DESrv.InternalPlugin/"]
+COPY ["DESrv.Threader/DESrv.Threader.csproj", "DESrv.Threader/"]
+COPY ["DESrv.Updater/DESrv.Updater.csproj", "DESrv.Updater/"]
 RUN dotnet restore "DESrv/DESrv.csproj"
 COPY . .
 WORKDIR "/src/DESrv"

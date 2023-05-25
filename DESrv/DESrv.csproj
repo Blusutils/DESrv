@@ -20,6 +20,7 @@
     <ProjectReference Include="..\DESrv.PDK\DESrv.PDK.csproj" />
     <ProjectReference Include="..\DESrv.Threader\DESrv.Threader.csproj" />
     <ProjectReference Include="..\DESrv.Updater\DESrv.Updater.csproj" />
+    <ProjectReference Include="..\DESrv.Versions\DESrv.Versions.csproj" />
   </ItemGroup>
 
 </Project>

@@ -39,6 +39,6 @@ public sealed class ThreadManager {
     /// <param name="maxRetryAttempts">Max retries on exceptions</param>
     /// <exception cref="SemaphoreFullException">If <see cref="MaxThreads"/> amound is reached</exception>
     public void QueueSingletonThread(Action trg, string? name = null, uint maxRetryAttempts = 3) {
-        QueueSingletonThread(new ManagedThread { Target = trg, Name = name, MaxRetryAttempts = maxRetryAttempts, RetryOnException = true });
+        QueueSingletonThread(new ManagedThread { Target = trg, Name = name, MaxRetryAttempts = maxRetryAttempts, RetryOnException = maxRetryAttempts != 0 });
     }
 }

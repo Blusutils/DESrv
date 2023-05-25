@@ -32,7 +32,7 @@ public sealed class Bootstrapper {
     /// <summary>
     /// Version of DESrv
     /// </summary>
-    public static Version DESrvVersion { get; set; } = new(1,0,0);
+    public static Version DESrvVersion { get; } = Versions.Versions.DESrvVersion;
     /// <summary>
     /// Localization manager
     /// </summary>
@@ -59,18 +59,31 @@ public sealed class Bootstrapper {
         Logger.Info("DESrv starting...");
 
         if (DESrvConfig.Instance.autoCheckUpdates && Updater.Updater.CheckVersion(DESrvVersion) is Version nver) {
-            Logger.Warn($"A new version v{nver} is available! {(!DESrvConfig.Instance.autoUpdate ? "Download it on https://github.com/Blusutils/DESrv/releases/latest" : "")}");
+            Logger.Warn($"A new version v{nver} is available! {(!DESrvConfig.Instance.autoUpdate ? "Download it on https://github.com/Blusutils/DESrv/releases/latest" : "")}", source: "DESrv.Updater");
             if (DESrvConfig.Instance.autoUpdate) {
-                Logger.Notice("Update starting...");
+                Logger.Notice("Update starting...", source: "DESrv.Updater");
                 Updater.Updater.Update();
+                Logger.Success("Update downloaded, restarting DESrv!", source: "DESrv.Updater");
+
+                var fileName = AppDomain.CurrentDomain.FriendlyName;
+                var arguments = Environment.GetCommandLineArgs();
+                arguments[0] = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DESrv.exe");
+
+                var processInfo = new ProcessStartInfo {
+                    FileName = fileName,
+                    Arguments = string.Join(" ", arguments),
+                    UseShellExecute = true
+                };
+                Process.Start(processInfo);
+                Environment.Exit(0);
             }
         }
 
         #region PDK Loader
-        Logger.Debug($"Trying to load extensions from {DESrvConfig.Instance?.extensionsDir}");
+        Logger.Debug($"Trying to load extensions from {DESrvConfig.Instance?.extensionsDir}", source: "DESrv.PDK");
 
         if (DESrvConfig.Instance?.extensionsDir is null) {
-            Logger.Fatal($"Extensions directory is not set, exiting");
+            Logger.Fatal($"Extensions directory is not set, exiting", source: "DESrv.PDK");
             Environment.Exit(1);
         }
 
@@ -83,7 +96,7 @@ public sealed class Bootstrapper {
         try {
             PdkLoader.AddExtensionsFromDirectory();
         } catch (Exception ex) {
-            Logger.Fatal($"Something went wrong when adding extensions.", ex);
+            Logger.Fatal($"Something went wrong when adding extensions.", ex, source: "DESrv.PDK");
             Environment.Exit(1);
         }
 
@@ -91,18 +104,18 @@ public sealed class Bootstrapper {
 
             var extm = PdkLoader.LoadExtension(ext.Key);
             if (extm is null) {
-                Logger.Error($"Extension {ext.Key} is null");
+                Logger.Error($"Extension {ext.Key} is null", source: "DESrv.PDK");
                 continue;
             } else if (extm.Status == ExtensionStatus.Failed) {
-                Logger.Error($"Extension {ext.Key} failed");
+                Logger.Error($"Extension {ext.Key} failed", source: "DESrv.PDK");
                 continue;
             }
             
         }
 
         sw.Stop();
-        Logger.Debug($"Adding extensions took {sw.ElapsedMilliseconds}ms");
-        Logger.Success($"Added {PdkLoader.Extensions.Count(kv => kv.Value.Status is ExtensionStatus.Loaded or ExtensionStatus.Shared or ExtensionStatus.LoadedAsChildren)} extensions");
+        Logger.Debug($"Adding extensions took {sw.ElapsedMilliseconds}ms", source: "DESrv.PDK");
+        Logger.Success($"Added {PdkLoader.Extensions.Count(kv => kv.Value.Status is ExtensionStatus.Loaded or ExtensionStatus.Shared or ExtensionStatus.LoadedAsChildren)} extensions", source: "DESrv.PDK");
         #endregion
 
 

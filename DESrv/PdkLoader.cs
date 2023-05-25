@@ -85,12 +85,12 @@ public class PdkLoader { // TODO implement pdkloader
             var ver = ext.Metadata.TargetDESrvVersion;
 
             if (DESrvConfig.Instance?.extensionsWhitelist is not null && !DESrvConfig.Instance.extensionsWhitelist.Contains(id)) {
-                Bootstrapper.Logger.Error($"Extension {id} is not in whitelist");
+                Bootstrapper.Logger.Error($"Extension {id} is not in whitelist", source: "DESrv.PDK");
                 ext.Status = ExtensionStatus.Failed;
             }
 
             if (ver.Major != Bootstrapper.DESrvVersion.Major || ver.Minor > Bootstrapper.DESrvVersion.Minor) {
-                Bootstrapper.Logger.Error($"Extension {id} ({ver}) is incompatable with current DESrv version ({Bootstrapper.DESrvVersion})");
+                Bootstrapper.Logger.Error($"Extension {id} ({ver}) is incompatable with current DESrv version ({Bootstrapper.DESrvVersion})", source: "DESrv.PDK");
                 ext.Status = ExtensionStatus.Failed;
             }
 
@@ -122,7 +122,7 @@ public class PdkLoader { // TODO implement pdkloader
                 ext.Status = ExtensionStatus.Loaded;
 
             } catch (Exception ex) {
-                Bootstrapper.Logger.Error($"Something went wrong during {id} extension execution.", ex);
+                Bootstrapper.Logger.Error($"Something went wrong during {id} extension execution.", ex, source: "DESrv.PDK");
                 ext.Status = ExtensionStatus.Failed;
             }
         } else if (ext.Status is ExtensionStatus.Suspended or ExtensionStatus.Found) {

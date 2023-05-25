@@ -8,44 +8,62 @@ using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Blusutils.DESrv.Updater;
+
+/// <summary>
+/// Performs updates for DESrv
+/// </summary>
 public static class Updater {
-    static HttpClient cl = new ();
+
+    static HttpClient client = new ();
+
     static Updater() {
-        cl.DefaultRequestHeaders.Accept.Clear();
-        cl.DefaultRequestHeaders.Accept.Add(
+        client.DefaultRequestHeaders.Accept.Clear();
+        client.DefaultRequestHeaders.Accept.Add(
             new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
-        cl.DefaultRequestHeaders.Add("User-Agent", "DESrv Updater module");
+        client.DefaultRequestHeaders.Add("User-Agent", "DESrv Updater module");
     }
 
+    /// <summary>
+    /// Compares latest version with passed
+    /// </summary>
+    /// <param name="version">Version object to compare</param>
+    /// <returns>Latest version, if it greater than passed, else null</returns>
     public static Version? CheckVersion(Version version) {
-        var d = cl.GetStringAsync("https://api.github.com/repos/Blusutils/DESrv/releases/latest").Result;
-        var succ = Version.TryParse((JsonSerializer.Deserialize<JsonDocument>(d)?.RootElement.GetProperty("tag_name").GetString())?[1..], out Version? version1);
+        var resp = client.GetStringAsync("https://api.github.com/repos/Blusutils/DESrv/releases/latest").Result;
+        var succ = Version.TryParse((JsonSerializer.Deserialize<JsonDocument>(resp)?.RootElement.GetProperty("tag_name").GetString())?[1..], out Version? version1);
         if (!succ) version1 = null;
         return (version1??new Version(1,0,0)) > version ? version1 : null;
     }
 
+    /// <summary>
+    /// Downloads latest update and unarchives it
+    /// </summary>
+    /// <exception cref="PlatformNotSupportedException">If current .NET platform is not either Windows or *nix (Linux, macOS)</exception>
+    /// <exception cref="HttpRequestException">If API call failed (status code isn't OK 200)</exception>
     public static void Update() {
         var platform = Environment.OSVersion.Platform switch {
             PlatformID.Win32NT => "windows",
             PlatformID.Unix => "nix",
             PlatformID.MacOSX => "nix",
             _ => null
-        };
+        } ?? throw new PlatformNotSupportedException("нour platform is currently not supported");
 
-        if (platform is null)
-            throw new PlatformNotSupportedException("Your platform is currently not supported");
+        var res = client.GetAsync("https://api.github.com/repos/Blusutils/DESrv/releases/latest").Result;
 
-        var d = cl.GetAsync("https://api.github.com/repos/Blusutils/DESrv/releases/latest").Result.Content.ReadAsStringAsync().Result;
-        var assets = JsonSerializer.Deserialize<Release>(d);
+        if (res is null || res.StatusCode != System.Net.HttpStatusCode.OK)
+            throw new HttpRequestException("аailed to fetch update information");
+
+        var data = res.Content.ReadAsStringAsync().Result;
+        var release = JsonSerializer.Deserialize<Release>(data)!;
 
         string asset = "";
-        foreach (var item in assets.assets) {
+        foreach (var item in release.assets) {
             if (item.name.ToLowerInvariant().Contains(platform)) {
                 asset = item.browser_download_url;
                 break;
             }
         }
-        var stream = cl.GetStreamAsync(asset).Result;
+        var stream = client.GetStreamAsync(asset).Result;
         var filename = "update." + (platform == "nix" ? "tar.gz" : "zip");
         if (File.Exists(filename))
             File.Delete(filename);
@@ -63,6 +81,7 @@ public static class Updater {
     }
 }
 
+#region GitHub API classes
 #pragma warning disable CS8618
 public class Release {
     public string url { get; set; }
@@ -102,3 +121,4 @@ public class Asset {
     public object uploader { get; set; }
 }
 #pragma warning restore CS8618
+#endregion

@@ -13,7 +13,9 @@ namespace Blusutils.DESrv.InternalPlugin;
     "DESrv Internal Plugin",
     "Blusutils",
     "1.0.0",
-    "2.0.0"
+    "2.0.0",
+    "Internal plugin for DESrv. Contains some basic utils and commands.",
+    "https://github.com/Blusutils/DESrv/tree/master/DESrv.InternalPlugin"
     )]
 public class Plugin {
 }
