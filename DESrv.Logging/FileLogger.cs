@@ -22,7 +22,7 @@ public class FileLogger : IDisposable, IDESrvLogService {
     /// <summary>
     /// Logging pattern
     /// </summary>
-    public string LogNameSchema { get; set; } = "DESCEndLog-{Date}";
+    public string LogNameSchema { get; set; } = "DESrvLog-{Date}";
 
     /// <summary>
     /// Where logger got log

@@ -12,12 +12,7 @@ namespace Blusutils.DESrv.Tests;
 /// </summary>
 public class Tests {
     static Tests() {
-        DESrvConfig.Instance = DESrvConfig.Read<DESrvConfig>();
-
-        if (DESrvConfig.Instance == null)
-            throw new NullReferenceException(nameof(DESrvConfig.Instance) + " is null");
-
-        Bootstrapper.DESrvVersion = new(2, 0, 0, 0);
+        DESrvConfig.Instance = DESrvConfig.Read<DESrvConfig>() ?? throw new NullReferenceException("config is null");
 
         Bootstrapper.Logger = new() {
             ConsoleLogging = DESrvConfig.Instance!.useConsoleLogging,
@@ -27,8 +22,4 @@ public class Tests {
             LogSource = "DESrv"
         };
     }
-    protected Bootstrapper bootstrapper = new() {
-        Threader = new(),
-        Localization = new() { CurrentLocale = "en-US", Strict = false }
-    };
 }

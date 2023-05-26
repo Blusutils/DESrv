@@ -22,5 +22,10 @@
     <ProjectReference Include="..\DESrv.Updater\DESrv.Updater.csproj" />
     <ProjectReference Include="..\DESrv.Versions\DESrv.Versions.csproj" />
   </ItemGroup>
+	
+<ItemGroup>
+  <None Update="../translations/*.json" CopyToOutputDirectory="PreserveNewest" />
+</ItemGroup>
+
 
 </Project>

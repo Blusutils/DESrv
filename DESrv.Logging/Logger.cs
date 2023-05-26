@@ -77,8 +77,8 @@ public class Logger : IDisposable, IDESrvLogService {
         OnLogEvent?.Invoke(level, message, source);
         var lvlString = level.ToString().ToUpper();
         var formatForConsole = new Dictionary<string, object> {
-            ["Source"] = source ?? "Null",
-            ["SourceThread"] = Thread.CurrentThread.Name ?? "Null",
+            ["Source"] = source ?? "Unknown source",
+            ["SourceThread"] = Thread.CurrentThread.Name ?? "Main thread",
             ["Date"] = DateTime.Now,
             ["Level"] = lvlString.PadRight(8),
             ["Message"] = message ?? "*message isn't provided*"

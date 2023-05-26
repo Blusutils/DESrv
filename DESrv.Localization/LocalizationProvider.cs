@@ -17,7 +17,7 @@ public class LocalizationProvider {
     /// <summary>
     /// List of localization managers for locales
     /// </summary>
-    public Dictionary<string, LocalizationManager> Locales { get; private set; } = new Dictionary<string, LocalizationManager>();
+    public Dictionary<string, LocalizationManager> Locales { get; private set; } = new();
 
     /// <summary>
     /// Load localization data from file

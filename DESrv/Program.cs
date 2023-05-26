@@ -1,9 +1,8 @@
 ﻿using Blusutils.DESrv;
 using Blusutils.DESrv.Configuration;
+using Blusutils.DESrv.Localization;
 
-DESrvConfig.Instance = DESrvConfig.Read<DESrvConfig>();
-
-if (DESrvConfig.Instance == null) throw new NullReferenceException(nameof(DESrvConfig.Instance)+" is null");
+DESrvConfig.Instance = DESrvConfig.Read<DESrvConfig>() ?? throw new NullReferenceException("config is null");
 
 var logLevel =
 #if DEBUG
@@ -20,13 +19,12 @@ var logger = new Blusutils.DESrv.Logging.Logger() {
     LogSource = "DESrv"
 };
 
+var localizer = new LocalizationProvider() { CurrentLocale = DESrvConfig.Instance.locale ?? "en-US", Strict = false };
+if (!Directory.Exists("translations")) Directory.CreateDirectory("translations");
+localizer.Load("translations");
+
 Bootstrapper.Logger = logger;
+Bootstrapper.Localization = localizer;
+Bootstrapper.Threader = new();
 
-var bootstrap = new Bootstrapper() {
-    Threader = new(),
-    Localization = new() { CurrentLocale = DESrvConfig.Instance.locale ?? "en-US", Strict = false }
-};
-
-var cts = new CancellationTokenSource();
-
-bootstrap.Start(cts.Token);
+Bootstrapper.Start(new());

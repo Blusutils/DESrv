@@ -14,14 +14,14 @@ public class TestStartup : Tests {
     [Test(Description = "Check run of DESrv")]
     public void DESrvStartup() {
         var cts = new CancellationTokenSource();
-        var thr = new Thread(() => bootstrapper.Start(cts.Token));
+        var thr = new Thread(() => Bootstrapper.Start(cts));
         thr.Start();
         try {
             cts.Cancel();
-            Assert.Pass();
         } catch (Exception ex) {
             if (ex is not SuccessException)
                 Assert.Fail(ex.ToString());
         }
+        Assert.Pass();
     }
 }

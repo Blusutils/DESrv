@@ -29,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DESrv.Commands", "DESrv.Com
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DESrv.Dip", "DESrv.Dip\DESrv.Dip.csproj", "{7D6BC576-FC68-4A60-836F-1B453D477E7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DESrv.Versions", "DESrv.Versions\DESrv.Versions.csproj", "{2C50FF3B-8A80-4E40-A365-EA7A5A1AC375}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DESrv.Versions", "DESrv.Versions\DESrv.Versions.csproj", "{2C50FF3B-8A80-4E40-A365-EA7A5A1AC375}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

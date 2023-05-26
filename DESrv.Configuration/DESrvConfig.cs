@@ -17,7 +17,7 @@ public class DESrvConfig : ConfigurationModel {
     /// <summary>
     /// Config instance
     /// </summary>
-    public static DESrvConfig? Instance { get; set; } = null;
+    public static DESrvConfig Instance { get; set; } = new();
 
     /// <summary>
     /// Is project built with development configuration

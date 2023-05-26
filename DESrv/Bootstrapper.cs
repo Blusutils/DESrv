@@ -17,7 +17,7 @@ namespace Blusutils.DESrv;
 /// <summary>
 /// DESrv server Bootstrapper
 /// </summary>
-public sealed class Bootstrapper {
+public static class Bootstrapper {
 
     //static Bootstrapper () {
     //    // Setting AppDomain references resolver
@@ -28,7 +28,7 @@ public sealed class Bootstrapper {
     /// <summary>
     /// Thread manager
     /// </summary>
-    public ThreadManager? Threader { get; set; } = null;
+    public static ThreadManager? Threader { get; set; } = new();
     /// <summary>
     /// Version of DESrv
     /// </summary>
@@ -36,23 +36,22 @@ public sealed class Bootstrapper {
     /// <summary>
     /// Localization manager
     /// </summary>
-    public LocalizationProvider? Localization { get; set; } = null;
+    public static LocalizationProvider? Localization { get; set; } = null;
     /// <summary>
     /// Logger
     /// </summary>
-    public static Logger Logger { get; set; }
+    public static Logger Logger { get; set; } = new();
 
-    public PdkLoader PdkLoader { get; set; } = new PdkLoader();
+    /// <summary>
+    /// Plugin loader
+    /// </summary>
+    public static PdkLoader PdkLoader { get; set; } = new();
 
-    public void Start(CancellationToken cancellationToken) {
-        if (Threader == null)
-            throw new NullReferenceException("Threader is null, set it in bootstrapper initializer");
-        if (Logger == null)
-            throw new NullReferenceException("Logger is null, set it in bootstrapper initializer");
-        if (Localization == null)
-            throw new NullReferenceException("Localizer is null, set it in bootstrapper initializer");
-        if (DESrvVersion == null)
-            throw new NullReferenceException("DESrv version is null, set it in bootstrapper initializer");
+    /// <summary>
+    /// Start DESrv
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    public static void Start(CancellationTokenSource cancellationToken) {
 
         var sw = new Stopwatch();
 
