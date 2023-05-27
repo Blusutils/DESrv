@@ -1,0 +1,77 @@
+# Artifacts on intermediate per-commit DESrv build
+name: Build DESrv Release
+
+on:
+  # trigger it only on new releases
+  release:
+    types: [published, edited]
+    
+
+jobs:
+
+  buildwin:
+    runs-on: windows-latest
+    steps:
+    # just clone DESrv repo
+    - name: Clone repository
+      uses: actions/checkout@v3
+    # setup .NET
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+    # restore nuget
+    - name: Restore dependencies
+      run: dotnet restore --nologo
+      working-directory: DESrv/
+    # do build!
+    - name: Build
+      run: dotnet publish -c Release -o outs-win --sc -v n --nologo
+      working-directory: DESrv/
+    # pack binaries into archive
+    - name: Create archive
+      run: tar -c -a -f DESrv_win.zip outs-win
+      working-directory: DESrv/
+    # upload build
+    - name: Upload build to Release
+      uses: irongut/EditRelease@v1.2.0
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        id: ${{ github.event.release.id }}
+        files: "./DESrv/DESrv_win.zip"
+
+
+  buildlinux:
+    runs-on: ubuntu-latest
+    steps:
+    # just clone DESrv repo
+    - name: Clone repository
+      uses: actions/checkout@v3
+    # setup .NET
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+    # restore nuget
+    - name: Restore dependencies
+      run: dotnet restore --nologo
+      working-directory: DESrv/
+    # do build!
+    - name: Build
+      run: dotnet publish -c Debug -o outs-linux --sc -v n --nologo
+      working-directory: DESrv/
+    # pack binaries into archive
+    - name: Create archive
+      run: tar -czvf DESrv_nix.tar.gz ./outs-linux
+      working-directory: DESrv/
+    # upload build
+    - name: Upload build to Release
+      uses: irongut/EditRelease@v1.2.0
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        id: ${{ github.event.release.id }}
+        files: "./DESrv/DESrv_nix.tar.gz"
+
+  # TODO: mac actions
+  # buildmac:
+  #   runs-on: macos-latest-xl
