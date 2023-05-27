@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Blusutils.DESrv.PDK.ConnectionInterfaces.UDP;
+namespace Blusutils.DESrv.PDK.ConnectionInterfaces;
 /// <summary>
-/// A more high-level User Datagram Protocol processor. Use this class only for own implementations. Instead, see <see cref="UdpListenerH"/>
+/// A more high-level KCP (don't know what it stands for) processor. It is recommended to use this class for your own, more feature-rich implementations.
 /// </summary>
-public class BaseUdpProcessor : IConnectionProcessor, IDisposable {
+/// <remarks>Warning: Not implemented, reserved for future releases</remarks>
+// TODO implement KCP
+public class BaseKcpProcessor : IConnectionProcessor, IDisposable {
     /// <inheritdoc/>
-    public void Accept() => throw new NotImplementedException();
+    public Task Accept() => throw new NotImplementedException();
     /// <inheritdoc/>
     public void Close() => throw new NotImplementedException();
     /// <inheritdoc/>

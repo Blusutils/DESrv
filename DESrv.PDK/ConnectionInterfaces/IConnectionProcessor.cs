@@ -16,19 +16,15 @@ public interface IConnectionProcessor {
     void Run();
 
     /// <summary>
-    /// Accept new connection
-    /// </summary>
-    void Accept();
-
-    /// <summary>
-    /// Process connection handling
-    /// </summary>
-    void Process();
-
-    /// <summary>
     /// Listen for new connections
     /// </summary>
     void Listen();
+
+    /// <summary>
+    /// Accept a new connection
+    /// </summary>
+    /// <returns></returns>
+    Task Accept();
 
     /// <summary>
     /// Close processor
