@@ -58,7 +58,7 @@ public static class Bootstrapper {
         Logger.Info("DESrv starting...");
 
         if (DESrvConfig.Instance.autoCheckUpdates && Updater.Updater.CheckVersion(DESrvVersion) is Version nver) {
-            Logger.Warn($"A new version v{nver} is available! {(!DESrvConfig.Instance.autoUpdate ? "Download it on https://github.com/Blusutils/DESrv/releases/latest" : "")}.", source: "DESrv.Updater");
+            Logger.Warn($"A new version v{nver} is available! {(!DESrvConfig.Instance.autoUpdate ? "Download it on https://github.com/Blusutils/DESrv/releases/latest" : "")}", source: "DESrv.Updater");
             if (DESrvConfig.Instance.autoUpdate) {
                 Logger.Notice("Update starting...", source: "DESrv.Updater");
                 Updater.Updater.Update();
@@ -95,14 +95,15 @@ public static class Bootstrapper {
         try {
             PdkLoader.AddExtensionsFromDirectory();
         } catch (Exception ex) {
-            Logger.Fatal($"Something went wrong when adding extensions.", ex, source: "DESrv.PDK.Extensions.Add");
+            Logger.Fatal("Something went wrong when adding extensions.", ex, source: "DESrv.PDK.Extensions.Add");
             Environment.Exit(1);
         }
 
         foreach (var ext in PdkLoader.Extensions) {
+            Logger.Debug($"Trying to load extension {ext.Key}.", source: "DESrv.PDK.Extensions.Load");
             var extm = PdkLoader.LoadExtension(ext.Key);
             if (extm is null) {
-                Logger.Error($"Extension {ext.Key} is null.", new KeyNotFoundException(ext.Key), source: "DESrv.PDK.Extensions.Loading");
+                Logger.Error($"Extension {ext.Key} is null.", new NullReferenceException(ext.Key), source: "DESrv.PDK.Extensions.Load");
                 continue;
             }
         }
@@ -119,5 +120,9 @@ public static class Bootstrapper {
         //        // And so, what we will do here?
         //    }
         //}).Start();
+        while (true) {}
+        Logger.Info("DESrv stopping...");
+        Console.WriteLine("Press any key to continue.");
+        Console.Read();
     }
 }

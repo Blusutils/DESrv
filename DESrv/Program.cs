@@ -14,7 +14,7 @@ var logLevel =
 var logger = new Blusutils.DESrv.Logging.Logger() {
     ConsoleLogging = DESrvConfig.Instance.useConsoleLogging,
     ConsoleLoggingLevel = logLevel,
-    FileLogger = DESrvConfig.Instance.useFileLogging ? new() { TargetDir = "./logs" } : null,
+    FileLogger = DESrvConfig.Instance.useFileLogging ? new() { TargetDir = DESrvConfig.Instance.logsDir ?? "./logs" } : null,
     FileLoggingLevel = logLevel,
     LogSource = "DESrv"
 };

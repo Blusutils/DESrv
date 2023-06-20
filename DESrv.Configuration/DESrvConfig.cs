@@ -44,10 +44,10 @@ public class DESrvConfig : ExtendibleJsonConfig {
     /// </summary>
     public bool autoUpdate { get; set; } = false;
 
-    /// <summary>
-    /// Default host IP address
-    /// </summary>
-    public IPAddress? ipAddress { get; set; } = new(new byte[] { 127, 0, 0, 1 });
+    ///// <summary>
+    ///// Default host IP address
+    ///// </summary>
+    //public IPAddress? ipAddress { get; set; } = new(new byte[] { 127, 0, 0, 1 });
 
     /// <summary>
     /// Logging level
@@ -70,19 +70,24 @@ public class DESrvConfig : ExtendibleJsonConfig {
     public bool useFileLogging { get; set; } = true;
 
     /// <summary>
-    /// Is secure versions of protocols preferred
+    /// Directory to write logs
     /// </summary>
-    public bool? preferSecure { get; set; } = false;
+    public string? logsDir { get; set; } = "./logs";
+
+    ///// <summary>
+    ///// Is secure versions of protocols preferred
+    ///// </summary>
+    //public bool? preferSecure { get; set; } = false;
 
     /// <summary>
     /// Directory to load extensions from
     /// </summary>
     public string? extensionsDir { get; set; } = "./extensions";
 
-    /// <summary>
-    /// How deep do need to look for extensions
-    /// </summary>
-    public int? extensionsFindDepth { get; set; } = 2;
+    ///// <summary>
+    ///// How deep do need to look for extensions
+    ///// </summary>
+    //public int? extensionsFindDepth { get; set; } = 2;
 
     /// <summary>
     /// Extensions allowed to load
@@ -94,16 +99,18 @@ public class DESrvConfig : ExtendibleJsonConfig {
     /// </summary>
     public string? mainExtension { get; set; } = "DESrvInternal";
 
-    //
+    /// <summary>
+    /// How many times should entrypoint be restarted
+    /// </summary>
     public int? extensionRestartAttemptsCount { get; set; } = 3;
 
     /// <summary>
-    /// Directory that contains shared libs
-    /// </summary>
-    public string? sharedLibsDir { get; set; } = "./libs-shared";
+    ///// Directory that contains shared libs
+    ///// </summary>
+    //public string? sharedLibsDir { get; set; } = "./libs-shared";
 
-    /// <summary>
-    /// Directory that contains static content
-    /// </summary>
-    public string? staticResourcesDir { get; set; } = "./static-rsrc";
+    ///// <summary>
+    ///// Directory that contains static content
+    ///// </summary>
+    //public string? staticResourcesDir { get; set; } = "./static-rsrc";
 }

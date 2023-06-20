@@ -88,13 +88,13 @@ public class PdkLoader { // TODO implement pdkloader
 
             if (DESrvConfig.Instance?.extensionsWhitelist is not null
                 && !DESrvConfig.Instance.extensionsWhitelist.Contains(id)) {
-                Bootstrapper.Logger.Warn($"Extension {id} is not in whitelist, skipping", source: "DESrv.PDK.Extensions.Load");
+                Bootstrapper.Logger.Warn($"Extension {id} is not in whitelist, skipping.", source: "DESrv.PDK.Extensions.Load");
                 ext.Status = ExtensionStatus.Failed;
                 return ext;
             }
 
             if (ver.Major != Bootstrapper.DESrvVersion.Major || ver.Minor > Bootstrapper.DESrvVersion.Minor) {
-                Bootstrapper.Logger.Warn($"Extension {id} ({ver}) is incompatable with current DESrv version ({Bootstrapper.DESrvVersion}), skipping", source: "DESrv.PDK.Extensions.Load");
+                Bootstrapper.Logger.Warn($"Extension {id} ({ver}) is incompatable with current DESrv version ({Bootstrapper.DESrvVersion}), skipping.", source: "DESrv.PDK.Extensions.Load");
                 ext.Status = ExtensionStatus.Failed;
                 return ext;
             }
@@ -124,7 +124,7 @@ public class PdkLoader { // TODO implement pdkloader
 
         new Thread(() => { // TODO threader
             if (methodEntrypoint is null) {
-                Bootstrapper.Logger.Warn($"Extension {id} has no entrypoint. Skipping.", source: "DESrv.PDK.Extensions.Load");
+                Bootstrapper.Logger.Warn($"Extension {id} has no entrypoint. Skipping run of entrypoint.", source: "DESrv.PDK.Extensions.Load");
                 return;
             }
             MaxRetriesCount.TryAdd(id, 0);
@@ -133,12 +133,13 @@ public class PdkLoader { // TODO implement pdkloader
                     methodEntrypoint?.Invoke(ext.Instance, null);
                 } catch (Exception ex) {
                     var restartsMax = DESrvConfig.Instance!.extensionRestartAttemptsCount.GetValueOrDefault();
-                    if (MaxRetriesCount[id] + 1 < restartsMax) {
+                    if (MaxRetriesCount[id] + 1 < restartsMax || restartsMax <= 0) {
                         Bootstrapper.Logger.Error($"Something went wrong during {id} extension execution. Restarting entrypoint.", ex, source: "DESrv.PDK.Extensions.Load");
                         MaxRetriesCount[id]++;
                     } else {
                         Bootstrapper.Logger.Critical($"Extension {id} execution was fault. Reason: Entrypoint {methodEntrypoint?.Name} reached maximum of restats limit ({restartsMax} times).", ex, source: "DESrv.PDK.Extensions.Load");
                         ext.Status = ExtensionStatus.Failed;
+                        ext.CancellationToken.Cancel();
                         break;
                     }
                 }
@@ -147,7 +148,7 @@ public class PdkLoader { // TODO implement pdkloader
 
         new Thread(() => { // TODO threader
             if (methodOnload is null) {
-                Bootstrapper.Logger.Warn($"Extension {id} has no onload listeners. Skipping.", source: "DESrv.PDK.Extensions.Load");
+                Bootstrapper.Logger.Warn($"Extension {id} has no onload listener. Skipping.", source: "DESrv.PDK.Extensions.Load");
                 return;
             }
             try {
@@ -156,6 +157,7 @@ public class PdkLoader { // TODO implement pdkloader
             } catch (Exception ex) {
                 Bootstrapper.Logger.Error($"Extension {id} execution was fault. Reason: OnLoad {methodOnload?.Name} throwed an exception.", ex, source: "DESrv.PDK.Extensions.Load");
                 ext.Status = ExtensionStatus.Failed;
+                ext.CancellationToken.Cancel();
             }
         }).Start();
 
@@ -182,10 +184,23 @@ public class PdkLoader { // TODO implement pdkloader
                     a => a is ExtensionOnUnloadAttribute
                     ) is not null
                 );
-        
-        ext.CancellationToken.Cancel();
-        ext.Status = ExtensionStatus.Unloaded;
-        Bootstrapper.Logger.Success($"Successfully unloaded extension {id}.", source: "DESrv.PDK.Extensions.Unload");
+
+        new Thread(() => { // TODO threader
+            if (methodOnUnload is null) {
+                Bootstrapper.Logger.Warn($"Extension {id} has no unload listener. Skipping.", source: "DESrv.PDK.Extensions.Unload");
+                return;
+            }
+            try {
+                ext.CancellationToken.Cancel();
+                ext.Status = ExtensionStatus.Unloaded;
+                methodOnUnload?.Invoke(ext.Instance, null);
+                Bootstrapper.Logger.Success($"Successfully unloaded extension {id}.", source: "DESrv.PDK.Extensions.Unload");
+            } catch (Exception ex) {
+                Bootstrapper.Logger.Error($"Extension {id} execution was fault. Reason: OnUnload {methodOnUnload?.Name} throwed an exception.", ex, source: "DESrv.PDK.Extensions.Unload");
+                ext.Status = ExtensionStatus.Failed;
+                ext.CancellationToken.Cancel();
+            }
+        }).Start();
     }
 
     /// <summary>
