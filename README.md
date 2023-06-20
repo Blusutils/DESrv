@@ -23,7 +23,7 @@ Finally, the writing of version 2.0 is nearing completion. Some plans (e.g. nati
 
 ## What is DESrv?
 
-**DESrv** is a framework-like server that helps you create and manage server builds (in meaning of *"assemble of servers"*) using one convient interface.
+**DESrv** is a framework-like server that helps you create and manage server assemblies using one convient interface.
 
 Think that is a framework library that provides a little interface for networking apps and also a orchestration utility for them.
 
@@ -36,13 +36,13 @@ For 2.0 branch installation is available only from the sources.
 Prerequisites:
 
 * An OS that is supported by .NET - either Linux or Windows
-    * macOS NOT tested but SHOULD work
+  * macOS NOT tested but SHOULD work
 * Git (any version)
 * (optional) Extensions what you'll test
 * (optional) Internet connection
 * (optional) Connection client
 * .NET SDK 7.0 or above and optionally Visual Studio 2022 (17)
-    * OR Docker + Docker Compose
+  * OR Docker + Docker Compose
 
 At first clone this repository:
 
@@ -74,13 +74,17 @@ docker compose build
 docker compose up
 ```
 
+## Wiki/docs
+
+Documentation for DESrv is available on [GitHub Wiki](https://github.com/Blusutils/DESrv/wiki) page.
+
 ## Contributing
 
 See [CONTRIBUTING](./CONTRIBUTING.md) for more info.
 
 ## License
 
-DESrv is licensed under the GNU Affero General Public License v3.0.
+DESrv is licensed under the [GNU Affero General Public License v3.0](./LICENSE-AGPL.txt).
 
 ```
 Dedicated Extendible Server - framework-like solution designed to simplify creation and management of servers in one place, without trivial boilerplates. 
@@ -99,3 +103,12 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ```
+
+Following components are licensed under the [GNU Lesser General Public License v3.0](./LICESNSE-LGPL.txt):
+
+* [DESrv.Configuration](./DESrv.Configuration/)
+* [DESrv.Localization](./DESrv.Localization/)
+* [DESrv.Logging](./DESrv.Logging/)
+* [DESrv.LuaScriptingApi](./DESrv.LuaScriptingApi/)
+* [DESrv.PDK](./DESrv.PDK/)
+* [DESrv.Versions](./DESrv.Versions/)
