@@ -56,6 +56,8 @@ public class LuaScriptingTests : Tests {
 
     [Test(Description = "Load script with function and run it")]
     public void ScriptWithFunctions() {
-        Assert.That((long)(LuaLoader.Load("with_func").ExecutableSpaceTable["abc"] as LuaFunction)?.Call()?.FirstOrDefault(0), Is.EqualTo(1));
+        var func = (LuaLoader.Load("with_func").ExecutableSpaceTable["abc"] as LuaFunction)!;
+        var res = (long)(func.Call().FirstOrDefault(0));
+        Assert.That(res, Is.EqualTo(1));
     }
 }

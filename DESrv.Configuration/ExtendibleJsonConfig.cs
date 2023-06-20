@@ -1,20 +1,9 @@
 ﻿namespace Blusutils.DESrv.Configuration;
 
 /// <summary>
-/// Interface for configs
-/// </summary>
-public interface IConfig {
-    /// <summary>
-    /// Extend config class fields using dict
-    /// </summary>
-    /// <param name="config">Dict to use for extending</param>
-    abstract void Extend(Dictionary<string, object> config);
-}
-
-/// <summary>
 /// Base configuration model
 /// </summary>
-public class ConfigurationModel : IConfig {
+public class ExtendibleJsonConfig : IConfig {
 
     /// <inheritdoc/>
     public void Extend(Dictionary<string, object> config) {
@@ -33,8 +22,8 @@ public class ConfigurationModel : IConfig {
     /// Reads the config
     /// </summary>
     /// <param name="path">Path to config. If not set, path to current assembly used as default</param>
-    /// <returns><see cref="ConfigurationModel"/> with readed data from JSON file</returns>
-    public static T? Read<T>(string? path = null) where T : ConfigurationModel {
+    /// <returns><see cref="ExtendibleJsonConfig"/> with readed data from JSON file</returns>
+    public static T? Read<T>(string? path = null) where T : IConfig {
         path ??= Path.Combine(
             Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) ?? "." + Path.DirectorySeparatorChar,
             "config.json");
@@ -50,14 +39,14 @@ public class ConfigurationModel : IConfig {
     /// Dumps the config to string
     /// </summary>
     /// <returns>Serialized config in JSON format</returns>
-    public string? Dump() {
+    public string? DumpToString() {
         return System.Text.Json.JsonSerializer.Serialize(this);
     }
     /// <summary>
     /// Dumps the config to file
     /// </summary>
     /// <param name="path">Path to config. If not set, path to current assembly used as default</param>
-    public void Dump(string? path = null) {
+    public void DumpToFile(string? path = null) {
         path ??= Path.Combine(
             Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) ?? "." + Path.DirectorySeparatorChar,
             "config.json");
@@ -67,6 +56,6 @@ public class ConfigurationModel : IConfig {
             sw = new(File.Create(path));
 
         sw ??= new (path);
-        sw.Write(Dump());
+        sw.Write(DumpToString());
     }
 }

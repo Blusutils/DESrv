@@ -9,7 +9,7 @@ public enum LogLevel {
     /// </summary>
     Debug,
     /// <summary>
-    /// Notice logs - represents a small notification
+    /// Notice logs - logs represents a small notification
     /// </summary>
     Notice,
     /// <summary>

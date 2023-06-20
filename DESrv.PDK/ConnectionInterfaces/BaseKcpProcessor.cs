@@ -22,5 +22,5 @@ public class BaseKcpProcessor : IConnectionProcessor, IDisposable {
     /// <inheritdoc/>
     public void Run() => throw new NotImplementedException();
     /// <inheritdoc/>
-    public void Dispose() => throw new NotImplementedException();
+    public void Dispose() => GC.SuppressFinalize(this);
 }

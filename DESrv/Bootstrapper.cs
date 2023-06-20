@@ -58,7 +58,7 @@ public static class Bootstrapper {
         Logger.Info("DESrv starting...");
 
         if (DESrvConfig.Instance.autoCheckUpdates && Updater.Updater.CheckVersion(DESrvVersion) is Version nver) {
-            Logger.Warn($"A new version v{nver} is available! {(!DESrvConfig.Instance.autoUpdate ? "Download it on https://github.com/Blusutils/DESrv/releases/latest" : "")}", source: "DESrv.Updater");
+            Logger.Warn($"A new version v{nver} is available! {(!DESrvConfig.Instance.autoUpdate ? "Download it on https://github.com/Blusutils/DESrv/releases/latest" : "")}.", source: "DESrv.Updater");
             if (DESrvConfig.Instance.autoUpdate) {
                 Logger.Notice("Update starting...", source: "DESrv.Updater");
                 Updater.Updater.Update();
@@ -79,10 +79,10 @@ public static class Bootstrapper {
         }
 
         #region PDK Loader
-        Logger.Debug($"Trying to load extensions from {DESrvConfig.Instance?.extensionsDir}", source: "DESrv.PDK");
+        Logger.Debug($"Trying to load extensions from {DESrvConfig.Instance?.extensionsDir}.", source: "DESrv.PDK.Extensions");
 
         if (DESrvConfig.Instance?.extensionsDir is null) {
-            Logger.Fatal($"Extensions directory is not set, exiting", source: "DESrv.PDK");
+            Logger.Fatal($"Extensions directory is not set, exiting.", source: "DESrv.PDK.Extensions.Add");
             Environment.Exit(1);
         }
 
@@ -95,26 +95,21 @@ public static class Bootstrapper {
         try {
             PdkLoader.AddExtensionsFromDirectory();
         } catch (Exception ex) {
-            Logger.Fatal($"Something went wrong when adding extensions.", ex, source: "DESrv.PDK");
+            Logger.Fatal($"Something went wrong when adding extensions.", ex, source: "DESrv.PDK.Extensions.Add");
             Environment.Exit(1);
         }
 
         foreach (var ext in PdkLoader.Extensions) {
-
             var extm = PdkLoader.LoadExtension(ext.Key);
             if (extm is null) {
-                Logger.Error($"Extension {ext.Key} is null", source: "DESrv.PDK");
-                continue;
-            } else if (extm.Status == ExtensionStatus.Failed) {
-                Logger.Error($"Extension {ext.Key} failed", source: "DESrv.PDK");
+                Logger.Error($"Extension {ext.Key} is null.", new KeyNotFoundException(ext.Key), source: "DESrv.PDK.Extensions.Loading");
                 continue;
             }
-            
         }
 
         sw.Stop();
-        Logger.Debug($"Adding extensions took {sw.ElapsedMilliseconds}ms", source: "DESrv.PDK");
-        Logger.Success($"Added {PdkLoader.Extensions.Count(kv => kv.Value.Status is ExtensionStatus.Loaded or ExtensionStatus.Shared or ExtensionStatus.LoadedAsChildren)} extensions", source: "DESrv.PDK");
+        Logger.Debug($"Loading extensions took {sw.ElapsedMilliseconds}ms.", source: "DESrv.PDK.Extensions");
+        Logger.Success($"Loaded {PdkLoader.Extensions.Count(kv => kv.Value.Status is ExtensionStatus.Loaded or ExtensionStatus.LoadedAsChildren)} extensions.", source: "DESrv.PDK.Extensions");
         #endregion
 
 

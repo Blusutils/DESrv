@@ -34,8 +34,8 @@
             string? Link = null,
             int[]? AllowedPorts = null,
             string[]? Dependencies = null,
-            string? RefersTo = null) {
-
+            string? RefersTo = null
+         ) {
             Metadata = new() {
                 ID = ID,
                 ExtensionType = ExtensionType,
@@ -52,7 +52,7 @@
         }
     }
     /// <summary>
-    /// This attribute tags method as extension entrypoint that calls once on start
+    /// This attribute tags method as extension entrypoint that calls on start and runs forever
     /// </summary>
     [AttributeUsage(AttributeTargets.Method)]
     public class ExtensionEntrypointAttribute : Attribute { }

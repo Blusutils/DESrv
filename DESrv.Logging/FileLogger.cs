@@ -28,7 +28,7 @@ public class FileLogger : IDisposable, IDESrvLogService {
     /// Where logger got log
     /// </summary>
     public string? LogSource { get; set; } = null;
-    // todo
+    // TODO: more variants
     Dictionary<string, object> formats = new (){
         ["Date"] = $"{DateTime.Now.Year}-{DateTime.Now.Month}-{DateTime.Now.Day}"
     };

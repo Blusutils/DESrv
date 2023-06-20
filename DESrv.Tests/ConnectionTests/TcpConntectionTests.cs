@@ -23,8 +23,6 @@ public class TcpConntectionTests : Tests {
             tcpProcessor.Run();
         } catch (SocketException e) { Assert.Fail(e.ToString()); }
 
-        bool flag = false;
-
         tcpProcessor.NewDataEvent += (_, data) => {
             if (data.First() == 10) Assert.Pass();
         };

@@ -11,15 +11,15 @@
         /// <param name="strict">Need to throw exception if formattion failed?</param>
         /// <returns>Formatted string</returns>
         /// <exception cref="FormatException">When formattion fails</exception>
-        public static string Format(this string srcStr, Dictionary<string, object> format, bool strict = false) {
+        public static string Format(this string srcStr, IDictionary<string, object> format, bool strict = false) {
             if (srcStr == null || srcStr == "") throw new FormatException("unable to format empty string");
             foreach (var k in format.Keys)
                 try {
-                    srcStr = srcStr.Replace($@"{{{k}}}", format[k].ToString());
+                    srcStr = srcStr.Replace($"{{{k}}}", format[k].ToString());
                 } catch (ArgumentNullException e) {
-                    if (strict) throw new FormatException($@"unable to format string with null key", e);
+                    if (strict) throw new FormatException("unable to format string with null key", e);
                 } catch (ArgumentException e) {
-                    if (strict) throw new FormatException($@"unable to format string with {{{k}}} key", e);
+                    if (strict) throw new FormatException($"unable to format string with \"{k}\" key", e);
                 }
             return srcStr;
         }

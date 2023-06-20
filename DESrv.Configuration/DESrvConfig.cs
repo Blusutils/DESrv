@@ -12,7 +12,7 @@ namespace Blusutils.DESrv.Configuration;
 /// <summary>
 /// DESrv config
 /// </summary>
-public class DESrvConfig : ConfigurationModel {
+public class DESrvConfig : ExtendibleJsonConfig {
 
     /// <summary>
     /// Config instance
@@ -93,6 +93,9 @@ public class DESrvConfig : ConfigurationModel {
     /// Extesnion that will capture console input stream after DIP startup
     /// </summary>
     public string? mainExtension { get; set; } = "DESrvInternal";
+
+    //
+    public int? extensionRestartAttemptsCount { get; set; } = 3;
 
     /// <summary>
     /// Directory that contains shared libs
