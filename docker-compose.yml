@@ -1,0 +1,9 @@
+version: '3.4'
+
+services:
+  desrv:
+    image: ${DOCKER_REGISTRY-}desrv
+    build:
+      context: .
+      dockerfile: DESrv/Dockerfile
+    tty: true

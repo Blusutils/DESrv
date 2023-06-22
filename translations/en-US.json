@@ -1,0 +1,76 @@
+{
+    "metadata": {
+        "cultureCode": "en-US",
+        "languageName": "English (United States)",
+        "author": "Blusutils",
+        "projectName": "DESrv",
+        "description": "DESrv is a framework-like solution that helps you create and manage networking servers."
+    },
+    "core": {
+        "bootstrapper": {
+            "starting": "DESrv starting...",
+            "stopping": "DESrv stopping...",
+            "exitMessage": "Press any key to continue."
+        },
+        "updater": {
+            "begins": "Update starting...",
+            "downloaded": "Update downloaded, restarting DESrv!",
+            "newVersion": "A new version v{version} is available! {downloadMessage}",
+            "downloadMessage": "Download it on https://github.com/Blusutils/DESrv/releases/latest"
+        },
+        "pdk": {
+            "begins": "Trying to load extensions from {directory}.",
+            "ends": "Loading extensions took {time}ms.",
+            "count": "Loaded {count} extensions.",
+            "tryLoad": "Trying to load extension {id}.",
+            "successUnload": "Successfully unloaded extension {id}.",
+            "successRemove": "Successfully removed extension {id}.",
+            "errors": {
+                "addFailure": "Something went wrong when trying to add the extensions.",
+                "extIsNull": "Extension {id} is null.",
+                "notInWhitelist": "Extension {id} is not in the whitelist, skipping extension.",
+                "incompatible": "Extension {id} ({extensionVersion}) is incompatible with this version of DESrv ({desrvVersion}), skipping extension.",
+                "noEntrypoint": "Extension {id} has no Entrypoint, skipping Entrypoint run.",
+                "noLoadEvent": "Extension {id} has no OnLoad event listener, skipping OnLoad event run.",
+                "noUnloadEvent": "Extension {id} has no OnUnload event listener, skipping OnUnload event run.",
+                "extErrorWhenLimitNotReached": "Something went wrong during {id} extension execution. Restarting entrypoint.",
+                "extErrorFatal": "Extension {id} execution was fault. Reason: Entrypoint {entrypointName} reached maximum of restats limit ({limit} times).",
+                "extErrorOnLoadFatal": "Extension {id} execution was fault. Reason: OnLoad {onLoadMethodName} throwed an exception.",
+                "extErrorUnloadNotFound": "Unable to unload extension {id}: not found.",
+                "extErrorUnloadFatal": "Extension {id} execution was fault. Reason: OnUnload {onUnloadMethodName} throwed an exception.",
+                "extErrorRemoveNotFound": "Unable to remove extension {id}: not found."
+            }
+        }
+    },
+    "config": {
+        "answers": {
+            "yes": "Yes",
+            "no": "No",
+            "later": "Later"
+        },
+        "welcome": "Welcome to DESrv! Now you are in Configuration mode.",
+        "welcome2": "This is a little process that will help you to perform basic configuration. Just follow the instructions.",
+        "skippable": "This option can be skipped by writing \"later\". The default value ({val}) will be used.",
+        "language": "Select the language you want to use (language code on English):",
+        "checkUpdate": "Do you want to check for updates on every server startup (yes/no)?",
+        "autoUpdate": "Do you want DESrv to automatically download and install updates (yes/no)?",
+        "logLevel": "Select the logging level (0 - debug, 1 - notices, 2 - information, 3 - success, 4 - warnings, 5 - errors, 6 - fatal errors, 7 - critical errors):",
+        "consoleLogging": "Enable console logging (yes/no)?",
+        "fileLogging": "Enable file logging (yes/no)?",
+        "logsDirectory": "Select the directory for logging (enter the path; it does not matter if the path to the directory is full or relative):",
+        "extensionsDirectory": "Select the directory with extensions (enter the path; it does not matter if the path to the directory is full or relative):",
+        "extensionsWhitelist": "Set the extensions whitelist (enter IDs separated by commas):",
+        "mainExtension": "Select the main extension - it will capture DIP console standard input after it starts (enter ID):"
+    },
+    "dip": {
+        "welcome": "Welcome to DIP - DESrv Internal Plugin!",
+        "welcome2": "Instead of main DESrv executable, DIP not only shows logs.",
+        "welcome3": "DIP is interface that helps you access Plugins using text commands.",
+        "welcome4": "Type `help` to get help.",
+        "help": "That is help. For more information on specific command, type `help <command>`.",
+        "helpPattern": "{command}{padding1}{additionals}{padding2}{description}"
+    },
+    "other": {
+
+    }
+}

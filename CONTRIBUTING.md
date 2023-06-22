@@ -4,18 +4,20 @@
 
 ## Ways to contribute
 
-### Reports about bugs/vulnerabilies/strange things. Suggestions of new ideas/features
+This section contains some hints about what you can contribute.
 
-Don't be shy to report about bugs/vulnerabilies/strange things. [Issues](https://github.com/Blusutils/DESrv/issues) page always open to you!
+### Suggestions or bug reports
+
+Don't be shy to report about bugs/vulnerabilies/strange things on the [Issues](https://github.com/Blusutils/DESrv/issues) page.
 You also can suggest anything about DESrv in the same place.
 
 > **Note**: please use one of existing issue templates.
 
-### Localization
+### Localization files edits
 
-You can suggest translation to your language for Wiki, Documentation and Core on our [SimpleTranslate](https://simpletranslate.net/projects/blusutils-desrv) page (or by creating PR if website offline).
+You can suggest translation to your language for Documentation or Core by creating pull request.
 
-> **Note**: no need to translate into Russian or English. Only correction suggestions.
+> **Note**: please affect only one directory in "translation pull requests" - `translations`. PRs that points as "translation pull requests" but has requesting changes to files outside this directory will be rejected on review.
 
 ### Source code
 
@@ -23,71 +25,82 @@ Feel free to create forks and pull requests with improvements. See guide below t
 
 #### Prerequesties
 
-* Visual Studio 2022 (17)
-* .NET SDK 6.0 or above
+* Visual Studio 2022 (17) (highly recommended)
+* .NET SDK 7.0 or above
 * Git (any version)
-
-#### Fork, clone, modify, push, PR
 
 1. Create a new fork of this repository.
 2. Clone your fork:
 
-    ```batch
+    ```bash
     git clone https://github.com/You/YourForkRepo.git
     ```
 
 3. Modify source code with any changes you want.
 4. Test your changes:
 
-    ```batch
-    :: or build solution directly from VS
-    dotnet build
+    ```bash
+    # or perform tests directly from VS
+    dotnet test DESrv.sln
     ```
 
 6. Push to fork:
 
-    ```batch
-    git add .
-    :: or any other message
-    git commit -m "I've changed something"
+    ```bash
+    git add . # if files is untracked
+    git commit -m "Commit message" # it is highly recommended to separate your work to certain commits
     git push origin master
     ```
 
-7. Open PR in original repository.
+7. Open PR in original repository. Don't forget to describe your changes - it will speed up the PR review process.
 
 ## Contribution guidelines
 
 ### 1. Targets of contributions
 
-* We do not consider contributions related to extensions/addons or DESCEndLib, only Core and PDK (DESCEndLib has its [own repository](https://github.com/Blusutils/DESCEndLib)).
+* We do not consider contributions related to extensions/addons (except `DESrv.InternalPlugin`, which is bundled to this repo).
+* If contribution affects more than one project in DESrv repo, it is recommended to separate changes to several commits or pull requests.
 
-### 2. Bug reports.
+### 2. Bug reports
 
 * Please provide clear and concise (as you can) description of what the bug is, versions of Core and libraries you are using.
 
-* If bug is able to reproduce, please describe how it can be reproduce (code examples, video, etc.)
+* If bug is able to reproduce, please describe how it can be reproduce (code examples, videos, screenshots, etc.)
 
-* If it possible, please attach a relevant log output (`*desrv directory*/logs`) and/or screenshots. Additional context that can be useful also welcome.
+* If it possible, please attach a relevant log output (`*desrv directory*/logs`) and/or screenshots.
 
-> These items can help us understand the problem and fix it faster.
+* Additional context that can be useful also welcome.
 
 ### 3. Enhancements
 
-* Please describe your suggestion as clearly and completely as possible. If you are able, add code examples.
+* Please describe your suggestion as clearly and completely as possible.
 
-* The enhancements must not harm the DESrv Core and PDK code base. They must also be implementable.
+* If you are able, add code examples.
+  * The enhancements must not harm the DESrv code base.
 
-### 4. Changes in code
+* Enhancement must ofcourse be implementable.
+
+### 4. Translations
+
+* Consider changing only the `translations` directory and creating a ONE new JSON file with your strings.
+
+* If suggested strings is not valid or contains "bad" contents, pull request will be closed.
+
+* And if you are adding a new language...
+  * Please check that the language alphabet is printable by most common console hosts.
+  * If language is not exist, pull request will be closed.
+
+### 5. Changes in code
 
 * The pull requests must not harm the DESrv Core and PDK code base. They must also be applicable to current code base.
 
-* Please stick to DESrv code styling (our modified Java style instead of classic C# style):
-    * Brackets on the same line.
-    * Tab size - 4 spaces.
-    * Delegates must end with `Delegate`, events with `Event`.
-    * Interfaces must starts with `I`, abstract classes with `Abstract`.
-    * `camelCase` for field; `PascalCase` for anything else.
-    * Example:
+* Please stick to DESrv code styling (our modified Mono style):
+  * Brackets on the same line.
+  * Tab size - 4 spaces.
+  * Delegates must end with `Delegate`, events with `Event`.
+  * Interfaces must starts with `I`, abstract classes with `Abstract`.
+  * `camelCase` for field; `PascalCase` for anything else.
+  * Example:
 
     ```cs
     // that is recommended
@@ -116,6 +129,3 @@ Feel free to create forks and pull requests with improvements. See guide below t
       }
     }
     ```
-
-<!-- ### 5. Localization
-* coming soon because SimpleTranslate not done yet -->

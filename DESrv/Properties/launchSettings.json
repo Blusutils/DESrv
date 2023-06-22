@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "DESrv": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

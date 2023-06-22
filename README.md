@@ -1,93 +1,114 @@
-# Dedicated Extendible Server (DESrv or DES) <img src="./DESrvLogo.svg" align="center" width="100">
+# DESrv v2.0 <img src="./DESrvLogo.svg" align="center" width="100">
 
-[![GitHub Repo stars](https://img.shields.io/github/stars/Blusutils/DESrv?label=Stars&style=flat-square)](https://github.com/Blusutils/DESrv/stargazers)
+Dedicated Extensible Server that deserves your attention!
+
+[![GitHub stars](https://img.shields.io/github/stars/Blusutils/DESrv?label=Stars&style=flat-square)](https://github.com/Blusutils/DESrv/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/Blusutils/DESrv?label=Forks&style=flat-square)](https://github.com/Blusutils/DESrv/network/members)
 [![GitHub all releases](https://img.shields.io/github/downloads/Blusutils/DESrv/total?label=Downloads&style=flat-square)](https://github.com/Blusutils/DESrv/releases)
 
 [![GitHub issues](https://img.shields.io/github/issues/Blusutils/DESrv?label=Issues&style=flat-square)](https://github.com/Blusutils/DESrv/issues)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/Blusutils/DESrv?label=PRs&style=flat-square)](https://github.com/Blusutils/DESrv/pulls)
 
+[![GitHub Build Status](https://img.shields.io/github/actions/workflow/status/Blusutils/DESrv/per_commit.yml?branch=desrv2.0&label=Build&style=flat-square)](https://github.com/Blusutils/DESrv/actions/workflows/per_commit.yml)
+[![GitHub CodeQL Status](https://img.shields.io/github/actions/workflow/status/Blusutils/DESrv/codeql.yml?branch=desrv2.0&label=CodeQL&style=flat-square)](https://github.com/Blusutils/DESrv/actions/workflows/codeql.yml)
+
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/Blusutils/DESrv?label=Latest%20release&style=flat-square)](https://github.com/Blusutils/DESrv/releases/latest)
-[![GitHub Build Status](https://img.shields.io/github/actions/workflow/status/Blusutils/DESrv/dotnet.yml?branch=master&label=Build&style=flat-square)](https://github.com/Blusutils/DESrv/actions/workflows/dotnet.yml)
-[![GitHub CodeQL Status](https://img.shields.io/github/actions/workflow/status/Blusutils/DESrv/codeql.yml?branch=master&label=CodeQL&style=flat-square)](https://github.com/Blusutils/DESrv/actions/workflows/codeql.yml)
+[![GitHub Releases Build Status](https://img.shields.io/github/actions/workflow/status/Blusutils/DESrv/release_build.yml?branch=desrv2.0&label=Release%20build&style=flat-square)](https://github.com/Blusutils/DESrv/actions/workflows/release_build.yml)
 
-[![GitHub license](https://img.shields.io/github/license/Blusutils/DESrv?label=License&style=flat-square)](https://github.com/Blusutils/DESrv/blob/master/LICENSE.txt)
+[![GitHub license](https://img.shields.io/github/license/Blusutils/DESrv?label=License&style=flat-square)](./LICENSE-AGPL.txt)
 
-Flexible and extendible framework-like server for usage in different tasks. This repo contains Core and PDK.
+## DESrv seems to be done!
 
-## About this
+Finally, the writing of version 2.0 is nearing completion. Some plans (e.g. native and JAR extensions) have been dropped until DESrv 3.0. Now DESrv is almost stable and already supports independent extensions (plugins). Soon the contents of this branch (`desrv2.0`) will be merged into the `master` branch.
 
-**DESrv** is a framework-like server for usage in different tasks.
+## What is DESrv?
 
-This software bases on these key components:
+**DESrv** is a framework-like server that helps you create and manage server assemblies using one convient interface.
 
-* Core (server runtime basic logic)
-  * Runner based on [DESCEndLib](https://github.com/Blusutils/DESCEndLib)
-  * PDK loader
-* Plugin development kit (PDK, plugin framework) and Extensions
-  * Plugin(s) (3rd-party extensions for server)
-  * Add-ons (3rd- or 1st-party extensions for Plugins)
+Think that is a framework library that provides a little interface for networking apps and also a orchestration utility for them.
 
-**DESrv** have APIs for Plugins and Add-ons (PDK, Plugin Development Kit), also have support for some databases and connection types out-of-the-box.
-You can easily implement or extend needed functionality (in example socket data handler) for server by writing simple (or more complex) plugin or using existing by other developers.
+The key component of **DESrv** is the *extensions* - thoose "apps" that works with networking (but not limited to that!). There are APIs for them to make it easier to work with. For example, wrappers for some protocols, command manager, logger... All extensions are loaded into the Core and, in theory, can communicate with each other via reflection, but DESrv supports a system of addons and dependencies for convenience.
 
 ## Install
 
-0. Prerequesties:
-    * An OS - either Linux with installed .NET 6.0 runtime or Windows
-    * Extensions what you'll use
-    * (optional) Internet connection
-    * (optional) Connection client
+For 2.0 branch installation is available only from the sources.
 
-1. Download binaries on [releases page](https://github.com/Blusutils/DESrv/releases/latest) or from artifact in [Actions](https://github.com/Blusutils/DESrv/actions/workflows/dotnet.yml). If you are on Linux you may need to download .NET runtime (check info in latest release). Build for Windows is standalone.
+Prerequisites:
 
-2. Unzip binaries.
+* An OS that is supported by .NET - either Linux or Windows
+  * macOS NOT tested but SHOULD work
+* Git (any version)
+* (optional) Extensions what you'll test
+* (optional) Internet connection
+* (optional) Connection client
+* .NET SDK 7.0 or above and optionally Visual Studio 2022 (17)
+  * OR Docker + Docker Compose
 
-3. Open terminal, `cd` (change directory) to with downloaded binaries.
-
-4. Run DESrv. Follow the instructions in console to perform basic configuration of server.
-
-```batch
-:: in Windows cmd
-des-run <optional params>
-```
+At first clone this repository:
 
 ```bash
-# on *nix
-./des-run <optional params>
+git clone https://github.com/Blusutils/DESrv.git
+cd DESrv
+# if in some reason the branch is not desrv2.0, switch to it manually
+git switch desrv2.0
 ```
 
-### Plugin/add-on development
+### I'm have installed .NET
 
-Make sure that you have already installed DESrv.
-If not, [go here](#install).
+Run following:
 
-Go to the [docs](https://github.com/Blusutils/DESrv/wiki) for more information and tutorials. Also recommended to use [template](https://github.com/Blusutils/desrv-pdk-example).
+```bash
+dotnet restore DESrv.sln
+dotnet run DESrv/DESrv.csproj -c Debug
+# or: dotnet build DESrv/DESrv.csproj -c Debug
+# or dotnet publish DESrv/DESrv.csproj -c Debug
+# or build solution directly from VS
+```
 
-### Builds from source code
-#### Prerequesties
+### I'm using Docker
 
-* Visual Studio 2022 (17)
-* .NET SDK 6.0 or above
-* Git (any version)
+Ensure you have Docker Compose and run:
 
-1. Clone this repository:
+```bash
+docker compose build
+docker compose up
+```
 
-    ```batch
-    git clone https://github.com/Blusutils/DESrv.git
-    ```
+## Wiki/docs
 
-2. Run:
-
-    ```batch
-    :: or build solution directly from VS
-    dotnet restore
-    dotnet run -c Debug
-    :: or: dotnet build -c Debug
-    ```
+Documentation for DESrv is available on [GitHub Wiki](https://github.com/Blusutils/DESrv/wiki) page.
 
 ## Contributing
 
 See [CONTRIBUTING](./CONTRIBUTING.md) for more info.
 
-There's also contains information about builds from source code.
+## License
+
+DESrv is licensed under the [GNU Affero General Public License v3.0](./LICENSE-AGPL.txt).
+
+```
+Dedicated Extendible Server - framework-like solution designed to simplify creation and management of servers in one place, without trivial boilerplates. 
+Copyright (C) 2023  Blusutils, EgorBron
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+```
+
+Following components are licensed under the [GNU Lesser General Public License v3.0](./LICESNSE-LGPL.txt):
+
+* [DESrv.Configuration](./DESrv.Configuration/)
+* [DESrv.Localization](./DESrv.Localization/)
+* [DESrv.Logging](./DESrv.Logging/)
+* [DESrv.LuaScriptingApi](./DESrv.LuaScriptingApi/)
+* [DESrv.PDK](./DESrv.PDK/)
+* [DESrv.Versions](./DESrv.Versions/)

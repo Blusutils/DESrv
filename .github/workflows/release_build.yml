@@ -19,26 +19,26 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 7.0.x
     # restore nuget
     - name: Restore dependencies
       run: dotnet restore --nologo
-      working-directory: DES-Core/
+      working-directory: DESrv/
     # do build!
     - name: Build
-      run: dotnet build -c Release -o outs-win --sc -v n --nologo
-      working-directory: DES-Core/
+      run: dotnet publish -c Release -o outs-win --sc -v n --nologo
+      working-directory: DESrv/
     # pack binaries into archive
     - name: Create archive
-      run: tar -c -a -f DESrv_Windows.zip outs-win
-      working-directory: DES-Core/
+      run: tar -c -a -f DESrv_win.zip outs-win
+      working-directory: DESrv/
     # upload build
     - name: Upload build to Release
       uses: irongut/EditRelease@v1.2.0
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         id: ${{ github.event.release.id }}
-        files: "./DES-Core/DESrv_Windows.zip"
+        files: "./DESrv/DESrv_win.zip"
 
 
   buildlinux:
@@ -51,23 +51,27 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 7.0.x
     # restore nuget
     - name: Restore dependencies
       run: dotnet restore --nologo
-      working-directory: DES-Core/
+      working-directory: DESrv/
     # do build!
     - name: Build
-      run: dotnet build -c Debug -o outs-linux --sc -v n --nologo
-      working-directory: DES-Core/
+      run: dotnet publish -c Debug -o outs-linux --sc -v n --nologo
+      working-directory: DESrv/
     # pack binaries into archive
     - name: Create archive
-      run: tar -czvf DESrv_Linux.tar.gz ./outs-linux
-      working-directory: DES-Core/
+      run: tar -czvf DESrv_nix.tar.gz ./outs-linux
+      working-directory: DESrv/
     # upload build
     - name: Upload build to Release
       uses: irongut/EditRelease@v1.2.0
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         id: ${{ github.event.release.id }}
-        files: "./DES-Core/DESrv_Linux.tar.gz"
+        files: "./DESrv/DESrv_nix.tar.gz"
+
+  # TODO: mac actions
+  # buildmac:
+  #   runs-on: macos-latest-xl
