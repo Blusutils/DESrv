@@ -15,7 +15,7 @@ Dedicated Extensible Server that deserves your attention!
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/Blusutils/DESrv?label=Latest%20release&style=flat-square)](https://github.com/Blusutils/DESrv/releases/latest)
 [![GitHub Releases Build Status](https://img.shields.io/github/actions/workflow/status/Blusutils/DESrv/release_build.yml?branch=desrv2.0&label=Release%20build&style=flat-square)](https://github.com/Blusutils/DESrv/actions/workflows/release_build.yml)
 
-[![GitHub license](https://img.shields.io/github/license/Blusutils/DESrv?label=License&style=flat-square)](https://github.com/Blusutils/DESrv/blob/master/LICENSE-AGPL.txt)
+[![GitHub license](https://img.shields.io/github/license/Blusutils/DESrv?label=License&style=flat-square)](./LICENSE-AGPL.txt)
 
 ## DESrv seems to be done!
 
